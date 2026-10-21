@@ -1330,3 +1330,88 @@ p:last-child {
     max-width: 170px !important;
   }
 }
+
+
+/* Compact site header: half-size logo and balanced navigation */
+.site-header .logo img,
+.site-header .site-logo {
+  width: 84px !important;
+  max-width: 84px !important;
+  min-width: 0 !important;
+  height: auto !important;
+}
+
+.site-header .nav-container {
+  min-height: 88px;
+  align-items: center;
+  gap: 22px;
+}
+
+.site-header .logo {
+  display: inline-flex !important;
+  align-items: center;
+  flex: 0 0 84px;
+  width: 84px;
+}
+
+.site-header .main-nav {
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(10px, 1.1vw, 17px);
+}
+
+.site-header .main-nav a {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.site-header .main-nav .nav-cta {
+  padding: 12px 16px;
+  font-size: 13px !important;
+}
+
+@media (max-width: 1100px) and (min-width: 781px) {
+  .site-header .nav-container {
+    gap: 14px;
+  }
+  .site-header .logo,
+  .site-header .logo img,
+  .site-header .site-logo {
+    width: 76px !important;
+    max-width: 76px !important;
+    flex-basis: 76px;
+  }
+  .site-header .main-nav {
+    gap: 8px;
+  }
+  .site-header .main-nav a {
+    font-size: 11px !important;
+  }
+  .site-header .main-nav .nav-cta {
+    padding: 10px 11px;
+    font-size: 11px !important;
+  }
+}
+
+@media (max-width: 780px) {
+  .site-header .nav-container {
+    min-height: 70px;
+    gap: 12px;
+  }
+  .site-header .logo,
+  .site-header .logo img,
+  .site-header .site-logo {
+    width: 84px !important;
+    max-width: 84px !important;
+    flex-basis: 84px;
+  }
+  .site-header .main-nav {
+    gap: 2px;
+  }
+  .site-header .main-nav a {
+    font-size: 14px !important;
+  }
+}
