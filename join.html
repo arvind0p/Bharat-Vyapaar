@@ -4,22 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Join Bharat Vyapaar to showcase your business, connect with professionals and explore collaboration opportunities.">
+  <meta name="description" content="Join Bharat Vyapaar to showcase your business and connect with professionals.">
   <meta name="theme-color" content="#102b46">
   <title>Join Our Network | Bharat Vyapaar</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
   <header class="site-header">
     <div class="container nav-container">
       <a class="logo" href="index.html">Bharat Vyapaar</a>
-
       <button class="menu-toggle" id="menuToggle" type="button"
-        aria-label="Toggle navigation" aria-expanded="false">
-        ☰
-      </button>
-
+        aria-label="Toggle navigation" aria-expanded="false">☰</button>
       <nav class="main-nav" id="mainNav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -49,173 +44,108 @@
 
     <section class="section">
       <div class="container contact-layout">
-
         <div class="contact-info">
           <p class="eyebrow">WHY JOIN US?</p>
           <h2>Build Meaningful Business Connections</h2>
           <p>
-            Bharat Vyapaar aims to make business discovery and networking
-            easier for entrepreneurs, companies and professionals.
+            Bharat Vyapaar helps businesses and professionals discover
+            networking and collaboration opportunities.
           </p>
 
           <div class="contact-info-card">
             <h3>Showcase Your Business</h3>
-            <p>
-              Share your business profile, products and services for
-              consideration in the business directory.
-            </p>
+            <p>Share your business profile, products and services.</p>
           </div>
-
           <div class="contact-info-card">
             <h3>Expand Your Network</h3>
-            <p>
-              Discover businesses and professionals who may be relevant
-              to your business goals.
-            </p>
+            <p>Discover businesses and professionals relevant to your goals.</p>
           </div>
-
           <div class="contact-info-card">
             <h3>Explore Collaboration</h3>
-            <p>
-              Share your interests and explore potential business
-              partnerships and opportunities.
-            </p>
-          </div>
-
-          <div class="contact-info-card">
-            <h3>Connect with Purpose</h3>
-            <p>
-              Tell us what you are looking for so your enquiry can be
-              understood and reviewed appropriately.
-            </p>
+            <p>Tell us about your business interests and requirements.</p>
           </div>
         </div>
 
         <div class="contact-form-container" id="registration">
           <p class="eyebrow">NETWORK REGISTRATION</p>
           <h2>Tell Us About Yourself</h2>
-          <p>
-            Complete the form below to prepare your registration details.
-            Fields marked with * are required.
-          </p>
+          <p>Fields marked with * are required.</p>
 
           <form id="joinForm">
             <div class="form-group">
               <label for="fullName">Full Name *</label>
-              <input
-                type="text"
-                id="fullName"
-                name="fullName"
-                placeholder="Enter your full name"
-                autocomplete="name"
-                required
-              >
+              <input type="text" id="fullName" name="fullName"
+                autocomplete="name" required maxlength="180">
             </div>
 
             <div class="form-group">
               <label for="email">Email Address *</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email address"
-                autocomplete="email"
-                required
-              >
+              <input type="email" id="email" name="email"
+                autocomplete="email" required maxlength="254">
             </div>
 
             <div class="form-group">
               <label for="phone">Phone Number *</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                placeholder="Enter your phone number"
-                autocomplete="tel"
-                required
-              >
+              <input type="tel" id="phone" name="phone"
+                autocomplete="tel" required maxlength="40">
             </div>
 
             <div class="form-group">
               <label for="organization">Business / Organization Name *</label>
-              <input
-                type="text"
-                id="organization"
-                name="organization"
-                placeholder="Enter your business name"
-                autocomplete="organization"
-                required
-              >
+              <input type="text" id="organization" name="organization"
+                autocomplete="organization" required maxlength="180">
             </div>
 
             <div class="form-group">
               <label for="role">Your Role *</label>
               <select id="role" name="role" required>
                 <option value="">Select your role</option>
-                <option value="Business Owner">Business Owner</option>
-                <option value="Founder">Founder</option>
-                <option value="Entrepreneur">Entrepreneur</option>
-                <option value="Professional">Professional</option>
-                <option value="Investor">Investor</option>
-                <option value="Service Provider">Service Provider</option>
-                <option value="Other">Other</option>
+                <option>Business Owner</option>
+                <option>Founder</option>
+                <option>Entrepreneur</option>
+                <option>Professional</option>
+                <option>Investor</option>
+                <option>Service Provider</option>
+                <option>Other</option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="industry">Industry / Business Segment *</label>
-              <input
-                type="text"
-                id="industry"
-                name="industry"
-                placeholder="E.g. Manufacturing, Technology, Retail"
-                required
-              >
+              <input type="text" id="industry" name="industry"
+                placeholder="Manufacturing, Technology, Retail..."
+                required maxlength="180">
             </div>
 
             <div class="form-group">
               <label for="city">City *</label>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                placeholder="Enter your city"
-                autocomplete="address-level2"
-                required
-              >
+              <input type="text" id="city" name="city"
+                autocomplete="address-level2" required maxlength="120">
             </div>
 
             <div class="form-group">
               <label for="website">Business Website</label>
-              <input
-                type="url"
-                id="website"
-                name="website"
-                placeholder="https://example.com"
-                autocomplete="url"
-              >
+              <input type="url" id="website" name="website"
+                placeholder="https://example.com" maxlength="500">
             </div>
 
             <div class="form-group">
               <label for="interest">What Are You Looking For? *</label>
               <select id="interest" name="interest" required>
                 <option value="">Select your interest</option>
-                <option value="Business Listing">Business Listing</option>
-                <option value="Networking">Business Networking</option>
-                <option value="Partnerships">Partnerships</option>
-                <option value="Business Opportunities">Business Opportunities</option>
-                <option value="Other">Other</option>
+                <option>Business Listing</option>
+                <option>Networking</option>
+                <option>Partnerships</option>
+                <option>Business Opportunities</option>
+                <option>Other</option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="details">Tell Us About Your Business</label>
-              <textarea
-                id="details"
-                name="details"
-                rows="4"
-                placeholder="Describe your business and what you would like to achieve"
-              ></textarea>
+              <textarea id="details" name="details" rows="4"
+                maxlength="5000"
+                placeholder="Describe your business and goals"></textarea>
             </div>
 
             <div class="form-group">
@@ -225,20 +155,17 @@
               </label>
             </div>
 
-            <button type="submit" class="btn btn-primary">
-              Prepare Registration
+            <button type="submit" id="joinSubmit" class="btn btn-primary">
+              Submit Registration
             </button>
 
             <p id="joinStatus" role="status" aria-live="polite"></p>
-
             <p class="form-note">
-              This form currently prepares a downloadable text file. It does
-              not submit your information to Bharat Vyapaar or save it to the
-              database.
+              Your registration will be submitted to the Bharat Vyapaar
+              database. Do not submit sensitive personal information.
             </p>
           </form>
         </div>
-
       </div>
     </section>
   </main>
@@ -249,14 +176,12 @@
         <a class="logo footer-logo" href="index.html">Bharat Vyapaar</a>
         <p>Connecting businesses and creating opportunities.</p>
       </div>
-
       <div class="footer-links">
         <a href="about.html">About</a>
         <a href="directory.html">Business Directory</a>
         <a href="team.html">Advisory Team</a>
         <a href="contact.html">Contact</a>
       </div>
-
       <p class="copyright">
         © <span id="currentYear"></span> Bharat Vyapaar. All rights reserved.
       </p>
@@ -264,57 +189,87 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script>
-    const joinForm = document.getElementById("joinForm");
-    const joinStatus = document.getElementById("joinStatus");
+    (() => {
+      const form = document.getElementById("joinForm");
+      const status = document.getElementById("joinStatus");
+      const submitButton = document.getElementById("joinSubmit");
 
-    joinForm.addEventListener("submit", function (event) {
-      event.preventDefault();
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-      if (!joinForm.reportValidity()) {
-        return;
-      }
+        if (!form.reportValidity()) return;
 
-      const formData = new FormData(joinForm);
+        if (!window.supabase ||
+            !window.BV_SUPABASE_URL ||
+            !window.BV_SUPABASE_ANON_KEY) {
+          status.textContent =
+            "Setup error: Supabase configuration could not be loaded.";
+          return;
+        }
 
-      const registration = [
-        "Bharat Vyapaar - Network Registration",
-        "",
-        "Full Name: " + formData.get("fullName"),
-        "Email: " + formData.get("email"),
-        "Phone: " + formData.get("phone"),
-        "Business / Organization: " + formData.get("organization"),
-        "Role: " + formData.get("role"),
-        "Industry: " + formData.get("industry"),
-        "City: " + formData.get("city"),
-        "Website: " + (formData.get("website") || "Not provided"),
-        "Interest: " + formData.get("interest"),
-        "",
-        "Business Details:",
-        formData.get("details") || "Not provided",
-        "",
-        "Contact Consent: Yes"
-      ].join("\n");
+        const getValue = (id) =>
+          document.getElementById(id).value.trim();
 
-      const blob = new Blob([registration], {
-        type: "text/plain;charset=utf-8"
+        const website = getValue("website");
+
+        if (website) {
+          try {
+            const parsed = new URL(website);
+            if (!["http:", "https:"].includes(parsed.protocol)) {
+              throw new Error("Invalid protocol");
+            }
+          } catch {
+            status.textContent =
+              "Please enter a valid website URL starting with https://";
+            return;
+          }
+        }
+
+        const record = {
+          full_name: getValue("fullName"),
+          email: getValue("email"),
+          phone: getValue("phone"),
+          organization: getValue("organization"),
+          role: getValue("role"),
+          industry: getValue("industry"),
+          city: getValue("city"),
+          website: website || null,
+          interest: getValue("interest"),
+          details: getValue("details") || null,
+          consent: document.getElementById("consent").checked,
+          status: "new"
+        };
+
+        submitButton.disabled = true;
+        status.textContent = "Submitting registration...";
+
+        try {
+          const client = window.supabase.createClient(
+            window.BV_SUPABASE_URL,
+            window.BV_SUPABASE_ANON_KEY
+          );
+
+          const { error } = await client
+            .from("network_registrations")
+            .insert([record]);
+
+          if (error) throw error;
+
+          form.reset();
+          status.textContent =
+            "Registration submitted successfully. Thank you for joining Bharat Vyapaar.";
+        } catch (error) {
+          console.error("Registration submission failed:", error);
+          status.textContent =
+            "Registration could not be submitted. Please try again later.";
+        } finally {
+          submitButton.disabled = false;
+        }
       });
-
-      const downloadUrl = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-
-      link.href = downloadUrl;
-      link.download = "bharat-vyapaar-registration.txt";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
-      URL.revokeObjectURL(downloadUrl);
-
-      joinStatus.textContent =
-        "Registration details downloaded. Your registration has not been submitted to Bharat Vyapaar yet.";
-    });
+    })();
   </script>
-
 </body>
 </html>
