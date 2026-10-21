@@ -1,20 +1,31 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Discover businesses, products and services through the Bharat Vyapaar Business Directory.">
+
   <title>Business Directory | Bharat Vyapaar</title>
+  <meta name="description" content="Discover businesses, products and services through the Bharat Vyapaar Business Directory.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
+<body>
   <header class="site-header">
     <div class="container nav-container">
       <a class="logo" href="index.html">Bharat Vyapaar</a>
 
-      <button class="menu-toggle" id="menuToggle" type="button"
-        aria-label="Toggle navigation" aria-expanded="false">
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="mainNav">
         ☰
       </button>
 
@@ -25,6 +36,8 @@
         <a href="team.html">Advisory Team</a>
         <a href="network.html">Network</a>
         <a href="opportunities.html">Opportunities</a>
+        <a href="events.html">Events</a>
+        <a href="partners.html">Partners</a>
         <a href="contact.html">Contact</a>
         <a href="join.html" class="nav-cta">Join Network</a>
       </nav>
@@ -34,35 +47,45 @@
   <main>
     <section class="hero">
       <div class="container hero-content">
-        <p class="eyebrow">BHARAT VYAAPAAR DIRECTORY</p>
-        <h1>Discover Businesses.<br>Build Connections.</h1>
+        <p class="eyebrow">THE BHARAT VYAPAAR NETWORK</p>
+
+        <h1>Discover Businesses.<br>Build Valuable Connections.</h1>
+
         <p class="hero-description">
-          Explore businesses, products and services and find potential
-          connections across the business community.
+          Explore businesses, discover products and services, and connect
+          with companies across India's growing business ecosystem.
         </p>
+
+        <div class="hero-actions">
+          <a href="#directorySearch" class="btn btn-primary">
+            Explore Directory
+          </a>
+          <a href="join.html" class="btn btn-secondary">
+            List Your Business
+          </a>
+        </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="directorySearch">
       <div class="container">
-
         <div class="section-heading">
-          <p class="eyebrow">FIND A BUSINESS</p>
-          <h2>Business Directory</h2>
+          <p class="eyebrow">BUSINESS DISCOVERY</p>
+          <h2>Find the Right Business</h2>
           <p>
-            Search listings by business name, location, segment, products
-            or services.
+            Search public business listings by name, location, segment,
+            products or services.
           </p>
         </div>
 
         <div class="directory-filters">
           <div class="form-group">
-            <label for="q">Search Businesses</label>
+            <label for="q">Search by Keyword</label>
             <input
               type="search"
               id="q"
-              placeholder="Business name, city, products..."
-            >
+              placeholder="Business name, city or keyword"
+              autocomplete="off">
           </div>
 
           <div class="form-group">
@@ -91,13 +114,13 @@
             <input
               type="search"
               id="products"
-              placeholder="Enter product or service"
-            >
+              placeholder="e.g. manufacturing, consulting"
+              autocomplete="off">
           </div>
 
           <div class="directory-actions">
             <button type="button" id="search" class="btn btn-primary">
-              Search
+              Search Businesses
             </button>
 
             <button type="button" id="reset" class="btn btn-secondary">
@@ -106,38 +129,58 @@
           </div>
         </div>
 
-        <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+        <div
+          id="notice"
+          class="notice"
+          role="status"
+          aria-live="polite"
+          hidden>
+        </div>
 
         <div class="directory-results-heading">
           <div>
-            <h2>Listed Businesses</h2>
+            <p class="eyebrow">EXPLORE THE NETWORK</p>
+            <h2>Public Business Listings</h2>
             <p id="results-subtitle">Loading businesses...</p>
           </div>
 
-          <p class="directory-count">
-            Results: <strong id="count">0</strong>
-          </p>
+          <div class="directory-count">
+            <span>Results found</span>
+            <strong id="count">0</strong>
+          </div>
         </div>
 
         <div id="results" class="feature-grid">
           <div class="loading-state">Loading businesses...</div>
         </div>
 
+        <div class="section-cta">
+          <h2>Is Your Business Missing?</h2>
+          <p>
+            Join Bharat Vyapaar to introduce your business and make it
+            discoverable to the wider business network.
+          </p>
+          <a href="join.html" class="btn btn-primary">
+            Register Your Business
+          </a>
+        </div>
       </div>
     </section>
 
     <section class="section section-highlight">
       <div class="container highlight-content">
         <div>
-          <p class="eyebrow">GROW YOUR BUSINESS</p>
-          <h2>Want to List Your Business?</h2>
+          <p class="eyebrow">GROW TOGETHER</p>
+          <h2>Better Connections. Bigger Opportunities.</h2>
           <p>
-            Become part of Bharat Vyapaar and introduce your business,
-            products and services to the network.
+            Bharat Vyapaar helps businesses improve visibility, discover
+            potential partners and build meaningful professional connections.
           </p>
         </div>
 
-        <a href="join.html" class="btn btn-primary">Join the Network</a>
+        <a href="network.html" class="btn btn-primary">
+          Explore Our Network
+        </a>
       </div>
     </section>
   </main>
@@ -153,6 +196,7 @@
         <a href="about.html">About</a>
         <a href="directory.html">Business Directory</a>
         <a href="team.html">Advisory Team</a>
+        <a href="partners.html">Partners</a>
         <a href="contact.html">Contact</a>
       </div>
 
@@ -162,25 +206,15 @@
     </div>
   </footer>
 
-  <!-- Load Supabase first, then configuration, then directory logic -->
+  <!-- Required scripts: keep this order -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
+  <script src="script.js"></script>
 
   <script>
     document.getElementById("currentYear").textContent =
       new Date().getFullYear();
-
-    const menuToggle = document.getElementById("menuToggle");
-    const mainNav = document.getElementById("mainNav");
-
-    if (menuToggle && mainNav) {
-      menuToggle.addEventListener("click", function () {
-        const isOpen = mainNav.classList.toggle("active");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-      });
-    }
   </script>
-
 </body>
 </html>
