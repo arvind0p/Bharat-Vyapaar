@@ -1,4 +1,3 @@
-```javascript
 /* ==========================================
    BHARAT VYAAPAAR - MAIN SITE SCRIPT
    File: script.js
@@ -74,4 +73,3 @@
     });
   }
 })();
-```
