@@ -1678,3 +1678,56 @@ body.network-page {
       url("assets/bharat-vyapaar-network-hero.png");
   }
 }
+
+/* OPPORTUNITIES PAGE: dark leadership and growth hero */
+body.opportunities-page {
+  background: #f1f2f4;
+  color: #202b3d;
+}
+.opportunities-page .hero {
+  min-height: 430px;
+  isolation: isolate;
+  background-image:
+    linear-gradient(90deg, rgba(12, 14, 18, .88) 0%, rgba(12, 14, 18, .72) 50%, rgba(12, 14, 18, .24) 100%),
+    url("assets/bharat-vyapaar-opportunities-hero.webp");
+  background-size: cover;
+  background-position: center 52%;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #d7dbe2;
+}
+.opportunities-page .hero .eyebrow {
+  color: #f0bd45;
+}
+.opportunities-page .hero h1 {
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .35);
+}
+.opportunities-page .hero .hero-description {
+  color: rgba(255, 255, 255, .88);
+}
+.opportunities-page .hero .btn-secondary {
+  background: rgba(255,255,255,.96);
+  color: #172337;
+  border-color: rgba(255,255,255,.65);
+}
+.opportunities-page main,
+.opportunities-page .section {
+  background: #f1f2f4;
+}
+.opportunities-page .section:nth-of-type(even),
+.opportunities-page .section-highlight {
+  background: #e6e8ec;
+}
+.opportunities-page .feature-card {
+  background: #fff;
+  border-color: #d9dee5;
+}
+@media (max-width: 780px) {
+  .opportunities-page .hero {
+    min-height: 0;
+    background-position: 60% center;
+    background-image:
+      linear-gradient(180deg, rgba(12, 14, 18, .68) 0%, rgba(12, 14, 18, .86) 100%),
+      url("assets/bharat-vyapaar-opportunities-hero.webp");
+  }
+}
