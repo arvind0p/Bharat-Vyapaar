@@ -1415,3 +1415,68 @@ p:last-child {
     font-size: 14px !important;
   }
 }
+
+
+/* HOMEPAGE: corporate handshake hero background and matching neutral palette */
+body.homepage {
+  background: #f4f5f7;
+  color: #344256;
+}
+
+.homepage .hero {
+  isolation: isolate;
+  min-height: 520px;
+  background-image:
+    linear-gradient(90deg, rgba(248, 250, 253, .94) 0%, rgba(248, 250, 253, .86) 48%, rgba(248, 250, 253, .54) 100%),
+    url("assets/bharat-vyapaar-home-hero.webp");
+  background-size: cover;
+  background-position: center 44%;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #dce2e9;
+}
+
+.homepage .hero::after {
+  border-color: rgba(13, 29, 53, .12);
+  box-shadow:
+    0 0 0 40px rgba(13, 29, 53, .025),
+    0 0 0 80px rgba(13, 29, 53, .018);
+}
+
+.homepage .hero h1,
+.homepage .hero .highlight {
+  color: #102746;
+  text-shadow: 0 1px 1px rgba(255,255,255,.25);
+}
+
+.homepage .hero .hero-description,
+.homepage .hero .hero-note {
+  color: #394b61;
+}
+
+.homepage main {
+  background: #f4f5f7;
+}
+
+.homepage .section {
+  background-color: #f4f5f7;
+}
+
+.homepage .section:nth-of-type(even) {
+  background-color: #ffffff;
+}
+
+.homepage .visual-main,
+.homepage .floating-badge {
+  background-color: rgba(255, 255, 255, .94);
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 780px) {
+  .homepage .hero {
+    min-height: 0;
+    background-position: 55% center;
+    background-image:
+      linear-gradient(180deg, rgba(248, 250, 253, .88) 0%, rgba(248, 250, 253, .93) 100%),
+      url("assets/bharat-vyapaar-home-hero.webp");
+  }
+}
