@@ -1279,3 +1279,54 @@ p:last-child {
     min-width: 120px;
   }
 }
+
+
+/* Header logo compactness and navigation readability */
+.site-header .logo img,
+.site-header .site-logo {
+  width: 168px !important;
+  max-width: 168px !important;
+  min-width: 0 !important;
+  height: auto !important;
+}
+
+.site-header .nav-container {
+  gap: 18px;
+}
+
+.site-header .main-nav {
+  gap: clamp(12px, 1.25vw, 20px);
+}
+
+.site-header .main-nav a {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05px;
+}
+
+.site-header .main-nav .nav-cta {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 1000px) and (min-width: 781px) {
+  .site-header .logo img,
+  .site-header .site-logo {
+    width: 145px !important;
+    max-width: 145px !important;
+  }
+  .site-header .main-nav {
+    gap: 9px;
+  }
+  .site-header .main-nav a {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 780px) {
+  .site-header .logo img,
+  .site-header .site-logo {
+    width: 170px !important;
+    max-width: 170px !important;
+  }
+}
