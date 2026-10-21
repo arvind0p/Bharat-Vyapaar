@@ -1,4 +1,3 @@
-```javascript
 /* ==========================================
    BHARAT VYAAPAAR - BUSINESS DIRECTORY
    File: app.js
@@ -452,4 +451,3 @@
     };
   }
 })();
-```
