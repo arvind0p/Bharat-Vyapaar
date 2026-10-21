@@ -1,9 +1,77 @@
+```javascript
+/* ==========================================
+   BHARAT VYAAPAAR - MAIN SITE SCRIPT
+   File: script.js
+   ========================================== */
 
-const menu=document.querySelector('.menu'),links=document.querySelector('.links');
-if(menu&&links)menu.addEventListener('click',()=>links.classList.toggle('open'));
-const file=location.pathname.split('/').pop()||'index.html';
-document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')===file)a.classList.add('active')});
-document.querySelectorAll('[data-year]').forEach(x=>x.textContent=new Date().getFullYear());
-const search=document.querySelector('.search');
-if(search)search.addEventListener('input',()=>{let q=search.value.toLowerCase();document.querySelectorAll('.person').forEach(p=>p.style.display=p.textContent.toLowerCase().includes(q)?'':'none')});
-document.querySelectorAll('form[data-demo]').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();let s=f.querySelector('.status');if(s)s.textContent='Demo only: connect a backend or form service to receive submissions.';f.reset()}));
+(function () {
+  "use strict";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initializeCurrentYear();
+    initializeMobileNavigation();
+    initializeFormFeedback();
+  });
+
+  /* Update copyright year */
+  function initializeCurrentYear() {
+    const yearElements = document.querySelectorAll("#currentYear");
+
+    yearElements.forEach(function (element) {
+      element.textContent = new Date().getFullYear();
+    });
+  }
+
+  /* Mobile navigation */
+  function initializeMobileNavigation() {
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    if (!menuToggle || !mainNav) {
+      return;
+    }
+
+    menuToggle.addEventListener("click", function () {
+      const isOpen = mainNav.classList.toggle("active");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    mainNav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        mainNav.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        mainNav.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  /* Basic feedback for forms not connected to a backend */
+  function initializeFormFeedback() {
+    const formIds = [
+      "contactForm",
+      "joinForm",
+      "partnerForm"
+    ];
+
+    formIds.forEach(function (formId) {
+      const form = document.getElementById(formId);
+
+      if (!form) {
+        return;
+      }
+
+      /*
+       * These forms may already have their own submit handlers
+       * inside the HTML page. Do not attach a second submit action.
+       */
+      form.setAttribute("novalidate", "false");
+    });
+  }
+})();
+```
