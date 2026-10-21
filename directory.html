@@ -1,148 +1,188 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Discover and connect with businesses through the Bharat Vyapaar Business Directory.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover businesses, products and services through the Bharat Vyapaar Business Directory.">
   <title>Business Directory | Bharat Vyapaar</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="top">
-    <div class="container top-inner">
-      <span>Connect. Collaborate. Grow.</span>
-      <span><a href="mailto:bharatvyapaar.biz@gmail.com">bharatvyapaar.biz@gmail.com</a><span class="top-sep">·</span><a href="tel:+919026217441">+91 90262 17441</a></span>
-    </div>
-  </div>
 
-  <header class="header">
-    <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Bharat Vyapaar home">
-        <img src="assets/logo.png" alt="Bharat Vyapaar logo">
-        <span>BHARAT VYAPAAR<small>BUSINESS COMMUNITY</small></span>
-      </a>
-      <button class="menu" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
-      <nav class="links" aria-label="Main navigation">
+  <header class="site-header">
+    <div class="container nav-container">
+      <a class="logo" href="index.html">Bharat Vyapaar</a>
+
+      <button class="menu-toggle" id="menuToggle" type="button"
+        aria-label="Toggle navigation" aria-expanded="false">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
         <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
+        <a href="about.html">About</a>
+        <a href="directory.html" aria-current="page">Business Directory</a>
         <a href="team.html">Advisory Team</a>
-        <a href="network.html">Our Network</a>
-        <a href="directory.html" class="active">Business Directory</a>
+        <a href="network.html">Network</a>
         <a href="opportunities.html">Opportunities</a>
-        <a href="events.html">Events</a>
-        <a href="partners.html">Partners</a>
         <a href="contact.html">Contact</a>
+        <a href="join.html" class="nav-cta">Join Network</a>
       </nav>
-      <a class="joinbtn" href="join.html">Join Community ↗</a>
     </div>
   </header>
 
   <main>
-    <section class="directory-hero">
-      <div class="container directory-hero-grid">
-        <div class="directory-hero-copy">
-          <div class="crumb"><a href="index.html">Home</a> / Business Directory</div>
-          <span class="eyebrow">Discover businesses</span>
-          <h1>Find the right <em>business connection.</em></h1>
-          <p>Explore businesses, products and services across cities and industries in the Bharat Vyapaar network.</p>
-          <div class="directory-hero-points">
-            <span><i>✓</i> Search by business</span>
-            <span><i>✓</i> Filter by location</span>
-            <span><i>✓</i> Discover services</span>
-          </div>
-        </div>
-        <div class="directory-hero-art" aria-hidden="true">
-          <div class="art-orbit orbit-one"></div>
-          <div class="art-orbit orbit-two"></div>
-          <div class="art-card art-card-main">
-            <span class="art-icon">⌕</span>
-            <div><strong>Business Directory</strong><small>One network. More possibilities.</small></div>
-          </div>
-          <div class="art-card art-card-small"><span class="art-dot"></span><div><strong>Build connections</strong><small>Across industries</small></div></div>
-          <div class="art-letter">BV</div>
-        </div>
+    <section class="hero">
+      <div class="container hero-content">
+        <p class="eyebrow">BHARAT VYAAPAAR DIRECTORY</p>
+        <h1>Discover Businesses.<br>Build Connections.</h1>
+        <p class="hero-description">
+          Explore businesses, products and services and find potential
+          connections across the business community.
+        </p>
       </div>
     </section>
 
-    <section class="section directory-section">
+    <section class="section">
       <div class="container">
-        <div class="directory-section-heading">
+
+        <div class="section-heading">
+          <p class="eyebrow">FIND A BUSINESS</p>
+          <h2>Business Directory</h2>
+          <p>
+            Search listings by business name, location, segment, products
+            or services.
+          </p>
+        </div>
+
+        <div class="directory-filters">
+          <div class="form-group">
+            <label for="q">Search Businesses</label>
+            <input
+              type="search"
+              id="q"
+              placeholder="Business name, city, products..."
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="state">State</label>
+            <select id="state">
+              <option value="">All States</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="city">City</label>
+            <select id="city">
+              <option value="">All Cities</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="segment">Business Segment</label>
+            <select id="segment">
+              <option value="">All Business Segments</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="products">Products or Services</label>
+            <input
+              type="search"
+              id="products"
+              placeholder="Enter product or service"
+            >
+          </div>
+
+          <div class="directory-actions">
+            <button type="button" id="search" class="btn btn-primary">
+              Search
+            </button>
+
+            <button type="button" id="reset" class="btn btn-secondary">
+              Reset Filters
+            </button>
+          </div>
+        </div>
+
+        <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+        <div class="directory-results-heading">
           <div>
-            <span class="eyebrow">Explore the network</span>
-            <h2>Search business listings</h2>
-            <p>Use one or more filters to narrow down your results.</p>
+            <h2>Listed Businesses</h2>
+            <p id="results-subtitle">Loading businesses...</p>
           </div>
-          <div class="directory-count-card">
-            <span class="count-symbol">◎</span>
-            <div><strong id="count">0</strong><span>businesses found</span></div>
-          </div>
+
+          <p class="directory-count">
+            Results: <strong id="count">0</strong>
+          </p>
         </div>
 
-        <div id="notice" class="directory-notice" role="status" aria-live="polite">
-          Connecting to the business directory...
+        <div id="results" class="feature-grid">
+          <div class="loading-state">Loading businesses...</div>
         </div>
 
-        <section class="filter-panel" aria-label="Business search filters">
-          <div class="filter-panel-top">
-            <div><span class="filter-kicker">DIRECTORY SEARCH</span><h3>What are you looking for?</h3></div>
-            <button class="text-reset" type="button" id="reset">Reset all ↺</button>
-          </div>
-          <div class="directory-fields">
-            <div class="field search-field">
-              <label for="q">Business or keyword</label>
-              <div class="input-with-icon"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="e.g. packaging, consulting, ABC Traders"></div>
-            </div>
-            <div class="field">
-              <label for="state">State</label>
-              <select id="state"><option value="">All states</option></select>
-            </div>
-            <div class="field">
-              <label for="city">City</label>
-              <select id="city"><option value="">All cities</option></select>
-            </div>
-            <div class="field">
-              <label for="segment">Business segment</label>
-              <select id="segment"><option value="">All segments</option></select>
-            </div>
-            <div class="field products-field">
-              <label for="products">Products / Services</label>
-              <input id="products" type="search" placeholder="e.g. logistics, textiles, software">
-            </div>
-            <div class="filter-actions">
-              <button class="btn" type="button" id="search"><span>Search directory</span><span aria-hidden="true">↗</span></button>
-            </div>
-          </div>
-        </section>
+      </div>
+    </section>
 
-        <div class="results-heading">
-          <div><h3>Directory results</h3><p id="results-subtitle">Browse available business listings below.</p></div>
-          <span class="results-label"><span></span> Public listings</span>
+    <section class="section section-highlight">
+      <div class="container highlight-content">
+        <div>
+          <p class="eyebrow">GROW YOUR BUSINESS</p>
+          <h2>Want to List Your Business?</h2>
+          <p>
+            Become part of Bharat Vyapaar and introduce your business,
+            products and services to the network.
+          </p>
         </div>
-        <div id="results" class="businessgrid">
-          <div class="directory-empty"><span class="empty-icon">⌕</span><h3>Loading businesses</h3><p>Please wait while the directory is prepared.</p></div>
-        </div>
+
+        <a href="join.html" class="btn btn-primary">Join the Network</a>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footgrid">
-        <div>
-          <div class="footbrand">BHARAT <span>VYAPAAR</span></div>
-          <p class="footer-intro">A growing business community connecting entrepreneurs, professionals and businesses to explore collaboration and growth.</p>
-        </div>
-        <div><h4>Explore</h4><a href="about.html">About Us</a><a href="team.html">Advisory Team</a><a href="network.html">Our Network</a><a href="directory.html">Business Directory</a></div>
-        <div><h4>Participate</h4><a href="opportunities.html">Opportunities</a><a href="events.html">Events</a><a href="join.html">Join Community</a></div>
-        <div><h4>Contact</h4><a href="mailto:bharatvyapaar.biz@gmail.com">bharatvyapaar.biz@gmail.com</a><a href="tel:+919026217441">+91 90262 17441</a></div>
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div>
+        <a class="logo footer-logo" href="index.html">Bharat Vyapaar</a>
+        <p>Connecting businesses and creating opportunities.</p>
       </div>
-      <div class="bottom"><span>© <span data-year></span> Bharat Vyapaar</span><span>Connect. Collaborate. Grow.</span></div>
+
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="directory.html">Business Directory</a>
+        <a href="team.html">Advisory Team</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <p class="copyright">
+        © <span id="currentYear"></span> Bharat Vyapaar. All rights reserved.
+      </p>
     </div>
   </footer>
 
+  <!-- Load Supabase first, then configuration, then directory logic -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
-  <script src="script.js"></script>
+
+  <script>
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    if (menuToggle && mainNav) {
+      menuToggle.addEventListener("click", function () {
+        const isOpen = mainNav.classList.toggle("active");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+  </script>
+
 </body>
 </html>
+```
