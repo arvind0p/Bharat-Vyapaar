@@ -1,20 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Meet the Bharat Vyapaar advisory team supporting business development, strategy and market expansion.">
+  <meta name="description" content="Meet the Bharat Vyapaar advisory team supporting business strategy, supply chains and market expansion.">
+  <meta name="theme-color" content="#101d35">
+
   <title>Advisory Team | Bharat Vyapaar</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
+<body>
   <header class="site-header">
     <div class="container nav-container">
       <a class="logo" href="index.html">Bharat Vyapaar</a>
 
-      <button class="menu-toggle" id="menuToggle" type="button"
-        aria-label="Toggle navigation" aria-expanded="false">
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="mainNav">
         ☰
       </button>
 
@@ -23,9 +36,9 @@
         <a href="about.html">About</a>
         <a href="directory.html">Business Directory</a>
         <a href="team.html" aria-current="page">Advisory Team</a>
-        <a href="events.html">Events</a>
         <a href="network.html">Network</a>
         <a href="opportunities.html">Opportunities</a>
+        <a href="events.html">Events</a>
         <a href="partners.html">Partners</a>
         <a href="contact.html">Contact</a>
         <a href="join.html" class="nav-cta">Join Network</a>
@@ -34,64 +47,87 @@
   </header>
 
   <main>
-
     <section class="hero">
       <div class="container hero-content">
-        <p class="eyebrow">OUR ADVISORY TEAM</p>
+        <p class="eyebrow">EXPERIENCE THAT MOVES BUSINESS FORWARD</p>
 
-        <h1>Experience. Guidance.<br>Business Growth.</h1>
+        <h1>Meet the People<br>Behind the Vision.</h1>
 
         <p class="hero-description">
-          Meet the advisors supporting strategic thinking, business
-          development, supply chain operations and market expansion.
+          Our advisory network brings together professional expertise
+          to support strategic thinking, business development,
+          supply chain operations and market expansion.
         </p>
+
+        <div class="hero-actions">
+          <a href="#advisoryTeam" class="btn btn-primary">
+            Meet Our Advisors
+          </a>
+          <a href="contact.html" class="btn btn-secondary">
+            Connect With Us
+          </a>
+        </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="advisoryTeam">
       <div class="container">
-
         <div class="section-heading">
-          <p class="eyebrow">MEET OUR ADVISORS</p>
+          <p class="eyebrow">OUR PEOPLE</p>
           <h2>Advisory Team</h2>
           <p>
-            Explore the professionals associated with our advisory network.
+            Get to know the professionals associated with the
+            Bharat Vyapaar advisory network.
           </p>
         </div>
 
-        <div id="teamNotice" class="notice notice-info"
-          role="status" aria-live="polite" hidden>
+        <div
+          id="teamNotice"
+          class="notice notice-info"
+          role="status"
+          aria-live="polite"
+          hidden>
           Loading advisory team...
         </div>
 
         <div id="teamGrid" class="feature-grid">
-          <div class="loading-state">Loading advisory team...</div>
+          <div class="loading-state">
+            Loading advisory team...
+          </div>
         </div>
 
+        <p class="team-disclaimer">
+          Advisory profiles and information are displayed as available
+          in the Bharat Vyapaar team directory.
+        </p>
       </div>
     </section>
 
     <section class="section section-highlight">
-      <div class="container section-heading">
-        <p class="eyebrow">CONNECT WITH US</p>
-        <h2>Interested in Our Network?</h2>
-        <p>
-          Contact Bharat Vyapaar to learn more about our network and
-          explore possible business collaborations.
-        </p>
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">BUILD CONNECTIONS</p>
+          <h2>Let's Explore What We Can Build Together</h2>
+          <p>
+            Looking to connect, collaborate or become part of the
+            Bharat Vyapaar network? Get in touch with our team.
+          </p>
 
-        <div class="hero-actions" style="justify-content:center;">
-          <a href="contact.html" class="btn btn-primary">Contact Us</a>
-          <a href="join.html" class="btn btn-secondary">Join Network</a>
+          <div class="hero-actions" style="justify-content:center;">
+            <a href="contact.html" class="btn btn-primary">
+              Contact Us
+            </a>
+            <a href="join.html" class="btn btn-secondary">
+              Join the Network
+            </a>
+          </div>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
     <div class="container footer-content">
-
       <div>
         <a class="logo footer-logo" href="index.html">Bharat Vyapaar</a>
         <p>Connecting businesses and creating opportunities.</p>
@@ -100,37 +136,21 @@
       <div class="footer-links">
         <a href="about.html">About</a>
         <a href="directory.html">Business Directory</a>
-        <a href="events.html">Events</a>
-        <a href="network.html">Network</a>
+        <a href="team.html">Advisory Team</a>
+        <a href="partners.html">Partners</a>
         <a href="contact.html">Contact</a>
       </div>
 
       <p class="copyright">
         © <span id="currentYear"></span> Bharat Vyapaar. All rights reserved.
       </p>
-
     </div>
   </footer>
 
+  <!-- Supabase must load before team.js -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="team.js"></script>
   <script src="script.js"></script>
-
-  <script>
-    document.getElementById("currentYear").textContent =
-      new Date().getFullYear();
-
-    const menuToggle = document.getElementById("menuToggle");
-    const mainNav = document.getElementById("mainNav");
-
-    if (menuToggle && mainNav) {
-      menuToggle.addEventListener("click", function () {
-        const isOpen = mainNav.classList.toggle("active");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-      });
-    }
-  </script>
-
 </body>
 </html>
