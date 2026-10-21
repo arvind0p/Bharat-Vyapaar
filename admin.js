@@ -1,0 +1,127 @@
+(() => {
+  const $ = id => document.getElementById(id);
+  const hasConfig = window.BV_SUPABASE_URL && window.BV_SUPABASE_ANON_KEY && window.supabase;
+  const loginView = $('loginView'), dashboardView = $('dashboardView');
+  if (!hasConfig) {
+    $('loginMessage').textContent = 'Supabase setup incomplete. Add the publishable/anon key in config.js, then apply supabase-admin-setup.sql.';
+    return;
+  }
+  const client = window.supabase.createClient(window.BV_SUPABASE_URL, window.BV_SUPABASE_ANON_KEY);
+  let businesses = [], team = [], currentPhotoPath = '';
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const showGlobal = (msg, ok=false) => { const el=$('globalMessage'); el.textContent=msg; el.className='message global-message '+(ok?'success':'error'); };
+  const showLoginMessage = msg => $('loginMessage').textContent = msg;
+  const setLoggedIn = (user) => {
+    loginView.hidden = true; dashboardView.hidden = false;
+    $('signedInAs').textContent = user?.email ? `Signed in as ${user.email}` : '';
+  };
+  const requireAdmin = async user => {
+    const {data,error}=await client.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle();
+    if(error) throw error;
+    if(!data) throw new Error('This account is not enabled as an admin. Add its user ID to admin_users using the SQL setup instructions.');
+  };
+  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam()]); }
+  async function loadBusinesses() {
+    const {data,error}=await client.from('business_directory').select('*').order('business_name');
+    if(error) { $('businessRows').innerHTML=`<tr><td colspan="5" class="empty-row">Could not load businesses: ${esc(error.message)}</td></tr>`; return; }
+    businesses=data||[];
+    $('businessRows').innerHTML=businesses.length?businesses.map(b=>`<tr>
+      <td><strong>${esc(b.business_name)}</strong><br><span>${esc(b.description||'')}</span></td>
+      <td>${esc([b.city,b.state].filter(Boolean).join(', ')||'—')}</td><td>${esc(b.business_segment||'—')}</td>
+      <td><span class="status-pill ${b.is_public?'public':'hidden'}">${b.is_public?'Public':'Hidden'}</span></td>
+      <td><div class="row-actions"><button class="edit-btn" data-edit-business="${esc(b.id)}">Edit</button><button class="hide-btn" data-toggle-business="${esc(b.id)}">${b.is_public?'Hide':'Publish'}</button><button class="delete-btn" data-delete-business="${esc(b.id)}">Delete</button></div></td>
+    </tr>`).join(''):'<tr><td colspan="5" class="empty-row">No businesses yet. Click “Add business” to create the first listing.</td></tr>';
+  }
+  async function loadTeam() {
+    const {data,error}=await client.from('team_advisory').select('*').order('sort_order').order('full_name');
+    if(error) { $('teamRows').innerHTML=`<tr><td colspan="5" class="empty-row">Could not load team: ${esc(error.message)}. Apply the supplied SQL setup first.</td></tr>`; return; }
+    team=data||[];
+    $('teamRows').innerHTML=team.length?team.map(t=>`<tr>
+      <td><strong>${esc(t.full_name)}</strong></td><td>${esc(t.role||'—')}</td><td>${esc(t.city_region||'—')}</td>
+      <td><span class="status-pill ${t.is_active?'public':'hidden'}">${t.is_active?'Public':'Hidden'}</span></td>
+      <td><div class="row-actions"><button class="edit-btn" data-edit-team="${esc(t.id)}">Edit</button><button class="hide-btn" data-toggle-team="${esc(t.id)}">${t.is_active?'Hide':'Publish'}</button><button class="delete-btn" data-delete-team="${esc(t.id)}">Delete</button></div></td>
+    </tr>`).join(''):'<tr><td colspan="5" class="empty-row">No team members yet. Click “Add team member” to add one.</td></tr>';
+  }
+  function openBusiness(b=null) {
+    $('businessForm').hidden=false; $('businessFormTitle').textContent=b?'Edit business':'Add business';
+    $('businessId').value=b?.id||''; $('businessName').value=b?.business_name||''; $('businessDescription').value=b?.description||'';
+    $('businessCity').value=b?.city||''; $('businessState').value=b?.state||''; $('businessCountry').value=b?.country||'India';
+    $('businessSegment').value=b?.business_segment||''; $('businessProducts').value=b?.products||''; $('businessServices').value=b?.services||'';
+    $('businessWebsite').value=b?.website||''; $('businessPublic').checked=b?.is_public!==false;
+    $('businessForm').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function openTeam(t=null) {
+    $('teamForm').hidden=false; $('teamFormTitle').textContent=t?'Edit team member':'Add team member';
+    $('teamId').value=t?.id||''; $('teamName').value=t?.full_name||''; $('teamRole').value=t?.role||'Advisory Team Member';
+    $('teamCity').value=t?.city_region||''; $('teamBio').value=t?.bio||''; $('teamSort').value=t?.sort_order??100;
+    $('teamActive').checked=t?.is_active!==false; currentPhotoPath=t?.photo_path||'';
+    $('teamPhoto').value=''; $('currentPhotoWrap').hidden=!t?.photo_url;
+    if(t?.photo_url) $('currentPhoto').src=t.photo_url;
+    $('teamForm').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  $('loginForm').addEventListener('submit',async e=>{
+    e.preventDefault(); showLoginMessage('Signing in…');
+    const {data,error}=await client.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});
+    if(error){showLoginMessage(error.message);return;}
+    try { await requireAdmin(data.user); setLoggedIn(data.user); showLoginMessage(''); await refreshAll(); }
+    catch(err){await client.auth.signOut();showLoginMessage(err.message||'Admin access denied.');}
+  });
+  $('logoutButton').addEventListener('click',async()=>{await client.auth.signOut();dashboardView.hidden=true;loginView.hidden=false;});
+  $('newBusinessButton').addEventListener('click',()=>openBusiness());
+  $('newTeamButton').addEventListener('click',()=>openTeam());
+  document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>$(btn.dataset.close).hidden=true));
+  document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));
+    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team';
+  }));
+  $('businessRows').addEventListener('click',async e=>{
+    const edit=e.target.closest('[data-edit-business]'), toggle=e.target.closest('[data-toggle-business]'), del=e.target.closest('[data-delete-business]');
+    if(edit) openBusiness(businesses.find(x=>String(x.id)===edit.dataset.editBusiness));
+    if(toggle){const b=businesses.find(x=>String(x.id)===toggle.dataset.toggleBusiness);if(!b)return;const {error}=await client.from('business_directory').update({is_public:!b.is_public}).eq('id',b.id);if(error)showGlobal(error.message);else{showGlobal('Listing visibility updated.',true);await loadBusinesses();}}
+    if(del){const b=businesses.find(x=>String(x.id)===del.dataset.deleteBusiness);if(!b||!confirm(`Delete "${b.business_name}" permanently?`))return;const {error}=await client.from('business_directory').delete().eq('id',b.id);if(error)showGlobal(error.message);else{showGlobal('Business deleted.',true);await loadBusinesses();}}
+  });
+  $('teamRows').addEventListener('click',async e=>{
+    const edit=e.target.closest('[data-edit-team]'), toggle=e.target.closest('[data-toggle-team]'), del=e.target.closest('[data-delete-team]');
+    if(edit) openTeam(team.find(x=>String(x.id)===edit.dataset.editTeam));
+    if(toggle){const t=team.find(x=>String(x.id)===toggle.dataset.toggleTeam);if(!t)return;const {error}=await client.from('team_advisory').update({is_active:!t.is_active}).eq('id',t.id);if(error)showGlobal(error.message);else{showGlobal('Team visibility updated.',true);await loadTeam();}}
+    if(del){const t=team.find(x=>String(x.id)===del.dataset.deleteTeam);if(!t||!confirm(`Delete "${t.full_name}" permanently?`))return;const {error}=await client.from('team_advisory').delete().eq('id',t.id);if(error)showGlobal(error.message);else{showGlobal('Team member deleted.',true);await loadTeam();}}
+  });
+  $('businessForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const id=$('businessId').value;
+    const record={business_name:$('businessName').value.trim(),description:$('businessDescription').value.trim(),city:$('businessCity').value.trim(),state:$('businessState').value.trim(),country:$('businessCountry').value.trim(),business_segment:$('businessSegment').value.trim(),products:$('businessProducts').value.trim(),services:$('businessServices').value.trim(),website:$('businessWebsite').value.trim(),is_public:$('businessPublic').checked};
+    const result=id?await client.from('business_directory').update(record).eq('id',id):await client.from('business_directory').insert(record);
+    if(result.error){showGlobal(result.error.message);return;}
+    $('businessForm').hidden=true;showGlobal('Business saved successfully.',true);await loadBusinesses();
+  });
+  $('teamForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const id=$('teamId').value; let photo_url=null, photo_path=currentPhotoPath;
+    const file=$('teamPhoto').files[0];
+    if(file){
+      if(!['image/jpeg','image/png','image/webp'].includes(file.type)){showGlobal('Choose a JPG, PNG or WebP image.');return;}
+      if(file.size>5*1024*1024){showGlobal('Photo must be 5 MB or smaller.');return;}
+      const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';
+      const path=`${crypto.randomUUID()}.${ext}`;
+      const {error:uploadError}=await client.storage.from('team-photos').upload(path,file,{upsert:false,contentType:file.type});
+      if(uploadError){showGlobal(`Photo upload failed: ${uploadError.message}`);return;}
+      photo_path=path;
+      const {data}=client.storage.from('team-photos').getPublicUrl(path);
+      photo_url=data.publicUrl;
+    } else {
+      const old=team.find(x=>String(x.id)===id);
+      photo_url=old?.photo_url||null;
+    }
+    const record={full_name:$('teamName').value.trim(),role:$('teamRole').value.trim(),city_region:$('teamCity').value.trim(),bio:$('teamBio').value.trim(),sort_order:Number($('teamSort').value)||0,is_active:$('teamActive').checked,photo_path,photo_url};
+    const result=id?await client.from('team_advisory').update(record).eq('id',id):await client.from('team_advisory').insert(record);
+    if(result.error){showGlobal(result.error.message);return;}
+    $('teamForm').hidden=true;showGlobal('Team member saved successfully.',true);await loadTeam();
+  });
+  (async()=>{
+    const {data}=await client.auth.getSession();
+    if(data.session){
+      try{await requireAdmin(data.session.user);setLoggedIn(data.session.user);await refreshAll();}
+      catch(e){await client.auth.signOut();showLoginMessage(e.message||'Admin access denied.');}
+    }
+  })();
+})();
