@@ -1839,3 +1839,57 @@ body.partners-page {
       url("assets/bharat-vyapaar-partners-hero.webp");
   }
 }
+
+/* CONTACT PAGE: warm, cinematic phone-call hero */
+body.contact-page {
+  background: #f2f0ed;
+  color: #202b3d;
+}
+.contact-page .hero {
+  min-height: 430px;
+  isolation: isolate;
+  background-image:
+    linear-gradient(90deg, rgba(8, 9, 13, .91) 0%, rgba(8, 9, 13, .73) 45%, rgba(8, 9, 13, .18) 100%),
+    url("assets/bharat-vyapaar-contact-hero.webp");
+  background-size: cover;
+  background-position: center 46%;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #d8d5d0;
+}
+.contact-page .hero .eyebrow {
+  color: #e9bd70;
+}
+.contact-page .hero h1 {
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .38);
+}
+.contact-page .hero .hero-description {
+  color: rgba(255, 255, 255, .9);
+}
+.contact-page .hero .btn-secondary {
+  background: rgba(255,255,255,.96);
+  color: #172337;
+  border-color: rgba(255,255,255,.7);
+}
+.contact-page main,
+.contact-page .section {
+  background: #f2f0ed;
+}
+.contact-page .section:nth-of-type(even),
+.contact-page .section-highlight {
+  background: #e8e5e0;
+}
+.contact-page .feature-card,
+.contact-page .contact-card {
+  background: #fff;
+  border-color: #ddd8d1;
+}
+@media (max-width: 780px) {
+  .contact-page .hero {
+    min-height: 0;
+    background-position: 62% center;
+    background-image:
+      linear-gradient(180deg, rgba(8, 9, 13, .48) 0%, rgba(8, 9, 13, .86) 100%),
+      url("assets/bharat-vyapaar-contact-hero.webp");
+  }
+}
