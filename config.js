@@ -18,5 +18,5 @@ window.BV_SUPABASE_URL = "https://ybqfuocxicacmgionhfn.supabase.co";
   Secret key ya service_role key yahan kabhi paste mat karna.
 */
 
-window.BV_SUPABASE_ANON_KEY = "PASTE_YOUR_PUBLIC_SUPABASE_KEY_HERE";
+window.BV_SUPABASE_ANON_KEY = "sb_publishable_XM0MSAfT8vlXfpS4xENhOA_alLfdGUJ";
 ```
