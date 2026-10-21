@@ -86,10 +86,95 @@
     $('registrationForm').scrollIntoView({behavior:'smooth',block:'start'});
   }
   async function setRegistrationStatus(id,status) {
-    const {error}=await client.from('network_registrations').update({status}).eq('id',id);
-    if(error){showGlobal('Could not update registration: '+error.message);return;}
-    showGlobal('Registration marked '+status+'.',true);
-    await loadRegistrations();
+    const registration = registrations.find(r => String(r.id) === String(id));
+    if (!registration) {
+      showGlobal('Registration not found. Refresh the registrations list and try again.');
+      return;
+    }
+
+    // Approval also creates or publishes the corresponding public business listing.
+    if (status === 'approved') {
+      const businessName = String(registration.organization || '').trim();
+      const city = String(registration.city || '').trim();
+
+      if (!businessName) {
+        showGlobal('Cannot approve this registration: business / organization name is missing.');
+        return;
+      }
+
+      const { data: existing, error: lookupError } = await client
+        .from('business_directory')
+        .select('id')
+        .eq('business_name', businessName)
+        .eq('city', city)
+        .limit(1);
+
+      if (lookupError) {
+        showGlobal('Could not check Business Directory for an existing listing: ' + lookupError.message);
+        return;
+      }
+
+      if (existing && existing.length) {
+        const { error: publishError } = await client
+          .from('business_directory')
+          .update({
+            description: registration.details || '',
+            state: '',
+            country: 'India',
+            business_segment: registration.industry || '',
+            products: '',
+            services: '',
+            website: registration.website || '',
+            is_public: true
+          })
+          .eq('id', existing[0].id);
+
+        if (publishError) {
+          showGlobal('Could not publish the existing business listing: ' + publishError.message);
+          return;
+        }
+      } else {
+        const { error: insertError } = await client
+          .from('business_directory')
+          .insert({
+            business_name: businessName,
+            description: registration.details || '',
+            city: city,
+            state: '',
+            country: 'India',
+            business_segment: registration.industry || '',
+            products: '',
+            services: '',
+            website: registration.website || '',
+            is_public: true
+          });
+
+        if (insertError) {
+          showGlobal('Could not create the public Business Directory listing: ' + insertError.message);
+          return;
+        }
+      }
+    }
+
+    const { error } = await client
+      .from('network_registrations')
+      .update({ status })
+      .eq('id', id);
+
+    if (error) {
+      showGlobal('Business listing action completed, but registration status could not be updated: ' + error.message);
+      await loadBusinesses();
+      await loadRegistrations();
+      return;
+    }
+
+    showGlobal(
+      status === 'approved'
+        ? 'Registration approved and business listing published in the Business Directory.'
+        : 'Registration marked rejected.',
+      true
+    );
+    await Promise.all([loadBusinesses(), loadRegistrations()]);
   }
 
   function openBusiness(b=null) {
