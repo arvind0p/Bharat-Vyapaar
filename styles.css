@@ -1543,3 +1543,84 @@ body.about-page {
       url("assets/bharat-vyapaar-about-hero.webp");
   }
 }
+
+
+/* TEAM + BUSINESS DIRECTORY hero backgrounds */
+body.team-page,
+body.directory-page {
+  background: #f1f3f5;
+  color: #26364b;
+}
+
+.team-page .hero,
+.directory-page .hero {
+  isolation: isolate;
+  min-height: 420px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #d8dee7;
+}
+
+.team-page .hero {
+  background-image:
+    linear-gradient(90deg, rgba(246, 248, 251, .91) 0%, rgba(246, 248, 251, .82) 48%, rgba(246, 248, 251, .50) 100%),
+    url("assets/bharat-vyapaar-team-hero.webp");
+  background-position: center 45%;
+}
+
+.directory-page .hero {
+  background-image:
+    linear-gradient(90deg, rgba(246, 248, 251, .90) 0%, rgba(246, 248, 251, .79) 52%, rgba(246, 248, 251, .42) 100%),
+    url("assets/bharat-vyapaar-directory-hero.webp");
+  background-position: center 48%;
+}
+
+.team-page .hero h1,
+.directory-page .hero h1,
+.team-page .hero .highlight,
+.directory-page .hero .highlight {
+  color: #102746;
+  text-shadow: 0 1px 1px rgba(255,255,255,.25);
+}
+
+.team-page .hero .hero-description,
+.directory-page .hero .hero-description {
+  color: #35465b;
+}
+
+.team-page main,
+.directory-page main {
+  background: #f1f3f5;
+}
+
+.team-page .section,
+.directory-page .section {
+  background-color: #f1f3f5;
+}
+
+.team-page .section:nth-of-type(even),
+.directory-page .section:nth-of-type(even) {
+  background-color: #ffffff;
+}
+
+.team-page .person,
+.team-page .advisor-card,
+.directory-page .business-card {
+  border-color: #dfe4eb;
+}
+
+@media (max-width: 780px) {
+  .team-page .hero,
+  .directory-page .hero {
+    min-height: 0;
+    background-position: center;
+    background-image:
+      linear-gradient(180deg, rgba(246, 248, 251, .88) 0%, rgba(246, 248, 251, .94) 100%),
+      url("assets/bharat-vyapaar-team-hero.webp");
+  }
+  .directory-page .hero {
+    background-image:
+      linear-gradient(180deg, rgba(246, 248, 251, .88) 0%, rgba(246, 248, 251, .94) 100%),
+      url("assets/bharat-vyapaar-directory-hero.webp");
+  }
+}
