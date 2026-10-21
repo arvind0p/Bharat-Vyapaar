@@ -1893,3 +1893,13 @@ body.contact-page {
       url("assets/bharat-vyapaar-contact-hero.webp");
   }
 }
+
+
+/* MOBILE FOOTER LOGO SIZE FIX */
+@media (max-width: 560px) {
+  footer .brand img {
+    width: 120px !important;
+    max-width: 120px !important;
+    height: auto !important;
+  }
+}
