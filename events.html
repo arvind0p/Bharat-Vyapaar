@@ -1,20 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore business events, networking meetups and opportunities through Bharat Vyapaar.">
+  <meta name="description" content="Explore business networking events, professional meetups and community activities through Bharat Vyapaar.">
+  <meta name="theme-color" content="#101d35">
+
   <title>Events | Bharat Vyapaar</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
+<body>
   <header class="site-header">
     <div class="container nav-container">
       <a class="logo" href="index.html">Bharat Vyapaar</a>
 
-      <button class="menu-toggle" id="menuToggle" type="button"
-        aria-label="Toggle navigation" aria-expanded="false">
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="mainNav">
         ☰
       </button>
 
@@ -23,9 +36,10 @@
         <a href="about.html">About</a>
         <a href="directory.html">Business Directory</a>
         <a href="team.html">Advisory Team</a>
-        <a href="events.html" aria-current="page">Events</a>
         <a href="network.html">Network</a>
         <a href="opportunities.html">Opportunities</a>
+        <a href="events.html" aria-current="page">Events</a>
+        <a href="partners.html">Partners</a>
         <a href="contact.html">Contact</a>
         <a href="join.html" class="nav-cta">Join Network</a>
       </nav>
@@ -35,15 +49,22 @@
   <main>
     <section class="hero">
       <div class="container hero-content">
-        <p class="eyebrow">BHARAT VYAAPAAR EVENTS</p>
-        <h1>Meet. Connect. Grow.</h1>
+        <p class="eyebrow">BHARAT VYAPAAR COMMUNITY</p>
+
+        <h1>Meet. Connect.<br>Grow Together.</h1>
+
         <p class="hero-description">
-          Discover business networking events, professional meetups
+          Discover business networking activities, professional meetups
           and opportunities to build meaningful business relationships.
         </p>
+
         <div class="hero-actions">
-          <a href="join.html" class="btn btn-primary">Join Our Network</a>
-          <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+          <a href="#upcomingEvents" class="btn btn-primary">
+            Explore Events
+          </a>
+          <a href="join.html" class="btn btn-secondary">
+            Join Our Network
+          </a>
         </div>
       </div>
     </section>
@@ -51,65 +72,109 @@
     <section class="section">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">EVENTS AND NETWORKING</p>
-          <h2>Explore Business Events</h2>
+          <p class="eyebrow">CONNECT THROUGH EXPERIENCES</p>
+          <h2>Bring Business People Together</h2>
           <p>
-            This page will share upcoming events and networking activities
-            as information becomes available.
+            Events can create opportunities to exchange ideas,
+            meet professionals and explore potential collaborations.
           </p>
         </div>
 
         <div class="feature-grid">
           <article class="feature-card">
+            <p class="eyebrow">01 / CONNECT</p>
             <h3>Business Networking</h3>
             <p>
-              Connect with entrepreneurs, professionals and businesses
-              to explore potential collaborations.
+              Meet entrepreneurs, business owners and professionals
+              to expand your network and exchange ideas.
             </p>
           </article>
 
           <article class="feature-card">
+            <p class="eyebrow">02 / LEARN</p>
             <h3>Industry Meetups</h3>
             <p>
-              Discover opportunities to exchange ideas and learn from
-              people working across different industries.
+              Explore opportunities to share experiences, discuss
+              industry developments and learn from other professionals.
             </p>
           </article>
 
           <article class="feature-card">
-            <h3>Partnership Opportunities</h3>
+            <p class="eyebrow">03 / COLLABORATE</p>
+            <h3>Business Collaborations</h3>
             <p>
-              Build connections that may lead to business partnerships
-              and new opportunities.
+              Build relationships that may lead to partnerships,
+              supplier connections and new business possibilities.
             </p>
           </article>
-        </div>
-
-        <div class="section-heading events-notice">
-          <h2>Upcoming Events</h2>
-          <p>
-            No upcoming events have been published on this page yet.
-            Please check back for future updates.
-          </p>
-          <a href="contact.html" class="btn btn-primary">
-            Enquire About Events
-          </a>
         </div>
       </div>
     </section>
 
-    <section class="section section-highlight">
-      <div class="container highlight-content">
-        <div>
-          <p class="eyebrow">STAY CONNECTED</p>
-          <h2>Be Part of the Community</h2>
+    <section class="section section-highlight" id="upcomingEvents">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">EVENT CALENDAR</p>
+          <h2>Upcoming Events</h2>
           <p>
-            Join Bharat Vyapaar to connect with businesses and hear about
-            future networking opportunities.
+            Check this section for event announcements and future
+            networking activities from Bharat Vyapaar.
           </p>
         </div>
 
-        <a href="join.html" class="btn btn-primary">Join Network</a>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <p class="eyebrow">EVENT UPDATES</p>
+            <h3>Stay Informed</h3>
+            <p>
+              No upcoming events have been published on this page yet.
+              Contact our team to enquire about future activities.
+            </p>
+            <a href="contact.html">Enquire About Events →</a>
+          </article>
+
+          <article class="feature-card">
+            <p class="eyebrow">JOIN THE COMMUNITY</p>
+            <h3>Be Part of the Network</h3>
+            <p>
+              Register your interest to become part of the Bharat
+              Vyapaar business community.
+            </p>
+            <a href="join.html">Join the Network →</a>
+          </article>
+
+          <article class="feature-card">
+            <p class="eyebrow">EXPLORE</p>
+            <h3>Discover Businesses</h3>
+            <p>
+              Explore listed businesses and identify companies
+              you may want to connect with.
+            </p>
+            <a href="directory.html">Browse Directory →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container highlight-content">
+        <div>
+          <p class="eyebrow">STAY CONNECTED</p>
+          <h2>Good Connections Start With a Conversation</h2>
+          <p>
+            Join the network or contact Bharat Vyapaar to discuss
+            networking enquiries and potential community activities.
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a href="join.html" class="btn btn-primary">
+            Join Network
+          </a>
+          <a href="contact.html" class="btn btn-secondary">
+            Contact Us
+          </a>
+        </div>
       </div>
     </section>
   </main>
@@ -125,6 +190,7 @@
         <a href="about.html">About</a>
         <a href="directory.html">Business Directory</a>
         <a href="team.html">Advisory Team</a>
+        <a href="network.html">Network</a>
         <a href="contact.html">Contact</a>
       </div>
 
@@ -135,20 +201,5 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    document.getElementById("currentYear").textContent =
-      new Date().getFullYear();
-
-    const menuToggle = document.getElementById("menuToggle");
-    const mainNav = document.getElementById("mainNav");
-
-    if (menuToggle && mainNav) {
-      menuToggle.addEventListener("click", function () {
-        const isOpen = mainNav.classList.toggle("active");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-      });
-    }
-  </script>
-
 </body>
 </html>
