@@ -1480,3 +1480,66 @@ body.homepage {
       url("assets/bharat-vyapaar-home-hero.webp");
   }
 }
+
+
+/* ABOUT PAGE: planning image hero and coordinated neutral background */
+body.about-page {
+  background: #f2f3f5;
+  color: #344256;
+}
+
+.about-page .hero {
+  isolation: isolate;
+  min-height: 420px;
+  background-image:
+    linear-gradient(90deg, rgba(248, 249, 251, .95) 0%, rgba(248, 249, 251, .89) 46%, rgba(248, 249, 251, .58) 100%),
+    url("assets/bharat-vyapaar-about-hero.webp");
+  background-size: cover;
+  background-position: center 48%;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #dce1e7;
+}
+
+.about-page .hero::after {
+  border-color: rgba(13, 29, 53, .1);
+  box-shadow:
+    0 0 0 40px rgba(13, 29, 53, .022),
+    0 0 0 80px rgba(13, 29, 53, .016);
+}
+
+.about-page .hero h1,
+.about-page .hero .highlight {
+  color: #102746;
+}
+
+.about-page .hero .hero-description {
+  color: #394b61;
+}
+
+.about-page main {
+  background: #f2f3f5;
+}
+
+.about-page .section {
+  background-color: #f2f3f5;
+}
+
+.about-page .section:nth-of-type(even) {
+  background-color: #ffffff;
+}
+
+.about-page .card,
+.about-page .value-card,
+.about-page .content-card {
+  border-color: #e0e4e9;
+}
+
+@media (max-width: 780px) {
+  .about-page .hero {
+    min-height: 0;
+    background-position: 53% center;
+    background-image:
+      linear-gradient(180deg, rgba(248, 249, 251, .89) 0%, rgba(248, 249, 251, .94) 100%),
+      url("assets/bharat-vyapaar-about-hero.webp");
+  }
+}
