@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Join Bharat Vyapaar to showcase your business, connect with professionals and explore collaboration opportunities.">
+  <meta name="theme-color" content="#102b46">
   <title>Join Our Network | Bharat Vyapaar</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -35,12 +37,13 @@
   <main>
     <section class="hero">
       <div class="container hero-content">
-        <p class="eyebrow">JOIN BHARAT VYAAPAAR</p>
+        <p class="eyebrow">JOIN BHARAT VYAPAAR</p>
         <h1>Become Part of Our Business Network.</h1>
         <p class="hero-description">
           Introduce your business, connect with professionals and explore
-          potential opportunities for collaboration and growth.
+          opportunities for collaboration, visibility and growth.
         </p>
+        <a href="#registration" class="btn btn-primary">Register Your Interest</a>
       </div>
     </section>
 
@@ -78,11 +81,23 @@
               partnerships and opportunities.
             </p>
           </div>
+
+          <div class="contact-info-card">
+            <h3>Connect with Purpose</h3>
+            <p>
+              Tell us what you are looking for so your enquiry can be
+              understood and reviewed appropriately.
+            </p>
+          </div>
         </div>
 
-        <div class="contact-form-container">
-          <h2>Network Registration</h2>
-          <p>Complete the form to prepare your registration details.</p>
+        <div class="contact-form-container" id="registration">
+          <p class="eyebrow">NETWORK REGISTRATION</p>
+          <h2>Tell Us About Yourself</h2>
+          <p>
+            Complete the form below to prepare your registration details.
+            Fields marked with * are required.
+          </p>
 
           <form id="joinForm">
             <div class="form-group">
@@ -215,6 +230,12 @@
             </button>
 
             <p id="joinStatus" role="status" aria-live="polite"></p>
+
+            <p class="form-note">
+              This form currently prepares a downloadable text file. It does
+              not submit your information to Bharat Vyapaar or save it to the
+              database.
+            </p>
           </form>
         </div>
 
@@ -244,19 +265,6 @@
 
   <script src="script.js"></script>
   <script>
-    document.getElementById("currentYear").textContent =
-      new Date().getFullYear();
-
-    const menuToggle = document.getElementById("menuToggle");
-    const mainNav = document.getElementById("mainNav");
-
-    if (menuToggle && mainNav) {
-      menuToggle.addEventListener("click", function () {
-        const isOpen = mainNav.classList.toggle("active");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-      });
-    }
-
     const joinForm = document.getElementById("joinForm");
     const joinStatus = document.getElementById("joinStatus");
 
