@@ -7,7 +7,7 @@
     return;
   }
   const client = window.supabase.createClient(window.BV_SUPABASE_URL, window.BV_SUPABASE_ANON_KEY);
-  let businesses = [], team = [], currentPhotoPath = '';
+  let businesses = [], team = [], registrations = [], currentPhotoPath = '';
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const showGlobal = (msg, ok=false) => { const el=$('globalMessage'); el.textContent=msg; el.className='message global-message '+(ok?'success':'error'); };
   const showLoginMessage = msg => $('loginMessage').textContent = msg;
@@ -20,7 +20,7 @@
     if(error) throw error;
     if(!data) throw new Error('This account is not enabled as an admin. Add its user ID to admin_users using the SQL setup instructions.');
   };
-  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam()]); }
+  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam(),loadRegistrations()]); }
   async function loadBusinesses() {
     const {data,error}=await client.from('business_directory').select('*').order('business_name');
     if(error) { $('businessRows').innerHTML=`<tr><td colspan="5" class="empty-row">Could not load businesses: ${esc(error.message)}</td></tr>`; return; }
@@ -42,6 +42,56 @@
       <td><div class="row-actions"><button class="edit-btn" data-edit-team="${esc(t.id)}">Edit</button><button class="hide-btn" data-toggle-team="${esc(t.id)}">${t.is_active?'Hide':'Publish'}</button><button class="delete-btn" data-delete-team="${esc(t.id)}">Delete</button></div></td>
     </tr>`).join(''):'<tr><td colspan="5" class="empty-row">No team members yet. Click “Add team member” to add one.</td></tr>';
   }
+
+  async function loadRegistrations() {
+    const {data,error}=await client.from('network_registrations').select('*').order('created_at',{ascending:false});
+    if(error) {
+      $('registrationRows').innerHTML=`<tr><td colspan="7" class="empty-row">Could not load registrations: ${esc(error.message)}. Check the registration table and admin RLS policies.</td></tr>`;
+      return;
+    }
+    registrations=data||[];
+    $('registrationRows').innerHTML=registrations.length?registrations.map(r=>{
+      const status=String(r.status||'new');
+      const statusClass=status==='approved'?'public':status==='rejected'?'hidden':'';
+      const submitted=r.created_at?new Date(r.created_at).toLocaleString():'—';
+      return `<tr>
+        <td><strong>${esc(r.full_name)}</strong><br><span>${esc(r.email)}</span><br><span>${esc(r.phone)}</span></td>
+        <td>${esc(r.organization)}</td>
+        <td>${esc(r.city)}</td>
+        <td>${esc(r.interest)}</td>
+        <td>${esc(submitted)}</td>
+        <td><span class="status-pill ${statusClass}">${esc(status)}</span></td>
+        <td><div class="row-actions">
+          <button class="edit-btn" data-edit-registration="${esc(r.id)}">Edit</button>
+          <button class="hide-btn" data-registration-status="approved" data-registration-id="${esc(r.id)}">Approve</button>
+          <button class="delete-btn" data-registration-status="rejected" data-registration-id="${esc(r.id)}">Reject</button>
+        </div></td>
+      </tr>`;
+    }).join(''):'<tr><td colspan="7" class="empty-row">No registrations received yet.</td></tr>';
+  }
+  function openRegistration(r) {
+    $('registrationForm').hidden=false;
+    $('registrationId').value=r.id;
+    $('registrationName').value=r.full_name||'';
+    $('registrationEmail').value=r.email||'';
+    $('registrationPhone').value=r.phone||'';
+    $('registrationOrganization').value=r.organization||'';
+    $('registrationRole').value=r.role||'';
+    $('registrationIndustry').value=r.industry||'';
+    $('registrationCity').value=r.city||'';
+    $('registrationWebsite').value=r.website||'';
+    $('registrationInterest').value=r.interest||'';
+    $('registrationDetails').value=r.details||'';
+    $('registrationStatus').value=r.status||'new';
+    $('registrationForm').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  async function setRegistrationStatus(id,status) {
+    const {error}=await client.from('network_registrations').update({status}).eq('id',id);
+    if(error){showGlobal('Could not update registration: '+error.message);return;}
+    showGlobal('Registration marked '+status+'.',true);
+    await loadRegistrations();
+  }
+
   function openBusiness(b=null) {
     $('businessForm').hidden=false; $('businessFormTitle').textContent=b?'Edit business':'Add business';
     $('businessId').value=b?.id||''; $('businessName').value=b?.business_name||''; $('businessDescription').value=b?.description||'';
@@ -72,13 +122,53 @@
   document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>$(btn.dataset.close).hidden=true));
   document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{
     document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));
-    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team';
+    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team'; $('registrationsPanel').hidden=btn.dataset.tab!=='registrations'; if(btn.dataset.tab==='registrations') loadRegistrations();
   }));
   $('businessRows').addEventListener('click',async e=>{
     const edit=e.target.closest('[data-edit-business]'), toggle=e.target.closest('[data-toggle-business]'), del=e.target.closest('[data-delete-business]');
     if(edit) openBusiness(businesses.find(x=>String(x.id)===edit.dataset.editBusiness));
     if(toggle){const b=businesses.find(x=>String(x.id)===toggle.dataset.toggleBusiness);if(!b)return;const {error}=await client.from('business_directory').update({is_public:!b.is_public}).eq('id',b.id);if(error)showGlobal(error.message);else{showGlobal('Listing visibility updated.',true);await loadBusinesses();}}
     if(del){const b=businesses.find(x=>String(x.id)===del.dataset.deleteBusiness);if(!b||!confirm(`Delete "${b.business_name}" permanently?`))return;const {error}=await client.from('business_directory').delete().eq('id',b.id);if(error)showGlobal(error.message);else{showGlobal('Business deleted.',true);await loadBusinesses();}}
+  });
+  $('registrationRows').addEventListener('click',async e=>{
+    const edit=e.target.closest('[data-edit-registration]');
+    const action=e.target.closest('[data-registration-status]');
+    if(edit) {
+      const record=registrations.find(x=>String(x.id)===edit.dataset.editRegistration);
+      if(record) openRegistration(record);
+    }
+    if(action) {
+      const id=action.dataset.registrationId;
+      const status=action.dataset.registrationStatus;
+      const record=registrations.find(x=>String(x.id)===id);
+      if(!record)return;
+      const verb=status==='approved'?'approve':'reject';
+      if(!confirm(`Are you sure you want to ${verb} the registration from "${record.full_name}"?`))return;
+      await setRegistrationStatus(id,status);
+    }
+  });
+  $('refreshRegistrationsButton').addEventListener('click',loadRegistrations);
+  $('registrationForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const id=$('registrationId').value;
+    const record={
+      full_name:$('registrationName').value.trim(),
+      email:$('registrationEmail').value.trim(),
+      phone:$('registrationPhone').value.trim(),
+      organization:$('registrationOrganization').value.trim(),
+      role:$('registrationRole').value.trim(),
+      industry:$('registrationIndustry').value.trim(),
+      city:$('registrationCity').value.trim(),
+      website:$('registrationWebsite').value.trim()||null,
+      interest:$('registrationInterest').value.trim(),
+      details:$('registrationDetails').value.trim()||null,
+      status:$('registrationStatus').value
+    };
+    const {error}=await client.from('network_registrations').update(record).eq('id',id);
+    if(error){showGlobal('Could not save registration: '+error.message);return;}
+    $('registrationForm').hidden=true;
+    showGlobal('Registration updated successfully.',true);
+    await loadRegistrations();
   });
   $('teamRows').addEventListener('click',async e=>{
     const edit=e.target.closest('[data-edit-team]'), toggle=e.target.closest('[data-toggle-team]'), del=e.target.closest('[data-delete-team]');
