@@ -3,3 +3,119 @@
 @media(max-width:1000px){.links{gap:9px}.links a{font-size:11px}.team{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(2,1fr)}.cities{grid-template-columns:repeat(4,1fr)}.footgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.nav{min-height:70px}.menu{display:block}.links{display:none;position:absolute;top:70px;left:0;right:0;background:white;padding:15px 22px 22px;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line)}.links.open{display:flex}.links a{font-size:14px;padding:7px}.joinbtn{display:none}.hero{padding:48px 0}.heroGrid,.split,.contactGrid{grid-template-columns:1fr;gap:30px}.visual{min-height:300px}.statGrid{grid-template-columns:repeat(2,1fr)}.section{padding:54px 0}.grid3{grid-template-columns:1fr}.team{grid-template-columns:repeat(2,1fr)}.cities{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.cta{flex-direction:column;align-items:flex-start}.pageHero{padding:40px 0}}
 @media(max-width:470px){.team,.grid4,.steps,.footgrid{grid-template-columns:1fr}.brand img{width:48px;height:48px}.brand{font-size:13px}.stat{padding:15px 8px}.stat strong{font-size:23px}.actions .btn{width:100%;text-align:center}.visual{min-height:260px}.visual img{width:84%}}
+
+
+/* ===== Bharat Vyapaar Business Directory refresh ===== */
+.top-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.top-sep{padding:0 9px;color:#c99a3b}
+.directory-hero{overflow:hidden;background:radial-gradient(circle at 82% 25%,#c99a3b25,transparent 25%),linear-gradient(125deg,#f4f8fd 0%,#fff 58%,#eef4fa 100%);border-bottom:1px solid var(--line)}
+.directory-hero-grid{min-height:380px;display:grid;grid-template-columns:1.12fr .88fr;align-items:center;gap:40px;padding-top:42px;padding-bottom:42px}
+.directory-hero-copy .crumb{margin-bottom:26px}
+.directory-hero h1{max-width:700px;font-size:clamp(42px,5vw,62px)}
+.directory-hero h1 em{font-style:normal;color:var(--gold)}
+.directory-hero-copy>p{max-width:620px;font-size:17px}
+.directory-hero-points{display:flex;gap:18px;flex-wrap:wrap;margin-top:24px}
+.directory-hero-points span{font-size:12px;font-weight:750;color:var(--navy)}
+.directory-hero-points i{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font-style:normal;background:#dcefe9;color:#218b78;margin-right:5px}
+.directory-hero-art{min-height:290px;position:relative;display:grid;place-items:center;isolation:isolate}
+.art-orbit{position:absolute;border:1px solid #c99a3b65;border-radius:50%;width:300px;height:300px;z-index:-1}
+.orbit-two{width:220px;height:220px;border-color:#1b416d35}
+.art-letter{font-size:140px;line-height:1;font-weight:950;letter-spacing:-.1em;color:#10264b0b;position:absolute;right:10px;bottom:-3px;z-index:-1}
+.art-card{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #e3e9f1;border-radius:18px;padding:18px 20px;box-shadow:0 20px 50px #10264b15}
+.art-card-main{width:min(330px,100%);min-height:92px}
+.art-icon{display:grid;place-items:center;flex:0 0 54px;height:54px;border-radius:16px;background:#edf3fa;color:var(--navy);font-size:35px}
+.art-card strong,.art-card small{display:block}
+.art-card strong{font-size:15px;color:var(--navy)}
+.art-card small{font-size:11px;color:var(--muted);margin-top:3px}
+.art-card-small{position:absolute;right:0;bottom:15px;padding:13px 16px}
+.art-card-small strong{font-size:12px}
+.art-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 6px #218b781b}
+.directory-section{background:#fbfcfe}
+.directory-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:25px;margin-bottom:26px}
+.directory-section-heading h2{font-size:clamp(29px,3.2vw,39px)}
+.directory-section-heading p{margin-bottom:0}
+.directory-count-card{display:flex;align-items:center;gap:12px;min-width:170px;padding:15px 18px;background:white;border:1px solid var(--line);border-radius:16px}
+.count-symbol{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#edf3fa;color:var(--teal);font-size:25px}
+.directory-count-card strong,.directory-count-card span{display:block}
+.directory-count-card strong{font-size:24px;line-height:1.1;color:var(--navy)}
+.directory-count-card div span{font-size:11px;color:var(--muted)}
+.directory-notice{margin-bottom:18px;padding:12px 16px;border:1px solid #d8e6f2;border-radius:12px;background:#f0f6fc;color:#28496c;font-size:13px}
+.directory-notice.is-success{background:#eff8f4;border-color:#cce8da;color:#20684f}
+.directory-notice.is-warning{background:#fff8e9;border-color:#f0dfb4;color:#775716}
+.directory-notice.is-error{background:#fff1f0;border-color:#f1cfcb;color:#963a32}
+.directory-notice[hidden]{display:none}
+.filter-panel{padding:26px;background:white;border:1px solid var(--line);border-radius:22px;box-shadow:0 15px 45px #10264b0b}
+.filter-panel-top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}
+.filter-kicker{font-size:10px;letter-spacing:.16em;font-weight:900;color:var(--teal)}
+.filter-panel-top h3{font-size:21px;margin:4px 0 0}
+.text-reset{border:0;background:transparent;color:var(--teal);font:inherit;font-size:12px;font-weight:800;cursor:pointer;padding:8px}
+.directory-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.directory-fields .field{min-width:0}
+.directory-fields .search-field{grid-column:span 2}
+.directory-fields .products-field{grid-column:span 3}
+.directory-fields .field label{margin:0 0 7px;display:block;font-size:12px;color:var(--navy);font-weight:800}
+.directory-fields input,.directory-fields select{width:100%;height:47px;border:1px solid #dfe6ef;border-radius:11px;padding:0 13px;background:#fff;color:var(--ink);font:inherit;font-size:13px;outline:none;transition:border-color .15s,box-shadow .15s}
+.directory-fields input:focus,.directory-fields select:focus{border-color:#218b78;box-shadow:0 0 0 3px #218b781a}
+.input-with-icon{position:relative}
+.input-with-icon>span{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:25px;color:var(--muted);pointer-events:none}
+.input-with-icon input{padding-left:43px}
+.filter-actions{display:flex;align-items:flex-end}
+.filter-actions .btn{height:47px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:11px;padding:0 17px}
+.results-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:34px 0 17px}
+.results-heading h3{font-size:22px;margin:0}
+.results-heading p{font-size:12px;margin:4px 0 0}
+.results-label{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;font-weight:700}
+.results-label span{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+.businessgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.business-card{min-width:0;background:white;border:1px solid var(--line);border-radius:18px;padding:21px;box-shadow:0 8px 25px #10264b07;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s,border-color .18s}
+.business-card:hover{transform:translateY(-3px);box-shadow:0 15px 35px #10264b12;border-color:#c9d8e8}
+.business-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}
+.business-monogram{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#e8eff8,#f8edcf);color:var(--navy);font-size:15px;font-weight:900}
+.business-segment{max-width:65%;background:#eef7f4;color:#247560;border-radius:30px;padding:6px 10px;font-size:10px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.business-card h3{font-size:18px;line-height:1.3;margin:0 0 8px;overflow-wrap:anywhere}
+.business-location{font-size:12px;margin:0 0 12px;color:var(--teal);font-weight:750}
+.business-description{font-size:13px;line-height:1.65;margin:0 0 16px;overflow-wrap:anywhere}
+.business-tags{border-top:1px solid #edf0f5;padding-top:13px;margin-top:auto}
+.business-tags div{display:grid;grid-template-columns:70px minmax(0,1fr);gap:8px;margin:6px 0;font-size:11px}
+.business-tags strong{color:var(--navy)}
+.business-tags span{color:var(--muted);overflow-wrap:anywhere}
+.business-card-bottom{border-top:1px solid #edf0f5;margin-top:16px;padding-top:13px}
+.business-card-bottom a{font-size:12px;font-weight:850;color:var(--teal)}
+.business-card-bottom a span{margin-left:4px}
+.no-website{font-size:11px;color:#8995a6}
+.directory-empty{grid-column:1/-1;text-align:center;padding:55px 20px;background:white;border:1px dashed #cbd7e5;border-radius:18px}
+.empty-icon{margin:0 auto 13px;width:58px;height:58px;display:grid;place-items:center;border-radius:18px;background:#edf3fa;color:var(--navy);font-size:35px}
+.directory-empty h3{font-size:20px;margin:0 0 7px}
+.directory-empty p{font-size:13px;margin:0 auto 18px;max-width:440px}
+.results-limit-note{grid-column:1/-1;font-size:12px;color:var(--muted)}
+.footer-intro{font-size:13px;color:#b5c2d6}
+@media(max-width:1000px){
+  .directory-hero-grid{gap:20px}
+  .directory-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .directory-fields .search-field,.directory-fields .products-field{grid-column:span 2}
+  .directory-fields .filter-actions{grid-column:span 2}
+  .businessgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .art-card-small{right:-5px}
+}
+@media(max-width:760px){
+  .directory-hero-grid{grid-template-columns:1fr;padding-top:28px;padding-bottom:35px}
+  .directory-hero-art{min-height:220px;margin-top:0}
+  .art-orbit{width:220px;height:220px}
+  .orbit-two{width:165px;height:165px}
+  .art-card-small{right:3px;bottom:0}
+  .directory-hero h1{font-size:clamp(38px,10vw,52px)}
+  .directory-section-heading{align-items:flex-start;flex-direction:column}
+  .directory-count-card{min-width:0}
+  .filter-panel{padding:19px}
+  .businessgrid{grid-template-columns:1fr}
+  .results-heading{align-items:flex-start;flex-direction:column}
+  .top-inner{align-items:flex-start;flex-direction:column;gap:4px}
+}
+@media(max-width:470px){
+  .directory-fields{grid-template-columns:1fr}
+  .directory-fields .search-field,.directory-fields .products-field,.directory-fields .filter-actions{grid-column:auto}
+  .filter-panel-top{align-items:flex-start}
+  .directory-hero-points{gap:9px;flex-direction:column}
+  .art-card-main{padding:14px}
+  .art-card-small{right:-2px}
+}
