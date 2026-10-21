@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,23 +10,30 @@
 </head>
 <body>
   <main class="admin-shell">
+
+    <!-- ADMIN LOGIN -->
     <section id="loginView" class="login-card">
       <a class="back-link" href="index.html">← Back to website</a>
       <div class="brand-mark">BV</div>
       <p class="eyebrow">BHARAT VYAPAAR</p>
       <h1>Admin Panel</h1>
       <p class="muted">Sign in to manage registrations, advisory team members and business listings.</p>
+
       <form id="loginForm">
         <label for="loginEmail">Admin email</label>
         <input id="loginEmail" type="email" autocomplete="username" required>
+
         <label for="loginPassword">Password</label>
         <input id="loginPassword" type="password" autocomplete="current-password" required>
+
         <button class="primary full" type="submit">Sign in</button>
         <p id="loginMessage" class="message" role="status"></p>
       </form>
+
       <p class="small-note">Admin access must be enabled in Supabase before signing in.</p>
     </section>
 
+    <!-- MANAGEMENT DASHBOARD -->
     <section id="dashboardView" class="dashboard" hidden>
       <header class="dashboard-header">
         <div>
@@ -33,6 +41,7 @@
           <h1>Management Dashboard</h1>
           <p class="muted" id="signedInAs"></p>
         </div>
+
         <div class="header-actions">
           <a class="secondary" href="index.html">View website</a>
           <button id="logoutButton" class="danger-outline" type="button">Log out</button>
@@ -40,101 +49,292 @@
       </header>
 
       <div id="globalMessage" class="message global-message" role="status"></div>
+
+      <!-- ALL THREE DASHBOARD TABS -->
       <nav class="tabs" aria-label="Management sections">
-        <button class="tab active" type="button" data-tab="businesses">Business Directory</button>
-        <button class="tab" type="button" data-tab="team">Advisory Team</button>
-        <button class="tab" type="button" data-tab="registrations">Registrations</button>
+        <button class="tab active" type="button" data-tab="businesses">
+          Business Directory
+        </button>
+        <button class="tab" type="button" data-tab="team">
+          Advisory Team
+        </button>
+        <button class="tab" type="button" data-tab="registrations">
+          Registrations
+        </button>
       </nav>
 
+      <!-- BUSINESS DIRECTORY -->
       <section id="businessesPanel" class="panel">
         <div class="panel-heading">
-          <div><h2>Business Directory</h2><p class="muted">Add, update, publish, hide or delete public business listings.</p></div>
+          <div>
+            <h2>Business Directory</h2>
+            <p class="muted">Add, update, publish, hide or delete public business listings.</p>
+          </div>
           <button id="newBusinessButton" class="primary" type="button">+ Add business</button>
         </div>
+
         <form id="businessForm" class="editor-form" hidden>
-          <div class="form-heading"><h3 id="businessFormTitle">Add business</h3><button class="icon-button" type="button" data-close="businessForm" aria-label="Close form">×</button></div>
-          <input id="businessId" type="hidden">
-          <div class="form-grid">
-            <div><label for="businessName">Business name *</label><input id="businessName" required maxlength="180"></div>
-            <div><label for="businessSegment">Business segment</label><input id="businessSegment" maxlength="120"></div>
-            <div class="wide"><label for="businessDescription">Description</label><textarea id="businessDescription" rows="3"></textarea></div>
-            <div><label for="businessCity">City</label><input id="businessCity" maxlength="120"></div>
-            <div><label for="businessState">State</label><input id="businessState" maxlength="120"></div>
-            <div><label for="businessCountry">Country</label><input id="businessCountry" value="India" maxlength="120"></div>
-            <div><label for="businessWebsite">Website URL</label><input id="businessWebsite" type="url" placeholder="https://example.com"></div>
-            <div><label for="businessProducts">Products</label><textarea id="businessProducts" rows="2" placeholder="Separate multiple items with commas or semicolons"></textarea></div>
-            <div><label for="businessServices">Services</label><textarea id="businessServices" rows="2" placeholder="Separate multiple items with commas or semicolons"></textarea></div>
-            <div class="checkbox-row"><input id="businessPublic" type="checkbox" checked><label for="businessPublic">Show this listing publicly</label></div>
+          <div class="form-heading">
+            <h3 id="businessFormTitle">Add business</h3>
+            <button class="icon-button" type="button" data-close="businessForm" aria-label="Close form">×</button>
           </div>
-          <div class="form-actions"><button class="primary" type="submit">Save business</button><button class="secondary" type="button" data-close="businessForm">Cancel</button></div>
+
+          <input id="businessId" type="hidden">
+
+          <div class="form-grid">
+            <div>
+              <label for="businessName">Business name *</label>
+              <input id="businessName" required maxlength="180">
+            </div>
+            <div>
+              <label for="businessSegment">Business segment</label>
+              <input id="businessSegment" maxlength="120">
+            </div>
+            <div class="wide">
+              <label for="businessDescription">Description</label>
+              <textarea id="businessDescription" rows="3"></textarea>
+            </div>
+            <div>
+              <label for="businessCity">City</label>
+              <input id="businessCity" maxlength="120">
+            </div>
+            <div>
+              <label for="businessState">State</label>
+              <input id="businessState" maxlength="120">
+            </div>
+            <div>
+              <label for="businessCountry">Country</label>
+              <input id="businessCountry" value="India" maxlength="120">
+            </div>
+            <div>
+              <label for="businessWebsite">Website URL</label>
+              <input id="businessWebsite" type="url" placeholder="https://example.com">
+            </div>
+            <div>
+              <label for="businessProducts">Products</label>
+              <textarea id="businessProducts" rows="2"></textarea>
+            </div>
+            <div>
+              <label for="businessServices">Services</label>
+              <textarea id="businessServices" rows="2"></textarea>
+            </div>
+            <div class="checkbox-row">
+              <input id="businessPublic" type="checkbox" checked>
+              <label for="businessPublic">Show this listing publicly</label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="primary" type="submit">Save business</button>
+            <button class="secondary" type="button" data-close="businessForm">Cancel</button>
+          </div>
         </form>
-        <div class="table-wrap"><table><thead><tr><th>Business</th><th>Location</th><th>Segment</th><th>Visibility</th><th>Actions</th></tr></thead><tbody id="businessRows"><tr><td colspan="5">Loading businesses…</td></tr></tbody></table></div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Business</th>
+                <th>Location</th>
+                <th>Segment</th>
+                <th>Visibility</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="businessRows">
+              <tr><td colspan="5">Loading businesses…</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
+      <!-- ADVISORY TEAM -->
       <section id="teamPanel" class="panel" hidden>
         <div class="panel-heading">
-          <div><h2>Advisory Team</h2><p class="muted">Manage member names, roles, locations, descriptions and photos.</p></div>
+          <div>
+            <h2>Advisory Team</h2>
+            <p class="muted">Manage member names, roles, locations, descriptions and photos.</p>
+          </div>
           <button id="newTeamButton" class="primary" type="button">+ Add team member</button>
         </div>
+
         <form id="teamForm" class="editor-form" hidden>
-          <div class="form-heading"><h3 id="teamFormTitle">Add team member</h3><button class="icon-button" type="button" data-close="teamForm" aria-label="Close form">×</button></div>
-          <input id="teamId" type="hidden">
-          <div class="form-grid">
-            <div><label for="teamName">Full name *</label><input id="teamName" required maxlength="180"></div>
-            <div><label for="teamRole">Designation / role</label><input id="teamRole" maxlength="180"></div>
-            <div><label for="teamCity">City / region</label><input id="teamCity" maxlength="180"></div>
-            <div><label for="teamSort">Display order</label><input id="teamSort" type="number" min="0" value="100"></div>
-            <div class="wide"><label for="teamBio">Description</label><textarea id="teamBio" rows="3"></textarea></div>
-            <div class="wide"><label for="teamPhoto">Profile photo</label><input id="teamPhoto" type="file" accept="image/png,image/jpeg,image/webp"><p class="help">PNG, JPG or WebP. Maximum 5 MB. Leave empty to keep the current photo.</p><div id="currentPhotoWrap" class="current-photo" hidden><img id="currentPhoto" alt="Current profile photo"><span>Current photo</span></div></div>
-            <div class="checkbox-row"><input id="teamActive" type="checkbox" checked><label for="teamActive">Show this member on the public website</label></div>
+          <div class="form-heading">
+            <h3 id="teamFormTitle">Add team member</h3>
+            <button class="icon-button" type="button" data-close="teamForm" aria-label="Close form">×</button>
           </div>
-          <div class="form-actions"><button class="primary" type="submit">Save team member</button><button class="secondary" type="button" data-close="teamForm">Cancel</button></div>
+
+          <input id="teamId" type="hidden">
+
+          <div class="form-grid">
+            <div>
+              <label for="teamName">Full name *</label>
+              <input id="teamName" required maxlength="180">
+            </div>
+            <div>
+              <label for="teamRole">Designation / role</label>
+              <input id="teamRole" maxlength="180">
+            </div>
+            <div>
+              <label for="teamCity">City / region</label>
+              <input id="teamCity" maxlength="180">
+            </div>
+            <div>
+              <label for="teamSort">Display order</label>
+              <input id="teamSort" type="number" min="0" value="100">
+            </div>
+            <div class="wide">
+              <label for="teamBio">Description</label>
+              <textarea id="teamBio" rows="3"></textarea>
+            </div>
+            <div class="wide">
+              <label for="teamPhoto">Profile photo</label>
+              <input id="teamPhoto" type="file" accept="image/png,image/jpeg,image/webp">
+              <p class="help">PNG, JPG or WebP. Maximum 5 MB.</p>
+              <div id="currentPhotoWrap" class="current-photo" hidden>
+                <img id="currentPhoto" alt="Current profile photo">
+                <span>Current photo</span>
+              </div>
+            </div>
+            <div class="checkbox-row">
+              <input id="teamActive" type="checkbox" checked>
+              <label for="teamActive">Show this member on the public website</label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="primary" type="submit">Save team member</button>
+            <button class="secondary" type="button" data-close="teamForm">Cancel</button>
+          </div>
         </form>
-        <div class="table-wrap"><table><thead><tr><th>Member</th><th>Role</th><th>City / Region</th><th>Visibility</th><th>Actions</th></tr></thead><tbody id="teamRows"><tr><td colspan="5">Loading team members…</td></tr></tbody></table></div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Member</th>
+                <th>Role</th>
+                <th>City / Region</th>
+                <th>Visibility</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="teamRows">
+              <tr><td colspan="5">Loading team members…</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
+      <!-- REGISTRATION MANAGEMENT -->
       <section id="registrationsPanel" class="panel" hidden>
         <div class="panel-heading">
           <div>
             <h2>Network Registrations</h2>
-            <p class="muted">Review new applications, approve or reject them, and edit submitted details.</p>
+            <p class="muted">
+              Review applicants, approve or reject registrations, and edit submitted details.
+            </p>
           </div>
-          <button id="refreshRegistrationsButton" class="secondary" type="button">Refresh registrations</button>
+          <button id="refreshRegistrationsButton" class="secondary" type="button">
+            Refresh registrations
+          </button>
         </div>
+
+        <!-- EDIT REGISTRATION FORM -->
         <form id="registrationForm" class="editor-form" hidden>
           <div class="form-heading">
             <h3 id="registrationFormTitle">Edit registration</h3>
             <button class="icon-button" type="button" data-close="registrationForm" aria-label="Close form">×</button>
           </div>
+
           <input id="registrationId" type="hidden">
+
           <div class="form-grid">
-            <div><label for="registrationName">Full name *</label><input id="registrationName" required maxlength="180"></div>
-            <div><label for="registrationEmail">Email *</label><input id="registrationEmail" type="email" required maxlength="254"></div>
-            <div><label for="registrationPhone">Phone *</label><input id="registrationPhone" required maxlength="40"></div>
-            <div><label for="registrationOrganization">Business / Organization *</label><input id="registrationOrganization" required maxlength="180"></div>
-            <div><label for="registrationRole">Role *</label><input id="registrationRole" required maxlength="180"></div>
-            <div><label for="registrationIndustry">Industry *</label><input id="registrationIndustry" required maxlength="180"></div>
-            <div><label for="registrationCity">City *</label><input id="registrationCity" required maxlength="120"></div>
-            <div><label for="registrationWebsite">Website</label><input id="registrationWebsite" type="url" placeholder="https://example.com"></div>
-            <div><label for="registrationInterest">Interest *</label><input id="registrationInterest" required maxlength="180"></div>
-            <div><label for="registrationStatus">Status</label><select id="registrationStatus"><option value="new">New</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="contacted">Contacted</option><option value="closed">Closed</option></select></div>
-            <div class="wide"><label for="registrationDetails">Business details</label><textarea id="registrationDetails" rows="4" maxlength="5000"></textarea></div>
+            <div>
+              <label for="registrationName">Full name *</label>
+              <input id="registrationName" required maxlength="180">
+            </div>
+            <div>
+              <label for="registrationEmail">Email *</label>
+              <input id="registrationEmail" type="email" required maxlength="254">
+            </div>
+            <div>
+              <label for="registrationPhone">Phone *</label>
+              <input id="registrationPhone" required maxlength="40">
+            </div>
+            <div>
+              <label for="registrationOrganization">Business / Organization *</label>
+              <input id="registrationOrganization" required maxlength="180">
+            </div>
+            <div>
+              <label for="registrationRole">Role *</label>
+              <input id="registrationRole" required maxlength="180">
+            </div>
+            <div>
+              <label for="registrationIndustry">Industry *</label>
+              <input id="registrationIndustry" required maxlength="180">
+            </div>
+            <div>
+              <label for="registrationCity">City *</label>
+              <input id="registrationCity" required maxlength="120">
+            </div>
+            <div>
+              <label for="registrationWebsite">Website</label>
+              <input id="registrationWebsite" type="url" placeholder="https://example.com">
+            </div>
+            <div>
+              <label for="registrationInterest">Interest *</label>
+              <input id="registrationInterest" required maxlength="180">
+            </div>
+            <div>
+              <label for="registrationStatus">Status</label>
+              <select id="registrationStatus">
+                <option value="new">New</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+                <option value="contacted">Contacted</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
+            <div class="wide">
+              <label for="registrationDetails">Business details</label>
+              <textarea id="registrationDetails" rows="4" maxlength="5000"></textarea>
+            </div>
           </div>
+
           <div class="form-actions">
             <button class="primary" type="submit">Save changes</button>
             <button class="secondary" type="button" data-close="registrationForm">Cancel</button>
           </div>
         </form>
+
+        <!-- REGISTRATIONS TABLE -->
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Applicant</th><th>Business</th><th>Location</th><th>Interest</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="registrationRows"><tr><td colspan="7">Loading registrations…</td></tr></tbody>
+            <thead>
+              <tr>
+                <th>Applicant</th>
+                <th>Business</th>
+                <th>Location</th>
+                <th>Interest</th>
+                <th>Submitted</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="registrationRows">
+              <tr><td colspan="7">Loading registrations…</td></tr>
+            </tbody>
           </table>
         </div>
       </section>
-      <footer class="dashboard-footer">Changes are saved to Supabase and appear on the public pages when the database setup is complete.</footer>
+
+      <footer class="dashboard-footer">
+        Registration and management changes are saved to Supabase when the database permissions are configured.
+      </footer>
     </section>
   </main>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="admin.js"></script>
