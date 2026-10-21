@@ -1,20 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Explore partnership and collaboration opportunities with Bharat Vyapaar.">
+  <meta name="theme-color" content="#101d35">
+
   <title>Our Partners | Bharat Vyapaar</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
+<body>
   <header class="site-header">
     <div class="container nav-container">
       <a class="logo" href="index.html">Bharat Vyapaar</a>
 
-      <button class="menu-toggle" id="menuToggle" type="button"
-        aria-label="Toggle navigation" aria-expanded="false">
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="mainNav">
         ☰
       </button>
 
@@ -23,9 +36,9 @@
         <a href="about.html">About</a>
         <a href="directory.html">Business Directory</a>
         <a href="team.html">Advisory Team</a>
-        <a href="events.html">Events</a>
         <a href="network.html">Network</a>
         <a href="opportunities.html">Opportunities</a>
+        <a href="events.html">Events</a>
         <a href="partners.html" aria-current="page">Partners</a>
         <a href="contact.html">Contact</a>
         <a href="join.html" class="nav-cta">Join Network</a>
@@ -34,21 +47,20 @@
   </header>
 
   <main>
-
     <section class="hero">
       <div class="container hero-content">
-        <p class="eyebrow">BHARAT VYAAPAAR PARTNERSHIPS</p>
+        <p class="eyebrow">PARTNERSHIPS & COLLABORATION</p>
 
-        <h1>Growing Together Through Partnerships.</h1>
+        <h1>Better Together.<br>Stronger Through Partnership.</h1>
 
         <p class="hero-description">
-          Strong business relationships create opportunities for collaboration,
-          knowledge sharing and sustainable growth. Bharat Vyapaar aims to
-          connect businesses interested in building such relationships.
+          Build meaningful business relationships, explore shared
+          objectives and discover potential opportunities through
+          the Bharat Vyapaar network.
         </p>
 
         <div class="hero-actions">
-          <a href="contact.html" class="btn btn-primary">
+          <a href="#partnershipEnquiry" class="btn btn-primary">
             Discuss a Partnership
           </a>
           <a href="directory.html" class="btn btn-secondary">
@@ -60,69 +72,68 @@
 
     <section class="section">
       <div class="container">
-
         <div class="section-heading">
           <p class="eyebrow">COLLABORATE WITH US</p>
-          <h2>Partnership Opportunities</h2>
+          <h2>Explore Partnership Possibilities</h2>
           <p>
-            We welcome enquiries from businesses and professionals interested
-            in exploring potential partnerships with the Bharat Vyapaar network.
+            We welcome enquiries from businesses and professionals
+            interested in exploring potential collaborations.
           </p>
         </div>
 
         <div class="feature-grid">
-
           <article class="feature-card">
+            <p class="eyebrow">01 / BUSINESS</p>
             <h3>Business Partnerships</h3>
             <p>
-              Explore potential collaborations between businesses with
-              complementary products, services or capabilities.
+              Explore possible collaborations between businesses
+              with complementary products, services or capabilities.
             </p>
           </article>
 
           <article class="feature-card">
+            <p class="eyebrow">02 / STRATEGY</p>
             <h3>Strategic Collaborations</h3>
             <p>
-              Discuss ideas for working together on business development,
-              market access and shared objectives.
+              Discuss ideas for business development, market access
+              and working towards shared objectives.
             </p>
           </article>
 
           <article class="feature-card">
+            <p class="eyebrow">03 / SUPPLY CHAIN</p>
             <h3>Supplier and Distribution Networks</h3>
             <p>
-              Explore potential connections between suppliers, distributors,
-              manufacturers and other businesses.
+              Explore potential connections between manufacturers,
+              suppliers, distributors and other businesses.
             </p>
           </article>
 
           <article class="feature-card">
+            <p class="eyebrow">04 / SERVICES</p>
             <h3>Professional Services</h3>
             <p>
-              Connect with service providers and professionals to explore
-              potential business requirements and collaborations.
+              Connect with service providers and professionals
+              to explore relevant business requirements.
             </p>
           </article>
-
         </div>
       </div>
     </section>
 
-    <section class="section section-highlight">
+    <section class="section section-highlight" id="partnershipEnquiry">
       <div class="container">
-
         <div class="section-heading">
-          <p class="eyebrow">BECOME A PARTNER</p>
-          <h2>Let's Explore Working Together</h2>
+          <p class="eyebrow">START A CONVERSATION</p>
+          <h2>Tell Us About Your Partnership Proposal</h2>
           <p>
-            Tell us about your organization, your area of expertise and the
-            kind of partnership you would like to explore.
+            Share your organization's details, area of expertise
+            and the type of partnership you want to explore.
           </p>
         </div>
 
         <div class="contact-form-container">
           <form id="partnerForm">
-
             <div class="form-group">
               <label for="partnerName">Contact Person *</label>
               <input
@@ -131,8 +142,7 @@
                 name="partnerName"
                 placeholder="Enter your full name"
                 autocomplete="name"
-                required
-              >
+                required>
             </div>
 
             <div class="form-group">
@@ -143,8 +153,7 @@
                 name="companyName"
                 placeholder="Enter company name"
                 autocomplete="organization"
-                required
-              >
+                required>
             </div>
 
             <div class="form-group">
@@ -155,8 +164,7 @@
                 name="partnerEmail"
                 placeholder="Enter your business email"
                 autocomplete="email"
-                required
-              >
+                required>
             </div>
 
             <div class="form-group">
@@ -166,8 +174,7 @@
                 id="partnerPhone"
                 name="partnerPhone"
                 placeholder="Enter your contact number"
-                autocomplete="tel"
-              >
+                autocomplete="tel">
             </div>
 
             <div class="form-group">
@@ -189,8 +196,7 @@
                 type="url"
                 id="partnerWebsite"
                 name="partnerWebsite"
-                placeholder="https://example.com"
-              >
+                placeholder="https://example.com">
             </div>
 
             <div class="form-group">
@@ -200,27 +206,49 @@
                 name="partnerDetails"
                 rows="5"
                 placeholder="Tell us about your organization and proposed partnership"
-                required
-              ></textarea>
+                required></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">
-              Prepare Partnership Enquiry
+              Download Enquiry Details
             </button>
 
             <p id="partnerStatus" role="status" aria-live="polite"></p>
 
+            <p class="form-note">
+              This form downloads your enquiry as a text file.
+              It does not submit the details to Bharat Vyapaar.
+            </p>
           </form>
         </div>
-
       </div>
     </section>
 
+    <section class="section">
+      <div class="container highlight-content">
+        <div>
+          <p class="eyebrow">DISCOVER MORE</p>
+          <h2>Let's Explore Working Together</h2>
+          <p>
+            Explore listed businesses or contact Bharat Vyapaar
+            to discuss your partnership requirements.
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a href="directory.html" class="btn btn-primary">
+            Business Directory
+          </a>
+          <a href="contact.html" class="btn btn-secondary">
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-content">
-
       <div>
         <a class="logo footer-logo" href="index.html">Bharat Vyapaar</a>
         <p>Connecting businesses and creating opportunities.</p>
@@ -237,26 +265,12 @@
       <p class="copyright">
         © <span id="currentYear"></span> Bharat Vyapaar. All rights reserved.
       </p>
-
     </div>
   </footer>
 
   <script src="script.js"></script>
 
   <script>
-    document.getElementById("currentYear").textContent =
-      new Date().getFullYear();
-
-    const menuToggle = document.getElementById("menuToggle");
-    const mainNav = document.getElementById("mainNav");
-
-    if (menuToggle && mainNav) {
-      menuToggle.addEventListener("click", function () {
-        const isOpen = mainNav.classList.toggle("active");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-      });
-    }
-
     const partnerForm = document.getElementById("partnerForm");
     const partnerStatus = document.getElementById("partnerStatus");
 
@@ -299,9 +313,8 @@
       URL.revokeObjectURL(downloadUrl);
 
       partnerStatus.textContent =
-        "Enquiry details downloaded. They have not been sent to Bharat Vyapaar.";
+        "Enquiry file prepared for download. Your details have not been sent to Bharat Vyapaar.";
     });
   </script>
-
 </body>
 </html>
