@@ -1624,3 +1624,57 @@ body.directory-page {
       url("assets/bharat-vyapaar-directory-hero.webp");
   }
 }
+
+/* NETWORK PAGE: monochrome connection-network hero */
+body.network-page {
+  background: #f2f3f5;
+  color: #172337;
+}
+.network-page .hero {
+  min-height: 440px;
+  isolation: isolate;
+  background-image:
+    linear-gradient(90deg, rgba(12, 17, 25, .82) 0%, rgba(12, 17, 25, .66) 54%, rgba(12, 17, 25, .30) 100%),
+    url("assets/bharat-vyapaar-network-hero.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #d8dde5;
+}
+.network-page .hero .eyebrow {
+  color: #e8bd68;
+}
+.network-page .hero h1 {
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .28);
+}
+.network-page .hero .hero-description {
+  color: rgba(255, 255, 255, .88);
+  max-width: 720px;
+}
+.network-page .hero .btn-secondary {
+  background: rgba(255,255,255,.95);
+  color: #172337;
+  border-color: rgba(255,255,255,.65);
+}
+.network-page main,
+.network-page .section {
+  background: #f2f3f5;
+}
+.network-page .section:nth-of-type(even),
+.network-page .section-highlight {
+  background: #e7e9ed;
+}
+.network-page .feature-card {
+  background: #fff;
+  border-color: #d9dee6;
+}
+@media (max-width: 780px) {
+  .network-page .hero {
+    min-height: 0;
+    background-position: center;
+    background-image:
+      linear-gradient(180deg, rgba(12, 17, 25, .70) 0%, rgba(12, 17, 25, .82) 100%),
+      url("assets/bharat-vyapaar-network-hero.png");
+  }
+}
