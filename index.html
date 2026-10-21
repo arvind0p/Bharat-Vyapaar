@@ -88,7 +88,7 @@
     }
 
     .navbar {
-      min-height: 78px;
+      min-height: 88px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -134,13 +134,13 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: clamp(10px, 1.1vw, 17px);
     }
 
     .nav-links a {
-      font-size: 13px;
+      font-size: 14px;
       color: #47546a;
-      font-weight: 600;
+      font-weight: 700;
       transition: color .2s;
     }
 
@@ -151,7 +151,9 @@
     .nav-links .nav-cta {
       background: var(--blue);
       color: white;
-      padding: 11px 17px;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 700;
       border-radius: 9px;
     }
 
@@ -1191,8 +1193,8 @@
       }
     }
   
-    .brand img { display:block; width:235px; max-width:100%; height:auto; }
-    @media (max-width:480px) { .brand img { width:205px; } }
+    .brand img { display:block; width:84px; max-width:100%; height:auto; }
+    @media (max-width:480px) { .brand img { width:84px; } }
   </style>
 </head>
 
@@ -1203,7 +1205,7 @@
 
   <header>
     <div class="container navbar">
-      <a class="brand" href="index.html" aria-label="Bharat Vyapaar home"><img src="assets/bharat-vyapaar-logo.png?v=2" alt="Bharat Vyapaar Business Network" style="display:block;width:235px;max-width:100%;height:auto"></a>
+      <a class="brand" href="index.html" aria-label="Bharat Vyapaar home"><img src="assets/bharat-vyapaar-logo.png?v=2" alt="Bharat Vyapaar Business Network" style="display:block;width:84px;max-width:100%;height:auto"></a>
 
       <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">☰</button>
 
