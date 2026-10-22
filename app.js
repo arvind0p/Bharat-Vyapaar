@@ -32,6 +32,7 @@
     elements.notice = document.getElementById("notice");
     elements.subtitle = document.getElementById("results-subtitle");
     elements.reportForm = document.getElementById("businessReportForm");
+    elements.reportPanel = document.getElementById("businessReportPanel");
     elements.reportBusinessId = document.getElementById("reportBusinessId");
     elements.reportBusinessName = document.getElementById("reportBusinessName");
     elements.reportNotice = document.getElementById("reportNotice");
@@ -85,7 +86,7 @@
 
     if (elements.reportCancel) {
       elements.reportCancel.addEventListener("click", function () {
-        elements.reportForm.hidden = true;
+        if (elements.reportPanel) elements.reportPanel.hidden = true;
         if (elements.reportNotice) elements.reportNotice.textContent = "";
       });
     }
@@ -394,7 +395,7 @@
       if (!elements.reportForm || !elements.reportBusinessId || !elements.reportBusinessName) return;
       elements.reportBusinessId.value = toText(business.id);
       elements.reportBusinessName.value = toText(business.business_name);
-      elements.reportForm.hidden = false;
+      if (elements.reportPanel) elements.reportPanel.hidden = false;
       if (elements.reportNotice) elements.reportNotice.textContent = "";
       elements.reportForm.scrollIntoView({ behavior: "smooth", block: "center" });
     });
