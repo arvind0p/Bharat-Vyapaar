@@ -877,11 +877,37 @@
       color: #9eacc4;
     }
 
+    .footer-brand-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      max-width: 520px;
+      min-width: 0;
+    }
+
+    .footer-brand-row > .brand {
+      flex: 0 0 55px;
+    }
+
     .footer-description {
       color: #aab6c9;
       font-size: 13px;
-      margin-top: 15px;
-      max-width: 330px;
+      line-height: 1.7;
+      margin: 0;
+      max-width: 380px;
+      min-width: 0;
+    }
+
+    @media (max-width: 480px) {
+      .footer-brand-row {
+        gap: 14px;
+        align-items: center;
+      }
+
+      .footer-description {
+        font-size: 12px;
+        line-height: 1.55;
+      }
     }
 
     .footer-links {
@@ -1442,9 +1468,9 @@
   <footer>
     <div class="container">
       <div class="footer-top">
-        <div>
+        <div class="footer-brand-row">
           <a class="brand" href="index.html" aria-label="Bharat Vyapaar home">
-            <img src="assets/bharat-vyapaar-logo.png?v=2" alt="Bharat Vyapaar Business Network" style="display:block;width:235px;max-width:100%;height:auto">
+            <img src="assets/bharat-vyapaar-logo.png?v=3" alt="Bharat Vyapaar Business Network" style="display:block;width:55px;max-width:55px;height:auto">
           </a>
           <p class="footer-description">Connecting businesses and creating opportunities through meaningful relationships and collaboration.</p>
         </div>
