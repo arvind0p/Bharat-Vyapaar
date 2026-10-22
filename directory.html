@@ -155,6 +155,61 @@
           <div class="loading-state">Loading businesses...</div>
         </div>
 
+        <section class="trust-panel" aria-labelledby="trustTitle">
+          <p class="eyebrow">SAFER BUSINESS DISCOVERY</p>
+          <h2 id="trustTitle">Trust is built through transparency</h2>
+          <div class="trust-grid">
+            <article class="trust-item">
+              <span class="trust-icon" aria-hidden="true">✓</span>
+              <h3>Verified business badge</h3>
+              <p>Listings marked verified have completed Bharat Vyapaar's defined checks. Look for the badge on a business profile.</p>
+            </article>
+            <article class="trust-item">
+              <span class="trust-icon" aria-hidden="true">⌕</span>
+              <h3>Report a concern</h3>
+              <p>See incorrect details or suspicious activity? Use the report option on the listing so it can be reviewed.</p>
+            </article>
+            <article class="trust-item">
+              <span class="trust-icon" aria-hidden="true">i</span>
+              <h3>Check before you transact</h3>
+              <p>A badge is not a guarantee of business quality or a transaction. Independently check documents, terms and payment details.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="report-form-panel" id="businessReportPanel" hidden aria-labelledby="reportFormTitle">
+          <h2 id="reportFormTitle">Report a business</h2>
+          <p>Share the concern below. The Bharat Vyapaar team can review the report.</p>
+          <form id="businessReportForm">
+            <input type="hidden" id="reportBusinessId" name="business_id">
+            <input type="hidden" id="reportBusinessName" name="business_name">
+            <div class="form-group">
+              <label for="reportReason">Reason for report</label>
+              <select id="reportReason" name="reason" required>
+                <option value="">Select a reason</option>
+                <option>Incorrect business details</option>
+                <option>Business may be fake</option>
+                <option>Suspicious activity</option>
+                <option>Website or contact does not work</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="reportDetails">Additional details (optional)</label>
+              <textarea id="reportDetails" name="details" maxlength="2000" placeholder="Explain what looks incorrect or suspicious"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="reporterEmail">Your email (optional)</label>
+              <input type="email" id="reporterEmail" name="reporter_email" maxlength="254" placeholder="you@example.com">
+            </div>
+            <div class="report-form-actions">
+              <button type="submit" class="btn btn-primary">Submit Report</button>
+              <button type="button" id="reportCancel" class="btn btn-secondary">Cancel</button>
+            </div>
+            <p id="reportNotice" class="report-notice" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
         <div class="section-cta">
           <h2>Is Your Business Missing?</h2>
           <p>
