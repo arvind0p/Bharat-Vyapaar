@@ -31,6 +31,11 @@
     elements.results = document.getElementById("results");
     elements.notice = document.getElementById("notice");
     elements.subtitle = document.getElementById("results-subtitle");
+    elements.reportForm = document.getElementById("businessReportForm");
+    elements.reportBusinessId = document.getElementById("reportBusinessId");
+    elements.reportBusinessName = document.getElementById("reportBusinessName");
+    elements.reportNotice = document.getElementById("reportNotice");
+    elements.reportCancel = document.getElementById("reportCancel");
 
     if (!elements.results) {
       console.error(
@@ -72,6 +77,17 @@
 
     if (elements.resetButton) {
       elements.resetButton.addEventListener("click", resetFilters);
+    }
+
+    if (elements.reportForm) {
+      elements.reportForm.addEventListener("submit", submitBusinessReport);
+    }
+
+    if (elements.reportCancel) {
+      elements.reportCancel.addEventListener("click", function () {
+        elements.reportForm.hidden = true;
+        if (elements.reportNotice) elements.reportNotice.textContent = "";
+      });
     }
   }
 
@@ -123,7 +139,7 @@
       const { data, error } = await supabaseClient
         .from(CONFIG.tableName)
         .select(
-          "id,business_name,description,city,state,country,business_segment,products,services,website,is_public,created_at"
+          "id,business_name,description,city,state,country,business_segment,products,services,website,is_public,verification_status,created_at"
         )
         .eq("is_public", true)
         .order("created_at", { ascending: false })
@@ -302,6 +318,14 @@
     heading.className = "business-card-title";
     heading.textContent = toText(business.business_name) || "Business";
 
+    if (business.verification_status === "verified") {
+      const badge = document.createElement("span");
+      badge.className = "verified-badge";
+      badge.textContent = "✓ Verified business";
+      badge.setAttribute("title", "Bharat Vyapaar has completed its defined verification checks for this listing.");
+      card.appendChild(badge);
+    }
+
     const description = document.createElement("p");
     description.className = "business-card-description";
     description.textContent =
@@ -362,7 +386,57 @@
       card.appendChild(websiteLink);
     }
 
+    const reportButton = document.createElement("button");
+    reportButton.type = "button";
+    reportButton.className = "report-business-button";
+    reportButton.textContent = "Report this business";
+    reportButton.addEventListener("click", function () {
+      if (!elements.reportForm || !elements.reportBusinessId || !elements.reportBusinessName) return;
+      elements.reportBusinessId.value = toText(business.id);
+      elements.reportBusinessName.value = toText(business.business_name);
+      elements.reportForm.hidden = false;
+      if (elements.reportNotice) elements.reportNotice.textContent = "";
+      elements.reportForm.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    card.appendChild(reportButton);
+
     return card;
+  }
+
+  async function submitBusinessReport(event) {
+    event.preventDefault();
+    if (!supabaseClient || !elements.reportForm) return;
+
+    const submitButton = elements.reportForm.querySelector('[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
+    if (elements.reportNotice) elements.reportNotice.textContent = "Submitting report...";
+
+    const formData = new FormData(elements.reportForm);
+    const payload = {
+      business_id: getValue(elements.reportBusinessId),
+      business_name: getValue(elements.reportBusinessName),
+      reason: String(formData.get("reason") || "").trim(),
+      details: String(formData.get("details") || "").trim() || null,
+      reporter_email: String(formData.get("reporter_email") || "").trim() || null
+    };
+
+    try {
+      const { error } = await supabaseClient.from("business_reports").insert(payload);
+      if (error) throw error;
+      if (elements.reportNotice) {
+        elements.reportNotice.textContent = "Thank you. Your report has been submitted for review.";
+      }
+      elements.reportForm.reset();
+      if (elements.reportBusinessId) elements.reportBusinessId.value = "";
+      if (elements.reportBusinessName) elements.reportBusinessName.value = "";
+    } catch (error) {
+      console.error("Business report submission error:", error);
+      if (elements.reportNotice) {
+        elements.reportNotice.textContent = "Could not submit the report. Please try again later.";
+      }
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
   }
 
   function normalizeWebsite(value) {
