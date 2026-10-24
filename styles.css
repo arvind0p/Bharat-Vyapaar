@@ -2365,3 +2365,116 @@ body.contact-page {
   #results .business-card::before { border-radius: 17px 17px 0 0; }
   #results .business-card-title { font-size: 18px; }
 }
+
+
+/* DIRECTORY FILTERS: MATCH PREMIUM NAVY/BLUE HERO AND BUSINESS CARDS */
+.directory-filters {
+  position: relative;
+  isolation: isolate;
+  gap: 18px 17px;
+  padding: 29px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(77, 126, 220, .22), transparent 42%),
+    linear-gradient(125deg, #142b4f 0%, #1b417c 48%, #2858bd 100%);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px;
+  box-shadow: 0 14px 34px rgba(13,29,53,.17);
+}
+
+.directory-filters::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #efb15e, #ffd28a 45%, rgba(255,255,255,.45));
+}
+
+.directory-filters::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -85px;
+  bottom: -135px;
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 50%;
+  box-shadow: 0 0 0 28px rgba(255,255,255,.025), 0 0 0 56px rgba(255,255,255,.02);
+  pointer-events: none;
+}
+
+.directory-filters .form-group,
+.directory-filters .directory-actions {
+  position: relative;
+  z-index: 1;
+}
+
+.directory-filters label,
+.directory-filters .form-label {
+  color: #fff;
+  font-weight: 700;
+}
+
+.directory-filters input,
+.directory-filters select,
+.directory-filters textarea {
+  color: #172640;
+  background: rgba(255,255,255,.97);
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 11px;
+  box-shadow: 0 3px 10px rgba(9,24,48,.07);
+}
+
+.directory-filters input::placeholder,
+.directory-filters textarea::placeholder {
+  color: #758198;
+}
+
+.directory-filters input:focus,
+.directory-filters select:focus,
+.directory-filters textarea:focus {
+  outline: none;
+  border-color: #efb15e;
+  box-shadow: 0 0 0 3px rgba(239,177,94,.24);
+}
+
+.directory-filters .directory-actions .btn-primary,
+.directory-filters .directory-actions button[type="submit"] {
+  color: #102b50;
+  background: linear-gradient(135deg, #fff, #f4d5a3);
+  border: 1px solid rgba(255,255,255,.65);
+  box-shadow: 0 8px 18px rgba(7,22,46,.14);
+}
+
+.directory-filters .directory-actions .btn-primary:hover,
+.directory-filters .directory-actions button[type="submit"]:hover {
+  background: #ffd28a;
+  transform: translateY(-1px);
+}
+
+.directory-filters .directory-actions .btn-secondary,
+.directory-filters .directory-actions button[type="reset"],
+.directory-filters .directory-actions .btn-outline {
+  color: #fff;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.36);
+}
+
+.directory-filters .directory-actions .btn-secondary:hover,
+.directory-filters .directory-actions button[type="reset"]:hover,
+.directory-filters .directory-actions .btn-outline:hover {
+  background: rgba(255,255,255,.18);
+  border-color: rgba(255,255,255,.7);
+}
+
+@media (max-width: 700px) {
+  .directory-filters {
+    gap: 15px;
+    padding: 22px 18px;
+    border-radius: 17px;
+  }
+}
