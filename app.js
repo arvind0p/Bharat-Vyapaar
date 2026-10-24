@@ -8,7 +8,7 @@
 
   const CONFIG = {
     tableName: "business_directory",
-    pageSize: 100
+    pageSize: 1000
   };
 
   let supabaseClient = null;
