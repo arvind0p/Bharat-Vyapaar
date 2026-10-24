@@ -2036,3 +2036,43 @@ body.contact-page {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* BUSINESS DIRECTORY PAGINATION */
+.directory-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 28px 0 8px;
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+}
+.directory-pagination[hidden] { display: none !important; }
+.pagination-summary { color: var(--muted); font-size: 13px; }
+.pagination-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 7px; }
+.pagination-button {
+  min-width: 38px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--text, #172337);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.pagination-button:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+.pagination-button.is-active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.pagination-button:disabled { opacity: .42; cursor: not-allowed; }
+.pagination-ellipsis { padding: 0 3px; color: var(--muted); }
+@media (max-width: 600px) {
+  .directory-pagination { justify-content: center; }
+  .pagination-summary { width: 100%; text-align: center; }
+  .pagination-controls { gap: 5px; }
+  .pagination-button { min-width: 34px; min-height: 36px; padding: 7px 9px; }
+}
