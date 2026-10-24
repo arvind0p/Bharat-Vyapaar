@@ -8,12 +8,14 @@
 
   const CONFIG = {
     tableName: "business_directory",
-    pageSize: 10000
+    pageSize: 10000,
+    businessesPerPage: 20
   };
 
   let supabaseClient = null;
   let allBusinesses = [];
   let filteredBusinesses = [];
+  let currentPage = 1;
 
   const elements = {};
 
@@ -29,6 +31,14 @@
     elements.resetButton = document.getElementById("reset");
     elements.count = document.getElementById("count");
     elements.results = document.getElementById("results");
+    elements.pagination = document.getElementById("directoryPagination");
+    if (elements.results && !elements.pagination) {
+      elements.pagination = document.createElement("nav");
+      elements.pagination.id = "directoryPagination";
+      elements.pagination.className = "directory-pagination";
+      elements.pagination.setAttribute("aria-label", "Business directory pages");
+      elements.results.insertAdjacentElement("afterend", elements.pagination);
+    }
     elements.notice = document.getElementById("notice");
     elements.subtitle = document.getElementById("results-subtitle");
     elements.reportForm = document.getElementById("businessReportForm");
@@ -268,6 +278,7 @@
       );
     });
 
+    currentPage = 1;
     renderBusinesses();
   }
 
@@ -299,16 +310,87 @@
 
     if (filteredBusinesses.length === 0) {
       renderEmptyState("No businesses match your search.");
+      renderPagination();
       return;
     }
 
-    const fragment = document.createDocumentFragment();
+    const totalPages = Math.ceil(filteredBusinesses.length / CONFIG.businessesPerPage);
+    currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+    const startIndex = (currentPage - 1) * CONFIG.businessesPerPage;
+    const pageBusinesses = filteredBusinesses.slice(
+      startIndex,
+      startIndex + CONFIG.businessesPerPage
+    );
 
-    filteredBusinesses.forEach(function (business) {
+    const fragment = document.createDocumentFragment();
+    pageBusinesses.forEach(function (business) {
       fragment.appendChild(createBusinessCard(business));
     });
-
     elements.results.appendChild(fragment);
+    renderPagination();
+  }
+
+  function renderPagination() {
+    if (!elements.pagination) return;
+
+    elements.pagination.innerHTML = "";
+    const totalPages = Math.ceil(filteredBusinesses.length / CONFIG.businessesPerPage);
+
+    if (totalPages <= 1) {
+      elements.pagination.hidden = true;
+      return;
+    }
+
+    elements.pagination.hidden = false;
+    const start = (currentPage - 1) * CONFIG.businessesPerPage + 1;
+    const end = Math.min(currentPage * CONFIG.businessesPerPage, filteredBusinesses.length);
+
+    const summary = document.createElement("span");
+    summary.className = "pagination-summary";
+    summary.textContent = "Showing " + start + "–" + end + " of " + filteredBusinesses.length;
+    elements.pagination.appendChild(summary);
+
+    const controls = document.createElement("div");
+    controls.className = "pagination-controls";
+
+    function addButton(label, page, options) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "pagination-button" + (options && options.active ? " is-active" : "");
+      button.textContent = label;
+      button.disabled = Boolean(options && options.disabled);
+      if (options && options.active) button.setAttribute("aria-current", "page");
+      button.addEventListener("click", function () {
+        if (page < 1 || page > totalPages || page === currentPage) return;
+        currentPage = page;
+        renderBusinesses();
+        const heading = document.querySelector(".directory-results-heading");
+        if (heading) heading.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      controls.appendChild(button);
+    }
+
+    addButton("Previous", currentPage - 1, { disabled: currentPage === 1 });
+
+    const pages = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
+    for (let p = 1; p <= totalPages; p++) {
+      if (pages.has(p)) {
+        addButton(String(p), p, { active: p === currentPage });
+      } else if (p === 2 && currentPage > 4) {
+        const dots = document.createElement("span");
+        dots.className = "pagination-ellipsis";
+        dots.textContent = "…";
+        controls.appendChild(dots);
+      } else if (p === totalPages - 1 && currentPage < totalPages - 3) {
+        const dots = document.createElement("span");
+        dots.className = "pagination-ellipsis";
+        dots.textContent = "…";
+        controls.appendChild(dots);
+      }
+    }
+
+    addButton("Next", currentPage + 1, { disabled: currentPage === totalPages });
+    elements.pagination.appendChild(controls);
   }
 
   function createBusinessCard(business) {
