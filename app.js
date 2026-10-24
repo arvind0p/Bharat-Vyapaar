@@ -150,7 +150,7 @@
       const { data, error } = await supabaseClient
         .from(CONFIG.tableName)
         .select(
-          "id,business_name,description,city,state,country,business_segment,products,services,website,is_public,verification_status,created_at"
+          "id,business_name,contact_person,email,mobile_number,description,city,state,country,business_segment,products,services,website,is_public,verification_status,created_at"
         )
         .eq("is_public", true)
         .order("created_at", { ascending: false })
@@ -416,7 +416,45 @@
       toText(business.description) || "No description provided.";
 
     card.appendChild(heading);
+
+    const contactPerson = toText(business.contact_person);
+    if (contactPerson) {
+      const contactName = document.createElement("p");
+      contactName.className = "business-card-contact-person";
+      contactName.textContent = "Contact: " + contactPerson;
+      card.appendChild(contactName);
+    }
+
+    const description = document.createElement("p");
+    description.className = "business-card-description";
+    description.textContent =
+      toText(business.description) || "No description provided.";
     card.appendChild(description);
+
+    const contactDetails = document.createElement("div");
+    contactDetails.className = "business-card-contact-details";
+
+    const email = toText(business.email);
+    if (email) {
+      const emailLink = document.createElement("a");
+      emailLink.href = "mailto:" + email;
+      emailLink.textContent = email;
+      emailLink.setAttribute("aria-label", "Email " + email);
+      contactDetails.appendChild(emailLink);
+    }
+
+    const mobile = toText(business.mobile_number);
+    if (mobile) {
+      const phoneLink = document.createElement("a");
+      phoneLink.href = "tel:" + mobile.replace(/[^+\\d]/g, "");
+      phoneLink.textContent = mobile;
+      phoneLink.setAttribute("aria-label", "Call " + mobile);
+      contactDetails.appendChild(phoneLink);
+    }
+
+    if (contactDetails.childElementCount > 0) {
+      card.appendChild(contactDetails);
+    }
 
     const segment = toText(business.business_segment);
 
