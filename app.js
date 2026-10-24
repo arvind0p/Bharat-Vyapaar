@@ -410,11 +410,6 @@
       card.appendChild(badge);
     }
 
-    const description = document.createElement("p");
-    description.className = "business-card-description";
-    description.textContent =
-      toText(business.description) || "No description provided.";
-
     card.appendChild(heading);
 
     const contactPerson = toText(business.contact_person);
