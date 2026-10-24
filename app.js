@@ -372,22 +372,23 @@
 
     addButton("Previous", currentPage - 1, { disabled: currentPage === 1 });
 
-    const pages = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
-    for (let p = 1; p <= totalPages; p++) {
-      if (pages.has(p)) {
-        addButton(String(p), p, { active: p === currentPage });
-      } else if (p === 2 && currentPage > 4) {
-        const dots = document.createElement("span");
-        dots.className = "pagination-ellipsis";
-        dots.textContent = "…";
-        controls.appendChild(dots);
-      } else if (p === totalPages - 1 && currentPage < totalPages - 3) {
+    const pages = Array.from(new Set([
+      1, 2, currentPage - 1, currentPage, currentPage + 1, totalPages - 1, totalPages
+    ]))
+      .filter(function (page) { return page >= 1 && page <= totalPages; })
+      .sort(function (a, b) { return a - b; });
+
+    let previousPage = 0;
+    pages.forEach(function (page) {
+      if (previousPage && page - previousPage > 1) {
         const dots = document.createElement("span");
         dots.className = "pagination-ellipsis";
         dots.textContent = "…";
         controls.appendChild(dots);
       }
-    }
+      addButton(String(page), page, { active: page === currentPage });
+      previousPage = page;
+    });
 
     addButton("Next", currentPage + 1, { disabled: currentPage === totalPages });
     elements.pagination.appendChild(controls);
