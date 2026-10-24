@@ -2478,3 +2478,52 @@ body.contact-page {
     border-radius: 17px;
   }
 }
+
+
+/* BUSINESS CARD CONTACT DETAILS */
+#results .business-card-contact-person {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px;
+  color: #ffd28a;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+#results .business-card-contact-details {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  width: 100%;
+  margin: 0 0 12px;
+}
+#results .business-card-contact-details a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+#results .business-card-contact-details a:hover {
+  color: #ffd28a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+#results .business-card-contact-details a[href^="mailto:"]::before {
+  content: "✉";
+  color: #ffd28a;
+  font-size: 14px;
+}
+#results .business-card-contact-details a[href^="tel:"]::before {
+  content: "☎";
+  color: #ffd28a;
+  font-size: 14px;
+}
