@@ -2076,3 +2076,139 @@ body.contact-page {
   .pagination-controls { gap: 5px; }
   .pagination-button { min-width: 34px; min-height: 36px; padding: 7px 9px; }
 }
+
+
+/* PREMIUM BUSINESS DIRECTORY CARDS */
+#results .business-card {
+  position: relative;
+  isolation: isolate;
+  padding: 28px 25px 23px;
+  gap: 0;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(224, 177, 91, .10), transparent 34%),
+    linear-gradient(145deg, #ffffff 0%, #fbfcff 58%, #f5f8ff 100%);
+  border: 1px solid #dce4f2;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(17, 39, 78, .065), inset 0 1px 0 rgba(255,255,255,.95);
+  transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+}
+
+#results .business-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  width: auto;
+  height: 5px;
+  margin: 0;
+  background: linear-gradient(90deg, #1e4db7 0%, #477ce0 54%, #d8ad62 100%);
+  border-radius: 20px 20px 0 0;
+}
+
+#results .business-card::after {
+  content: "";
+  position: absolute;
+  top: 17px;
+  right: 17px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(30, 77, 183, .09);
+  border-radius: 50%;
+  background: rgba(255,255,255,.72);
+  pointer-events: none;
+}
+
+#results .business-card:hover {
+  transform: translateY(-5px);
+  border-color: #bdcdef;
+  box-shadow: 0 18px 38px rgba(22, 48, 92, .12), 0 4px 12px rgba(22, 48, 92, .05);
+}
+
+#results .business-card-title {
+  max-width: calc(100% - 26px);
+  margin: 0 0 11px;
+  color: #142744;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -.35px;
+  line-height: 1.38;
+}
+
+#results .business-card-description {
+  margin: 0 0 14px;
+  color: #64728a;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+#results .business-card-segment,
+#results .business-card-location,
+#results .business-card-products,
+#results .business-card-services {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px 10px;
+  color: #40516b;
+  background: rgba(239, 244, 252, .78);
+  border: 1px solid rgba(221, 230, 244, .78);
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+#results .business-card-segment {
+  margin-top: 2px;
+}
+
+#results .business-card-website {
+  align-self: flex-start;
+  margin-top: 13px;
+  padding: 8px 12px;
+  color: #214fae;
+  background: #edf3ff;
+  border: 1px solid #dce7ff;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+#results .business-card-website:hover {
+  color: #fff;
+  background: #214fae;
+  border-color: #214fae;
+}
+
+#results .business-card .report-business-button {
+  margin-top: auto;
+  padding: 12px 0 0;
+  color: #8b5360;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+#results .business-card .report-business-button:hover {
+  color: #b42318;
+  text-decoration: underline;
+}
+
+#results .business-card .verified-badge {
+  margin: 0 0 13px;
+  color: #176446;
+  background: linear-gradient(135deg, #e9f9f0, #f3fff7);
+  border-color: #c2ead1;
+  box-shadow: 0 3px 8px rgba(23, 100, 70, .06);
+}
+
+@media (max-width: 600px) {
+  #results .business-card {
+    padding: 25px 19px 21px;
+    border-radius: 17px;
+  }
+  #results .business-card::before { border-radius: 17px 17px 0 0; }
+  #results .business-card-title { font-size: 18px; }
+}
