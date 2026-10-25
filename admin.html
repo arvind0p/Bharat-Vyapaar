@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Admin Panel | Bharat Vyapaar</title>
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin.css?v=2">
 </head>
 <body>
   <main class="admin-shell">
@@ -132,7 +132,7 @@
 
         <div class="admin-search-wrap">
           <label class="admin-search-label" for="businessSearch">Search businesses</label>
-          <input id="businessSearch" class="admin-search" type="search" placeholder="Search by business name, location, segment or description..." autocomplete="off">
+          <div class="admin-search-controls"><input id="businessSearch" class="admin-search" type="search" placeholder="Search by business name, location, segment or description..." autocomplete="off"><button id="businessSearchButton" class="primary admin-search-button" type="button">Search</button><button id="businessSearchClear" class="secondary admin-search-button" type="button">Clear</button></div>
         </div>
         <div class="table-wrap">
           <table>
@@ -214,7 +214,7 @@
 
         <div class="admin-search-wrap">
           <label class="admin-search-label" for="teamSearch">Search team members</label>
-          <input id="teamSearch" class="admin-search" type="search" placeholder="Search by name, role, city or region..." autocomplete="off">
+          <div class="admin-search-controls"><input id="teamSearch" class="admin-search" type="search" placeholder="Search by name, role, city or region..." autocomplete="off"><button id="teamSearchButton" class="primary admin-search-button" type="button">Search</button><button id="teamSearchClear" class="secondary admin-search-button" type="button">Clear</button></div>
         </div>
         <div class="table-wrap">
           <table>
@@ -345,6 +345,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
-  <script src="admin.js"></script>
+  <script src="admin.js?v=2"></script>
 </body>
 </html>
