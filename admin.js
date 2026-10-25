@@ -50,6 +50,39 @@
       return;
     }
     registrations=data||[];
+
+    // Keep approval status aligned with the directory: if an approved registration
+    // no longer has a corresponding business listing, reset it to "new".
+    const approved = registrations.filter(r => String(r.status||'').toLowerCase()==='approved');
+    if (approved.length) {
+      const {data:directoryRows,error:directoryError}=await client
+        .from('business_directory')
+        .select('business_name,city');
+      if (directoryError) {
+        showGlobal('Registrations loaded, but directory status sync failed: '+directoryError.message);
+      } else {
+        const normalize = value => String(value||'').trim().replace(/\\s+/g,' ').toLocaleLowerCase();
+        const hasListing = registration => (directoryRows||[]).some(b =>
+          normalize(b.business_name)===normalize(registration.organization) &&
+          normalize(b.city)===normalize(registration.city)
+        );
+        const stale = approved.filter(r => !hasListing(r));
+        if (stale.length) {
+          const {error:syncError}=await client
+            .from('network_registrations')
+            .update({status:'new'})
+            .in('id',stale.map(r=>r.id));
+          if (syncError) {
+            showGlobal('Found approved registrations without directory listings, but could not reset their status: '+syncError.message);
+          } else {
+            const staleIds=new Set(stale.map(r=>String(r.id)));
+            registrations=registrations.map(r=>staleIds.has(String(r.id))?{...r,status:'new'}:r);
+            showGlobal('Updated '+stale.length+' registration status(es) because their business listing is no longer in the directory.',true);
+          }
+        }
+      }
+    }
+
     $('registrationRows').innerHTML=registrations.length?registrations.map(r=>{
       const status=String(r.status||'new');
       const statusClass=status==='approved'?'public':status==='rejected'?'hidden':'';
