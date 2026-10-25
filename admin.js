@@ -292,6 +292,20 @@
     if(result.error){showGlobal(result.error.message);return;}
     $('teamForm').hidden=true;showGlobal('Team member saved successfully.',true);await loadTeam();
   });
+  function filterAdminRows(inputId, rowsId) {
+    const input = $(inputId);
+    const rows = $(rowsId);
+    if (!input || !rows) return;
+    input.addEventListener('input', () => {
+      const query = input.value.trim().toLocaleLowerCase();
+      Array.from(rows.querySelectorAll('tr')).forEach(row => {
+        row.hidden = !!query && !row.textContent.toLocaleLowerCase().includes(query);
+      });
+    });
+  }
+  filterAdminRows('businessSearch', 'businessRows');
+  filterAdminRows('teamSearch', 'teamRows');
+
   (async()=>{
     const {data}=await client.auth.getSession();
     if(data.session){
