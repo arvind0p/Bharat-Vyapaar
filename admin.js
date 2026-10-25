@@ -292,19 +292,38 @@
     if(result.error){showGlobal(result.error.message);return;}
     $('teamForm').hidden=true;showGlobal('Team member saved successfully.',true);await loadTeam();
   });
-  function filterAdminRows(inputId, rowsId) {
+  function filterAdminRows(inputId, rowsId, buttonId, clearId) {
     const input = $(inputId);
     const rows = $(rowsId);
+    const searchButton = $(buttonId);
+    const clearButton = $(clearId);
     if (!input || !rows) return;
-    input.addEventListener('input', () => {
+
+    const applyFilter = () => {
       const query = input.value.trim().toLocaleLowerCase();
+      let visibleCount = 0;
       Array.from(rows.querySelectorAll('tr')).forEach(row => {
-        row.hidden = !!query && !row.textContent.toLocaleLowerCase().includes(query);
+        const isMatch = !query || row.textContent.toLocaleLowerCase().includes(query);
+        row.hidden = !isMatch;
+        if (isMatch) visibleCount += 1;
       });
+      rows.dataset.searchActive = query ? 'true' : 'false';
+      rows.dataset.visibleCount = String(visibleCount);
+    };
+    input.addEventListener('input', applyFilter);
+    input.addEventListener('keydown', event => {
+      if (event.key === 'Enter') { event.preventDefault(); applyFilter(); }
     });
+    if (searchButton) searchButton.addEventListener('click', applyFilter);
+    if (clearButton) clearButton.addEventListener('click', () => {
+      input.value = '';
+      applyFilter();
+      input.focus();
+    });
+    applyFilter();
   }
-  filterAdminRows('businessSearch', 'businessRows');
-  filterAdminRows('teamSearch', 'teamRows');
+  filterAdminRows('businessSearch', 'businessRows', 'businessSearchButton', 'businessSearchClear');
+  filterAdminRows('teamSearch', 'teamRows', 'teamSearchButton', 'teamSearchClear');
 
   (async()=>{
     const {data}=await client.auth.getSession();
