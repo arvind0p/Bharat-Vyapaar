@@ -7,3 +7,9 @@
 .admin-search{display:block;width:100%;min-height:44px;padding:11px 14px;border:1px solid #dbe4f0;border-radius:11px;background:#fff;color:#1c2b43;font:inherit;outline:none;transition:border-color .15s,box-shadow .15s}
 .admin-search:focus{border-color:#2457c5;box-shadow:0 0 0 3px #2457c51a}
 .admin-search::placeholder{color:#8a96a8}
+
+
+.admin-search-controls{display:flex;align-items:stretch;gap:8px}
+.admin-search-controls .admin-search{flex:1;min-width:0;width:auto}
+.admin-search-button{min-width:76px;white-space:nowrap}
+@media(max-width:560px){.admin-search-controls{flex-wrap:wrap}.admin-search-controls .admin-search{flex-basis:100%;width:100%}.admin-search-button{flex:1}}
