@@ -213,7 +213,42 @@
     const edit=e.target.closest('[data-edit-business]'), toggle=e.target.closest('[data-toggle-business]'), del=e.target.closest('[data-delete-business]');
     if(edit) openBusiness(businesses.find(x=>String(x.id)===edit.dataset.editBusiness));
     if(toggle){const b=businesses.find(x=>String(x.id)===toggle.dataset.toggleBusiness);if(!b)return;const {error}=await client.from('business_directory').update({is_public:!b.is_public}).eq('id',b.id);if(error)showGlobal(error.message);else{showGlobal('Listing visibility updated.',true);await loadBusinesses();}}
-    if(del){const b=businesses.find(x=>String(x.id)===del.dataset.deleteBusiness);if(!b||!confirm(`Delete "${b.business_name}" permanently?`))return;const {error}=await client.from('business_directory').delete().eq('id',b.id);if(error)showGlobal(error.message);else{showGlobal('Business deleted.',true);await loadBusinesses();}}
+    if(del){
+      const b=businesses.find(x=>String(x.id)===del.dataset.deleteBusiness);
+      if(!b||!confirm(`Delete "${b.business_name}" permanently?`))return;
+      const {error}=await client.from('business_directory').delete().eq('id',b.id);
+      if(error){showGlobal(error.message);return;}
+
+      // If this listing came from an approved registration, reset that matching
+      // registration to "new" so the admin status reflects that no directory
+      // listing currently exists for it.
+      const {data:matchingRegistrations,error:lookupError}=await client
+        .from('network_registrations')
+        .select('id')
+        .eq('organization',b.business_name)
+        .eq('city',b.city||'')
+        .eq('status','approved');
+
+      if(lookupError){
+        showGlobal('Business deleted, but the related registration status could not be synced: '+lookupError.message);
+        await Promise.all([loadBusinesses(),loadRegistrations()]);
+        return;
+      }
+      if(matchingRegistrations && matchingRegistrations.length){
+        const ids=matchingRegistrations.map(r=>r.id);
+        const {error:statusError}=await client
+          .from('network_registrations')
+          .update({status:'new'})
+          .in('id',ids);
+        if(statusError){
+          showGlobal('Business deleted, but the related registration status could not be reset: '+statusError.message);
+          await Promise.all([loadBusinesses(),loadRegistrations()]);
+          return;
+        }
+      }
+      showGlobal('Business deleted. Related approved registration status reset to new.',true);
+      await Promise.all([loadBusinesses(),loadRegistrations()]);
+    }
   });
   $('registrationRows').addEventListener('click',async e=>{
     const edit=e.target.closest('[data-edit-registration]');
