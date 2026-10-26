@@ -171,3 +171,68 @@ with check (exists (select 1 from public.admin_users a where a.user_id = auth.ui
 
 grant insert on public.contact_enquiries to anon, authenticated;
 grant select, update on public.contact_enquiries to authenticated;
+
+
+-- 8) Core member company logos shown on the homepage.
+create table if not exists public.core_member_logos (
+  id uuid primary key default gen_random_uuid(),
+  company_name text not null check (char_length(trim(company_name)) between 1 and 180),
+  logo_url text not null,
+  logo_path text not null,
+  website_url text,
+  sort_order integer not null default 100,
+  is_active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+alter table public.core_member_logos enable row level security;
+
+drop policy if exists "Public can read active core member logos" on public.core_member_logos;
+create policy "Public can read active core member logos"
+on public.core_member_logos for select to anon, authenticated
+using (is_active = true or exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+drop policy if exists "Admins can insert core member logos" on public.core_member_logos;
+create policy "Admins can insert core member logos"
+on public.core_member_logos for insert to authenticated
+with check (exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+drop policy if exists "Admins can update core member logos" on public.core_member_logos;
+create policy "Admins can update core member logos"
+on public.core_member_logos for update to authenticated
+using (exists (select 1 from public.admin_users a where a.user_id = auth.uid()))
+with check (exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+drop policy if exists "Admins can delete core member logos" on public.core_member_logos;
+create policy "Admins can delete core member logos"
+on public.core_member_logos for delete to authenticated
+using (exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+grant select on public.core_member_logos to anon, authenticated;
+grant insert, update, delete on public.core_member_logos to authenticated;
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('core-member-logos', 'core-member-logos', true, 5242880, array['image/png','image/jpeg','image/webp','image/svg+xml'])
+on conflict (id) do update set public = true, file_size_limit = 5242880,
+  allowed_mime_types = array['image/png','image/jpeg','image/webp','image/svg+xml'];
+
+drop policy if exists "Public can view core member logos" on storage.objects;
+create policy "Public can view core member logos"
+on storage.objects for select to anon, authenticated
+using (bucket_id = 'core-member-logos');
+
+drop policy if exists "Admins can upload core member logos" on storage.objects;
+create policy "Admins can upload core member logos"
+on storage.objects for insert to authenticated
+with check (bucket_id = 'core-member-logos' and exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+drop policy if exists "Admins can update core member logos" on storage.objects;
+create policy "Admins can update core member logos"
+on storage.objects for update to authenticated
+using (bucket_id = 'core-member-logos' and exists (select 1 from public.admin_users a where a.user_id = auth.uid()))
+with check (bucket_id = 'core-member-logos' and exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+drop policy if exists "Admins can delete core member logos" on storage.objects;
+create policy "Admins can delete core member logos"
+on storage.objects for delete to authenticated
+using (bucket_id = 'core-member-logos' and exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
