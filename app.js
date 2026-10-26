@@ -550,8 +550,7 @@
     if (verifiedBadge) card.insertBefore(verifiedBadge, card.firstChild);
     cardLayout.appendChild(cardMain);
     cardLayout.appendChild(cardSide);
-    card.insertBefore(cardLayout, reportButton);
-    cardMain.appendChild(reportButton);
+    card.appendChild(cardLayout);
 
     return card;
   }
