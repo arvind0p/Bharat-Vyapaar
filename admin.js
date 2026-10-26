@@ -20,7 +20,7 @@
     if(error) throw error;
     if(!data) throw new Error('This account is not enabled as an admin. Add its user ID to admin_users using the SQL setup instructions.');
   };
-  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam(),loadLogos(),loadRegistrations(),loadEnquiries()]); }
+  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam(),loadLogos(),loadRegistrations(),loadEnquiries(),loadBusinessReports()]); }
   async function loadBusinesses() {
     const {data,error}=await client.from('business_directory').select('*').order('business_name');
     if(error) { $('businessRows').innerHTML=`<tr><td colspan="5" class="empty-row">Could not load businesses: ${esc(error.message)}</td></tr>`; return; }
@@ -145,6 +145,40 @@
     if(error){showGlobal('Could not update enquiry: '+error.message);return;}
     showGlobal('Enquiry status updated to '+status+'.',true);
     await loadEnquiries();
+  }
+
+  let businessReports = [];
+  async function loadBusinessReports() {
+    const {data,error}=await client.from('business_reports').select('*').order('created_at',{ascending:false});
+    if(error) {
+      $('businessReportRows').innerHTML=`<tr><td colspan="7" class="empty-row">Could not load reports: ${esc(error.message)}. Run the business reports SQL setup in Supabase SQL Editor.</td></tr>`;
+      return;
+    }
+    businessReports=data||[];
+    $('businessReportRows').innerHTML=businessReports.length?businessReports.map(r=>{
+      const status=String(r.status||'new');
+      const statusClass=status==='closed'?'hidden':status==='reviewing'?'public':'';
+      const submitted=r.created_at?new Date(r.created_at).toLocaleString():'—';
+      const reporter=r.reporter_email?'<a href="mailto:'+esc(r.reporter_email)+'">'+esc(r.reporter_email)+'</a>':'Not provided';
+      return `<tr>
+        <td><strong>${esc(r.business_name||'Business')}</strong><br><small>ID: ${esc(r.business_id||'—')}</small></td>
+        <td>${esc(r.reason||'—')}</td>
+        <td class="enquiry-message-cell">${esc(r.details||'No additional details')}</td>
+        <td>${reporter}</td>
+        <td>${esc(submitted)}</td>
+        <td><span class="status-pill ${statusClass}">${esc(status)}</span></td>
+        <td><div class="row-actions">
+          <button class="hide-btn" data-report-status="reviewing" data-report-id="${esc(r.id)}" ${status==='reviewing'?'disabled':''}>Reviewing</button>
+          <button class="delete-btn" data-report-status="closed" data-report-id="${esc(r.id)}" ${status==='closed'?'disabled':''}>Close</button>
+        </div></td>
+      </tr>`;
+    }).join(''):'<tr><td colspan="7" class="empty-row">No business reports received yet.</td></tr>';
+  }
+  async function setBusinessReportStatus(id,status) {
+    const {error}=await client.from('business_reports').update({status}).eq('id',id);
+    if(error){showGlobal('Could not update business report: '+error.message);return;}
+    showGlobal('Business report status updated to '+status+'.',true);
+    await loadBusinessReports();
   }
   function openRegistration(r) {
     $('registrationForm').hidden=false;
@@ -327,7 +361,7 @@
   document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>$(btn.dataset.close).hidden=true));
   document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{
     document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));
-    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team'; $('logosPanel').hidden=btn.dataset.tab!=='logos'; $('registrationsPanel').hidden=btn.dataset.tab!=='registrations'; $('enquiriesPanel').hidden=btn.dataset.tab!=='enquiries'; if(btn.dataset.tab==='logos') loadLogos(); if(btn.dataset.tab==='registrations') loadRegistrations(); if(btn.dataset.tab==='enquiries') loadEnquiries();
+    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team'; $('logosPanel').hidden=btn.dataset.tab!=='logos'; $('registrationsPanel').hidden=btn.dataset.tab!=='registrations'; $('enquiriesPanel').hidden=btn.dataset.tab!=='enquiries'; if(btn.dataset.tab==='logos') loadLogos(); if(btn.dataset.tab==='registrations') loadRegistrations(); if(btn.dataset.tab==='enquiries'){loadEnquiries();loadBusinessReports();}
   }));
   $('businessRows').addEventListener('click',async e=>{
     const edit=e.target.closest('[data-edit-business]'), toggle=e.target.closest('[data-toggle-business]'), del=e.target.closest('[data-delete-business]');
@@ -389,6 +423,7 @@
   });
   $('refreshRegistrationsButton').addEventListener('click',loadRegistrations);
   $('refreshEnquiriesButton').addEventListener('click',loadEnquiries);
+  $('refreshReportsButton').addEventListener('click',loadBusinessReports);
   $('enquiryRows').addEventListener('click',async e=>{
     const action=e.target.closest('[data-enquiry-status]');
     if(!action)return;
@@ -397,6 +432,15 @@
     if(!record)return;
     if(!confirm(`Mark the enquiry from "${record.full_name}" as ${status}?`))return;
     await setEnquiryStatus(id,status);
+  });
+  $('businessReportRows').addEventListener('click',async e=>{
+    const action=e.target.closest('[data-report-status]');
+    if(!action)return;
+    const id=action.dataset.reportId, status=action.dataset.reportStatus;
+    const record=businessReports.find(x=>String(x.id)===String(id));
+    if(!record)return;
+    if(!confirm(`Mark the report for "${record.business_name}" as ${status}?`))return;
+    await setBusinessReportStatus(id,status);
   });
   $('registrationForm').addEventListener('submit',async e=>{
     e.preventDefault();
