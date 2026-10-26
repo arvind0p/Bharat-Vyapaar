@@ -9,7 +9,7 @@
     grid.innerHTML=data.map(t=>{
       const initials=t.full_name.split(/\s+/).filter(Boolean).slice(0,2).map(n=>n[0]).join('').toUpperCase();
       const avatar=t.photo_url?`<img class="team-photo" src="${esc(t.photo_url)}" alt="${esc(t.full_name)}" loading="lazy">`:`<div class="avatar">${esc(initials)}</div>`;
-      return `<article class="person">${avatar}<h3>${esc(t.full_name)}</h3><p>${esc(t.role||'Advisory Team Member')}</p><p class="city">${esc(t.city_region||'')}</p>${t.bio?`<p class="team-bio">${esc(t.bio)}</p>`:''}</article>`;
+      return `<article class="person">${avatar}<h3>${esc(t.full_name)}</h3><p>${esc(t.role||'Core Team Member')}</p><p class="city">${esc(t.city_region||'')}</p>${t.bio?`<p class="team-bio">${esc(t.bio)}</p>`:''}</article>`;
     }).join('');
     const search=document.querySelector('.search');
     if(search)search.addEventListener('input',()=>{const q=search.value.toLowerCase();grid.querySelectorAll('.person').forEach(p=>p.style.display=p.textContent.toLowerCase().includes(q)?'':'none');});
