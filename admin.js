@@ -7,7 +7,7 @@
     return;
   }
   const client = window.supabase.createClient(window.BV_SUPABASE_URL, window.BV_SUPABASE_ANON_KEY);
-  let businesses = [], team = [], registrations = [], enquiries = [], currentPhotoPath = '';
+  let businesses = [], team = [], registrations = [], enquiries = [], logos = [], currentPhotoPath = '';
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const showGlobal = (msg, ok=false) => { const el=$('globalMessage'); el.textContent=msg; el.className='message global-message '+(ok?'success':'error'); };
   const showLoginMessage = msg => $('loginMessage').textContent = msg;
@@ -20,7 +20,7 @@
     if(error) throw error;
     if(!data) throw new Error('This account is not enabled as an admin. Add its user ID to admin_users using the SQL setup instructions.');
   };
-  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam(),loadRegistrations(),loadEnquiries()]); }
+  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam(),loadLogos(),loadRegistrations(),loadEnquiries()]); }
   async function loadBusinesses() {
     const {data,error}=await client.from('business_directory').select('*').order('business_name');
     if(error) { $('businessRows').innerHTML=`<tr><td colspan="5" class="empty-row">Could not load businesses: ${esc(error.message)}</td></tr>`; return; }
@@ -43,7 +43,19 @@
     </tr>`).join(''):'<tr><td colspan="5" class="empty-row">No team members yet. Click “Add team member” to add one.</td></tr>';
   }
 
-  async function loadRegistrations() {
+  async function loadLogos() {
+    const {data,error}=await client.from('core_member_logos').select('*').order('sort_order').order('company_name');
+    if(error) { $('logoRows').innerHTML=`<tr><td colspan="5" class="empty-row">Could not load logos: ${esc(error.message)}. Apply the updated SQL setup file in Supabase first.</td></tr>`; return; }
+    logos=data||[];
+    $('logoRows').innerHTML=logos.length?logos.map(l=>`<tr>
+      <td><div style="display:flex;align-items:center;gap:12px"><img src="${esc(l.logo_url)}" alt="" style="width:76px;height:42px;object-fit:contain;background:#fff;border:1px solid #e5eaf2;border-radius:6px;padding:4px"><strong>${esc(l.company_name)}</strong></div></td>
+      <td>${l.website_url?`<a href="${esc(l.website_url)}" target="_blank" rel="noopener noreferrer">${esc(l.website_url)}</a>`:'—'}</td>
+      <td>${esc(l.sort_order??100)}</td>
+      <td><span class="status-pill ${l.is_active?'public':'hidden'}">${l.is_active?'Public':'Hidden'}</span></td>
+      <td><div class="row-actions"><button class="edit-btn" data-edit-logo="${esc(l.id)}">Edit</button><button class="hide-btn" data-toggle-logo="${esc(l.id)}">${l.is_active?'Hide':'Publish'}</button><button class="delete-btn" data-delete-logo="${esc(l.id)}">Delete</button></div></td>
+    </tr>`).join(''):'<tr><td colspan="5" class="empty-row">No company logos yet. Click “Add company logo” to add the first one.</td></tr>';
+  }
+\n  async function loadRegistrations() {
     const {data,error}=await client.from('network_registrations').select('*').order('created_at',{ascending:false});
     if(error) {
       $('registrationRows').innerHTML=`<tr><td colspan="7" class="empty-row">Could not load registrations: ${esc(error.message)}. Check the registration table and admin RLS policies.</td></tr>`;
@@ -258,7 +270,16 @@
     if(t?.photo_url) $('currentPhoto').src=t.photo_url;
     $('teamForm').scrollIntoView({behavior:'smooth',block:'start'});
   }
-  $('loginForm').addEventListener('submit',async e=>{
+  function openLogo(l=null) {
+    $('logoForm').hidden=false; $('logoFormTitle').textContent=l?'Edit company logo':'Add company logo';
+    $('logoId').value=l?.id||''; $('logoCompanyName').value=l?.company_name||'';
+    $('logoWebsite').value=l?.website_url||''; $('logoSort').value=l?.sort_order??100;
+    $('logoActive').checked=l?.is_active!==false; $('logoExistingUrl').value=l?.logo_url||'';
+    $('logoExistingPath').value=l?.logo_path||''; $('logoImage').value='';
+    $('currentLogoWrap').hidden=!l?.logo_url; if(l?.logo_url) $('currentLogo').src=l.logo_url;
+    $('logoForm').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+\n  $('loginForm').addEventListener('submit',async e=>{
     e.preventDefault(); showLoginMessage('Signing in…');
     const {data,error}=await client.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});
     if(error){showLoginMessage(error.message);return;}
@@ -266,12 +287,44 @@
     catch(err){await client.auth.signOut();showLoginMessage(err.message||'Admin access denied.');}
   });
   $('logoutButton').addEventListener('click',async()=>{await client.auth.signOut();dashboardView.hidden=true;loginView.hidden=false;});
-  $('newBusinessButton').addEventListener('click',()=>openBusiness());
+  $('newBusinessButton').addEventListener('click',()=>openBusiness());\n  $('newLogoButton').addEventListener('click',()=>openLogo());
+  $('logoRows').addEventListener('click',async e=>{
+    const edit=e.target.closest('[data-edit-logo]'), toggle=e.target.closest('[data-toggle-logo]'), del=e.target.closest('[data-delete-logo]');
+    if(edit) openLogo(logos.find(x=>String(x.id)===edit.dataset.editLogo));
+    if(toggle){const l=logos.find(x=>String(x.id)===toggle.dataset.toggleLogo);if(!l)return;const {error}=await client.from('core_member_logos').update({is_active:!l.is_active}).eq('id',l.id);if(error)showGlobal(error.message);else{showGlobal('Company logo visibility updated.',true);await loadLogos();}}
+    if(del){const l=logos.find(x=>String(x.id)===del.dataset.deleteLogo);if(!l||!confirm(`Delete the logo for "${l.company_name}" permanently?`))return;
+      const {error}=await client.from('core_member_logos').delete().eq('id',l.id);
+      if(error){showGlobal(error.message);return;}
+      if(l.logo_path) await client.storage.from('core-member-logos').remove([l.logo_path]);
+      showGlobal('Company logo deleted.',true);await loadLogos();
+    }
+  });
+  $('logoForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const id=$('logoId').value, old=logos.find(x=>String(x.id)===id);
+    const file=$('logoImage').files[0]; let logo_url=old?.logo_url||'', logo_path=old?.logo_path||'';
+    if(file){
+      if(!['image/jpeg','image/png','image/webp','image/svg+xml'].includes(file.type)){showGlobal('Choose a JPG, PNG, WebP or SVG logo.');return;}
+      if(file.size>5*1024*1024){showGlobal('Logo file must be 5 MB or smaller.');return;}
+      const ext=file.type==='image/svg+xml'?'svg':file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';
+      const path=`${crypto.randomUUID()}.${ext}`;
+      const {error:uploadError}=await client.storage.from('core-member-logos').upload(path,file,{upsert:false,contentType:file.type});
+      if(uploadError){showGlobal('Logo upload failed: '+uploadError.message+' — check that the updated SQL setup has been applied in Supabase.');return;}
+      logo_path=path;
+      const {data}=client.storage.from('core-member-logos').getPublicUrl(path); logo_url=data.publicUrl;
+    } else if(!logo_url){showGlobal('Please select a company logo image.');return;}
+    const record={company_name:$('logoCompanyName').value.trim(),website_url:$('logoWebsite').value.trim()||null,logo_url,logo_path,sort_order:Number($('logoSort').value)||0,is_active:$('logoActive').checked};
+    const result=id?await client.from('core_member_logos').update(record).eq('id',id):await client.from('core_member_logos').insert(record);
+    if(result.error){showGlobal('Could not save company logo: '+result.error.message);return;}
+    if(file&&old?.logo_path) await client.storage.from('core-member-logos').remove([old.logo_path]);
+    $('logoForm').hidden=true;showGlobal('Company logo saved successfully.',true);await loadLogos();
+  });
+
   $('newTeamButton').addEventListener('click',()=>openTeam());
   document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>$(btn.dataset.close).hidden=true));
   document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{
     document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));
-    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team'; $('registrationsPanel').hidden=btn.dataset.tab!=='registrations'; $('enquiriesPanel').hidden=btn.dataset.tab!=='enquiries'; if(btn.dataset.tab==='registrations') loadRegistrations(); if(btn.dataset.tab==='enquiries') loadEnquiries();
+    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team'; $('logosPanel').hidden=btn.dataset.tab!=='logos'; $('registrationsPanel').hidden=btn.dataset.tab!=='registrations'; $('enquiriesPanel').hidden=btn.dataset.tab!=='enquiries'; if(btn.dataset.tab==='logos') loadLogos(); if(btn.dataset.tab==='registrations') loadRegistrations(); if(btn.dataset.tab==='enquiries') loadEnquiries();
   }));
   $('businessRows').addEventListener('click',async e=>{
     const edit=e.target.closest('[data-edit-business]'), toggle=e.target.closest('[data-toggle-business]'), del=e.target.closest('[data-delete-business]');
