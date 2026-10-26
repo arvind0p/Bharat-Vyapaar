@@ -2740,3 +2740,114 @@ body.contact-page {
     padding: 20px 18px 17px;
   }
 }
+
+
+/* DIRECTORY COMPACT THREE-COLUMN LAYOUT */
+.directory-page #results.feature-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: stretch;
+  gap: 12px !important;
+}
+.directory-page #results .business-card {
+  padding: 16px 15px 14px !important;
+  border-radius: 14px !important;
+  min-width: 0;
+}
+.directory-page #results .business-card::before {
+  border-radius: 14px 14px 0 0 !important;
+  height: 3px !important;
+}
+.directory-page #results .business-card::after {
+  width: 95px !important;
+  height: 95px !important;
+  right: -30px !important;
+  bottom: -35px !important;
+}
+.directory-page #results .business-card-title {
+  font-size: 15px !important;
+  line-height: 1.25 !important;
+  margin: 0 0 6px !important;
+  max-width: calc(100% - 8px) !important;
+  overflow-wrap: anywhere;
+}
+.directory-page #results .business-card-contact-person {
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  margin: 0 0 6px !important;
+}
+.directory-page #results .business-card-description {
+  font-size: 11px !important;
+  line-height: 1.45 !important;
+  margin: 0 0 7px !important;
+  overflow-wrap: anywhere;
+}
+.directory-page #results .business-card-contact-details {
+  gap: 3px !important;
+  margin: 0 0 7px !important;
+}
+.directory-page #results .business-card-contact-details a {
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+  gap: 5px !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.directory-page #results .business-card-segment,
+.directory-page #results .business-card-location,
+.directory-page #results .business-card-products,
+.directory-page #results .business-card-services {
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+  padding: 5px 7px !important;
+  margin: 3px 0 !important;
+  border-radius: 7px !important;
+  overflow-wrap: anywhere;
+}
+.directory-page #results .business-card-website {
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+  padding: 5px 7px !important;
+  margin-top: 6px !important;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.directory-page #results .business-card .report-business-button {
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+  padding-top: 7px !important;
+  margin-top: auto !important;
+}
+.directory-page #results .business-card .verified-badge {
+  font-size: 9px !important;
+  padding: 4px 7px !important;
+  margin-bottom: 6px !important;
+}
+@media (max-width: 900px) {
+  .directory-page #results.feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 560px) {
+  .directory-page #results.feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+  }
+  .directory-page #results .business-card {
+    padding: 14px 11px 12px !important;
+  }
+  .directory-page #results .business-card-title {
+    font-size: 13px !important;
+  }
+  .directory-page #results .business-card-contact-person,
+  .directory-page #results .business-card-description,
+  .directory-page #results .business-card-contact-details a,
+  .directory-page #results .business-card-segment,
+  .directory-page #results .business-card-location,
+  .directory-page #results .business-card-products,
+  .directory-page #results .business-card-services,
+  .directory-page #results .business-card-website,
+  .directory-page #results .business-card .report-business-button {
+    font-size: 9px !important;
+  }
+}
