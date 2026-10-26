@@ -3176,3 +3176,21 @@ body.contact-page {
     white-space: normal;
   }
 }
+
+/* Keep the homepage's exact 84px logo size on mobile inner-page headers too */
+@media (max-width: 780px) {
+  .site-header .logo {
+    flex: 0 0 84px !important;
+    width: 84px !important;
+    min-width: 84px !important;
+  }
+  .site-header .logo img,
+  .site-header .logo .site-logo,
+  .site-header img.site-logo {
+    width: 84px !important;
+    height: 84px !important;
+    max-width: 84px !important;
+    min-width: 84px !important;
+    flex-basis: 84px !important;
+  }
+}
