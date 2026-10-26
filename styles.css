@@ -2527,3 +2527,145 @@ body.contact-page {
   color: #ffd28a;
   font-size: 14px;
 }
+
+/* === Bharat Vyapaar blue & gold card background system === */
+.feature-card,
+#teamGrid .person,
+.service-card,
+.about-art-card,
+.feature-list,
+.step,
+.contact-info-card,
+.contact-form-container,
+.contact-page .feature-card,
+.join-page .feature-card,
+#results .business-card,
+.directory-page .business-card,
+.business-card,
+.contact-info,
+.opportunity-card,
+.event-card,
+.partnership-card {
+  background-image:
+    linear-gradient(135deg, rgba(3, 20, 54, .78) 0%, rgba(5, 35, 83, .70) 55%, rgba(7, 25, 62, .78) 100%),
+    url("assets/card-background.svg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  color: #f7faff !important;
+  border-color: rgba(238, 184, 88, .58) !important;
+  box-shadow: 0 12px 28px rgba(4, 20, 52, .16), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.feature-card h3,
+.feature-card h2,
+.feature-card p,
+.feature-card .muted,
+#teamGrid .person h3,
+#teamGrid .person p,
+#teamGrid .person .city,
+#teamGrid .person .team-bio,
+.service-card h3,
+.service-card p,
+.about-art-card h3,
+.about-art-card p,
+.feature-list h3,
+.feature-list p,
+.step h3,
+.step p,
+.contact-info-card h3,
+.contact-info-card p,
+.contact-form-container > h2,
+.contact-form-container > p,
+.contact-info h2,
+.contact-info h3,
+.contact-info p,
+#results .business-card,
+#results .business-card-title,
+#results .business-card-description,
+#results .business-card-segment,
+#results .business-card-location,
+#results .business-card-products,
+#results .business-card-services,
+#results .business-card-contact-person,
+#results .business-card-contact-details,
+.business-card h2,
+.business-card h3,
+.business-card p {
+  color: #f7faff !important;
+}
+
+.feature-card a,
+.service-card a,
+.about-art-card a,
+.contact-info-card a,
+.contact-info a,
+#results .business-card a:not(.verified-badge),
+.business-card a {
+  color: #ffd078 !important;
+  text-decoration-color: rgba(255, 208, 120, .7);
+}
+
+.feature-card a:hover,
+.service-card a:hover,
+.contact-info-card a:hover,
+.contact-info a:hover,
+#results .business-card a:not(.verified-badge):hover,
+.business-card a:hover {
+  color: #ffe6b2 !important;
+}
+
+.feature-card::before,
+#teamGrid .person::before,
+.contact-info-card::before,
+#results .business-card::before {
+  background: linear-gradient(90deg, #f0b85e 0%, #ffe0a0 48%, #d9953f 100%) !important;
+}
+
+.contact-form-container label,
+.contact-form-container .form-label,
+.contact-info-card strong,
+.contact-info-card .contact-label {
+  color: #ffe0a0 !important;
+}
+
+/* Keep form controls legible on top of the textured card background. */
+.contact-form-container input,
+.contact-form-container select,
+.contact-form-container textarea,
+.contact-info-card input,
+.contact-info-card select,
+.contact-info-card textarea {
+  background: rgba(255,255,255,.97) !important;
+  color: #182438 !important;
+  border-color: #d6dfef !important;
+}
+
+#results .business-card-segment,
+#results .business-card-location,
+#results .business-card-products,
+#results .business-card-services {
+  background: rgba(255,255,255,.10) !important;
+  border-color: rgba(255,218,150,.25) !important;
+}
+
+#results .business-card .report-business-button {
+  color: #ffe0a0 !important;
+}
+
+@media (max-width: 640px) {
+  .feature-card,
+  #teamGrid .person,
+  .service-card,
+  .about-art-card,
+  .feature-list,
+  .step,
+  .contact-info-card,
+  .contact-form-container,
+  #results .business-card,
+  .business-card {
+    background-position: center !important;
+    box-shadow: 0 8px 20px rgba(4,20,52,.14);
+  }
+}
+
