@@ -17,7 +17,7 @@
       <div class="brand-mark">BV</div>
       <p class="eyebrow">BHARAT VYAPAAR</p>
       <h1>Admin Panel</h1>
-      <p class="muted">Sign in to manage registrations, advisory team members and business listings.</p>
+      <p class="muted">Sign in to manage business listings, advisory team, registrations and contact enquiries.</p>
 
       <form id="loginForm">
         <label for="loginEmail">Admin email</label>
@@ -50,7 +50,7 @@
 
       <div id="globalMessage" class="message global-message" role="status"></div>
 
-      <!-- ALL THREE DASHBOARD TABS -->
+      <!-- DASHBOARD SECTIONS -->
       <nav class="tabs" aria-label="Management sections">
         <button class="tab active" type="button" data-tab="businesses">
           Business Directory
@@ -60,6 +60,9 @@
         </button>
         <button class="tab" type="button" data-tab="registrations">
           Registrations
+        </button>
+        <button class="tab" type="button" data-tab="enquiries">
+          Enquiries
         </button>
       </nav>
 
@@ -337,14 +340,34 @@
         </div>
       </section>
 
+      <!-- CONTACT ENQUIRIES -->
+      <section id="enquiriesPanel" class="panel" hidden>
+        <div class="panel-heading">
+          <div>
+            <h2>Contact Enquiries</h2>
+            <p class="muted">View messages submitted through the website Contact form and update their follow-up status.</p>
+          </div>
+          <button id="refreshEnquiriesButton" class="secondary" type="button">Refresh enquiries</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Enquirer</th><th>Enquiry Type</th><th>Message</th><th>Submitted</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="enquiryRows">
+              <tr><td colspan="6" class="empty-row">Sign in to load enquiries.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
       <footer class="dashboard-footer">
-        Registration and management changes are saved to Supabase when the database permissions are configured.
+        Website enquiries and management changes are stored in Supabase. Apply the updated SQL setup to enable the Enquiries section.
       </footer>
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
-  <script src="admin.js?v=4"></script>
+  <script src="admin.js?v=5"></script>
 </body>
 </html>
