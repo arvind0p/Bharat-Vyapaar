@@ -13,3 +13,7 @@
 .admin-search-controls .admin-search{flex:1;min-width:0;width:auto}
 .admin-search-button{min-width:76px;white-space:nowrap}
 @media(max-width:560px){.admin-search-controls{flex-wrap:wrap}.admin-search-controls .admin-search{flex-basis:100%;width:100%}.admin-search-button{flex:1}}
+
+
+/* Contact enquiries table */
+.enquiry-message-cell { min-width: 240px; max-width: 360px; white-space: pre-wrap; overflow-wrap: anywhere; }
