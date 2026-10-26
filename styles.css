@@ -2924,3 +2924,23 @@ body.contact-page {
   padding: 0 !important;
   text-align: left;
 }
+
+
+/* DIRECTORY CARD THEME: match the other site cards and remove decorative half-circles */
+.directory-page #results .business-card::after {
+  display: none !important;
+  content: none !important;
+}
+.directory-page #results .business-card {
+  background-image:
+    linear-gradient(135deg, rgba(3, 20, 54, .78) 0%, rgba(5, 35, 83, .70) 55%, rgba(7, 25, 62, .78) 100%),
+    url("assets/card-background.svg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border: 1px solid rgba(238, 184, 88, .58) !important;
+  box-shadow: 0 12px 28px rgba(4, 20, 52, .16), inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+.directory-page #results .business-card::before {
+  background: linear-gradient(90deg, #f0b85e 0%, #ffe0a0 48%, #d9953f 100%) !important;
+}
