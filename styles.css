@@ -2915,3 +2915,12 @@ body.contact-page {
     font-size: 9px !important;
   }
 }
+
+
+/* Keep the report action directly below the business description */
+.directory-page #results .business-card-main .report-business-button {
+  align-self: flex-start;
+  margin: 2px 0 0 !important;
+  padding: 0 !important;
+  text-align: left;
+}
