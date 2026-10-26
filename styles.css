@@ -2669,3 +2669,74 @@ body.contact-page {
   }
 }
 
+
+
+/* BUSINESS DIRECTORY: compact cards while preserving all listing details */
+.directory-page #results.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 18px;
+}
+.directory-page #results .business-card {
+  min-width: 0;
+  padding: 20px 21px 18px;
+  border-radius: 16px;
+}
+.directory-page #results .business-card::before {
+  border-radius: 16px 16px 0 0;
+}
+.directory-page #results .business-card-title {
+  font-size: 17px;
+  line-height: 1.32;
+  margin-bottom: 7px;
+}
+.directory-page #results .business-card-contact-person {
+  font-size: 12px;
+  line-height: 1.45;
+  margin-bottom: 7px;
+}
+.directory-page #results .business-card-description {
+  font-size: 12px;
+  line-height: 1.55;
+  margin-bottom: 9px;
+  overflow-wrap: anywhere;
+}
+.directory-page #results .business-card-contact-details {
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.directory-page #results .business-card-contact-details a {
+  font-size: 11px;
+  line-height: 1.4;
+}
+.directory-page #results .business-card-segment,
+.directory-page #results .business-card-location,
+.directory-page #results .business-card-products,
+.directory-page #results .business-card-services {
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 6px 8px;
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.directory-page #results .business-card-website {
+  margin-top: 8px;
+  font-size: 11px;
+  padding: 6px 9px;
+  overflow-wrap: anywhere;
+}
+.directory-page #results .business-card .report-business-button {
+  padding-top: 9px;
+  font-size: 11px;
+}
+@media (max-width: 640px) {
+  .directory-page #results.feature-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .directory-page #results .business-card {
+    padding: 20px 18px 17px;
+  }
+}
