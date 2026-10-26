@@ -1408,6 +1408,29 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script>
+    (async function () {
+      const root = document.getElementById("coreMemberLogos");
+      if (!root || !window.supabase || !window.BV_SUPABASE_URL || !window.BV_SUPABASE_ANON_KEY) return;
+      try {
+        const client = window.supabase.createClient(window.BV_SUPABASE_URL, window.BV_SUPABASE_ANON_KEY);
+        const { data, error } = await client.from("core_member_logos").select("id,company_name,logo_url,website_url,sort_order").eq("is_active", true).order("sort_order").order("company_name");
+        if (error) throw error;
+        if (!data || !data.length) return;
+        root.innerHTML = data.map(function (item) {
+          const name = String(item.company_name || "").replace(/[&<>"']/g, function (ch) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]; });
+          const logo = String(item.logo_url || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+          const href = String(item.website_url || "").trim();
+          const card = '<img src="' + logo + '" alt="' + name + ' logo" loading="lazy"><span>' + name + '</span>';
+          return href ? '<a class="core-member-logo" href="' + href.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;") + '" target="_blank" rel="noopener noreferrer">' + card + '</a>' : '<div class="core-member-logo">' + card + '</div>';
+        }).join("");
+      } catch (error) {
+        console.warn("Core member logos could not be loaded:", error.message);
+      }
+    })();
+  </script>
   <script>
     const menuToggle = document.getElementById("menuToggle");
     const navLinks = document.getElementById("navLinks");
