@@ -3051,3 +3051,15 @@ body.contact-page {
     font-size: 12px;
   }
 }
+
+
+/* Header logo size only: keep footer and other logo instances unchanged */
+.site-header .logo img,
+.site-header .logo .site-logo,
+.site-header img.site-logo {
+  width: 60px !important;
+  height: 60px !important;
+  min-width: 60px !important;
+  max-width: 60px !important;
+  object-fit: contain !important;
+}
