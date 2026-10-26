@@ -55,7 +55,8 @@
       <td><div class="row-actions"><button class="edit-btn" data-edit-logo="${esc(l.id)}">Edit</button><button class="hide-btn" data-toggle-logo="${esc(l.id)}">${l.is_active?'Hide':'Publish'}</button><button class="delete-btn" data-delete-logo="${esc(l.id)}">Delete</button></div></td>
     </tr>`).join(''):'<tr><td colspan="5" class="empty-row">No company logos yet. Click “Add company logo” to add the first one.</td></tr>';
   }
-\n  async function loadRegistrations() {
+
+  async function loadRegistrations() {
     const {data,error}=await client.from('network_registrations').select('*').order('created_at',{ascending:false});
     if(error) {
       $('registrationRows').innerHTML=`<tr><td colspan="7" class="empty-row">Could not load registrations: ${esc(error.message)}. Check the registration table and admin RLS policies.</td></tr>`;
@@ -279,7 +280,8 @@
     $('currentLogoWrap').hidden=!l?.logo_url; if(l?.logo_url) $('currentLogo').src=l.logo_url;
     $('logoForm').scrollIntoView({behavior:'smooth',block:'start'});
   }
-\n  $('loginForm').addEventListener('submit',async e=>{
+
+  $('loginForm').addEventListener('submit',async e=>{
     e.preventDefault(); showLoginMessage('Signing in…');
     const {data,error}=await client.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});
     if(error){showLoginMessage(error.message);return;}
@@ -287,7 +289,8 @@
     catch(err){await client.auth.signOut();showLoginMessage(err.message||'Admin access denied.');}
   });
   $('logoutButton').addEventListener('click',async()=>{await client.auth.signOut();dashboardView.hidden=true;loginView.hidden=false;});
-  $('newBusinessButton').addEventListener('click',()=>openBusiness());\n  $('newLogoButton').addEventListener('click',()=>openLogo());
+  $('newBusinessButton').addEventListener('click',()=>openBusiness());
+  $('newLogoButton').addEventListener('click',()=>openLogo());
   $('logoRows').addEventListener('click',async e=>{
     const edit=e.target.closest('[data-edit-logo]'), toggle=e.target.closest('[data-toggle-logo]'), del=e.target.closest('[data-delete-logo]');
     if(edit) openLogo(logos.find(x=>String(x.id)===edit.dataset.editLogo));
