@@ -63,7 +63,7 @@
           Registrations
         </button>
         <button class="tab" type="button" data-tab="enquiries">
-          Enquiries
+          Enquiry &amp; Reports
         </button>
       </nav>
 
@@ -402,8 +402,8 @@
       <section id="enquiriesPanel" class="panel" hidden>
         <div class="panel-heading">
           <div>
-            <h2>Contact Enquiries</h2>
-            <p class="muted">View messages submitted through the website Contact form and update their follow-up status.</p>
+            <h2>Enquiry &amp; Reports</h2>
+            <p class="muted">Manage website contact enquiries and business reports in one place.</p>
           </div>
           <button id="refreshEnquiriesButton" class="secondary" type="button">Refresh enquiries</button>
         </div>
@@ -414,6 +414,23 @@
             </thead>
             <tbody id="enquiryRows">
               <tr><td colspan="6" class="empty-row">Sign in to load enquiries.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-heading" style="margin-top:28px">
+          <div>
+            <h2>Business Reports</h2>
+            <p class="muted">Reports submitted from Business Directory listings.</p>
+          </div>
+          <button id="refreshReportsButton" class="secondary" type="button">Refresh reports</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Business</th><th>Reason</th><th>Details</th><th>Reporter</th><th>Submitted</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="businessReportRows">
+              <tr><td colspan="7" class="empty-row">Sign in to load business reports.</td></tr>
             </tbody>
           </table>
         </div>
