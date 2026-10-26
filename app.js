@@ -541,11 +541,17 @@
       }
     });
 
+    // Place the report action directly after the description in the left column.
+    const descriptionNode = cardMain.querySelector(".business-card-description");
+    if (descriptionNode) descriptionNode.insertAdjacentElement("afterend", reportButton);
+    else cardMain.appendChild(reportButton);
+
     const verifiedBadge = card.querySelector(".verified-badge");
     if (verifiedBadge) card.insertBefore(verifiedBadge, card.firstChild);
     cardLayout.appendChild(cardMain);
     cardLayout.appendChild(cardSide);
     card.insertBefore(cardLayout, reportButton);
+    cardMain.appendChild(reportButton);
 
     return card;
   }
