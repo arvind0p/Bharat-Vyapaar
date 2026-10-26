@@ -58,6 +58,7 @@
         <button class="tab" type="button" data-tab="team">
           Core Team
         </button>
+        <button class="tab" type="button" data-tab="logos">Core Member Logos</button>
         <button class="tab" type="button" data-tab="registrations">
           Registrations
         </button>
@@ -233,6 +234,63 @@
             <tbody id="teamRows">
               <tr><td colspan="5">Loading team members…</td></tr>
             </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CORE MEMBER COMPANY LOGOS -->
+      <section id="logosPanel" class="panel" hidden>
+        <div class="panel-heading">
+          <div>
+            <h2>Core Member Company Logos</h2>
+            <p class="muted">Upload, arrange, publish or hide the company logos shown on the homepage between the values strip and Get in Touch.</p>
+          </div>
+          <button id="newLogoButton" class="primary" type="button">+ Add company logo</button>
+        </div>
+        <form id="logoForm" class="editor-form" hidden>
+          <div class="form-heading">
+            <h3 id="logoFormTitle">Add company logo</h3>
+            <button class="icon-button" type="button" data-close="logoForm" aria-label="Close form">×</button>
+          </div>
+          <input id="logoId" type="hidden">
+          <input id="logoExistingUrl" type="hidden">
+          <input id="logoExistingPath" type="hidden">
+          <div class="form-grid">
+            <div>
+              <label for="logoCompanyName">Company name *</label>
+              <input id="logoCompanyName" required maxlength="180">
+            </div>
+            <div>
+              <label for="logoWebsite">Company website (optional)</label>
+              <input id="logoWebsite" type="url" placeholder="https://example.com">
+            </div>
+            <div class="wide">
+              <label for="logoImage">Company logo *</label>
+              <input id="logoImage" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+              <p class="help">PNG, JPG, WebP or SVG. Maximum 5 MB. Transparent PNG/WebP recommended.</p>
+              <div id="currentLogoWrap" class="current-photo" hidden>
+                <img id="currentLogo" alt="Current company logo">
+                <span>Current logo</span>
+              </div>
+            </div>
+            <div>
+              <label for="logoSort">Display order</label>
+              <input id="logoSort" type="number" min="0" value="100">
+            </div>
+            <div class="checkbox-row">
+              <input id="logoActive" type="checkbox" checked>
+              <label for="logoActive">Show this logo on the homepage</label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="primary" type="submit">Save company logo</button>
+            <button class="secondary" type="button" data-close="logoForm">Cancel</button>
+          </div>
+        </form>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Company</th><th>Website</th><th>Display order</th><th>Visibility</th><th>Actions</th></tr></thead>
+            <tbody id="logoRows"><tr><td colspan="5">Loading company logos…</td></tr></tbody>
           </table>
         </div>
       </section>
