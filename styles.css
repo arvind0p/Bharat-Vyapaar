@@ -3057,9 +3057,9 @@ body.contact-page {
 .site-header .logo img,
 .site-header .logo .site-logo,
 .site-header img.site-logo {
-  width: 60px !important;
-  height: 60px !important;
-  min-width: 60px !important;
-  max-width: 60px !important;
+  width: 70px !important;
+  height: 70px !important;
+  min-width: 70px !important;
+  max-width: 70px !important;
   object-fit: contain !important;
 }
