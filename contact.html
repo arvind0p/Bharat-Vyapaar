@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=10">
 </head>
 
 <body class="contact-page">
@@ -80,7 +80,7 @@
           <p>
             Whether you want to list your business, explore a
             collaboration or learn more about our network,
-            use the enquiry form to prepare your message.
+            use the enquiry form to send your message directly to our team.
           </p>
 
           <div class="contact-info-card">
@@ -175,14 +175,13 @@
             </div>
 
             <button type="submit" class="btn btn-primary">
-              Download Enquiry Details
+              Send Enquiry
             </button>
 
             <p id="formStatus" role="status" aria-live="polite"></p>
 
             <p class="form-note">
-              This form downloads your enquiry as a text file.
-              It does not send your message to Bharat Vyapaar.
+              Your enquiry will be sent to Bharat Vyapaar and will appear in the admin dashboard.
             </p>
           </form>
         </div>
@@ -236,51 +235,51 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script src="script.js"></script>
 
   <script>
     const contactForm = document.getElementById("contactForm");
     const formStatus = document.getElementById("formStatus");
+    const submitButton = contactForm.querySelector('button[type="submit"]');
 
-    contactForm.addEventListener("submit", function (event) {
+    contactForm.addEventListener("submit", async function (event) {
       event.preventDefault();
+      if (!contactForm.reportValidity()) return;
 
-      if (!contactForm.reportValidity()) {
+      if (!window.supabase || !window.BV_SUPABASE_URL || !window.BV_SUPABASE_ANON_KEY) {
+        formStatus.textContent = "The enquiry service is temporarily unavailable. Please try again later.";
         return;
       }
 
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+      formStatus.textContent = "Sending your enquiry securely...";
+
       const data = new FormData(contactForm);
+      const record = {
+        full_name: String(data.get("name") || "").trim(),
+        email: String(data.get("email") || "").trim(),
+        phone: String(data.get("phone") || "").trim() || null,
+        subject: String(data.get("subject") || "").trim(),
+        message: String(data.get("message") || "").trim()
+      };
 
-      const enquiry = [
-        "Bharat Vyapaar - Contact Enquiry",
-        "",
-        "Name: " + data.get("name"),
-        "Email: " + data.get("email"),
-        "Phone: " + (data.get("phone") || "Not provided"),
-        "Enquiry Type: " + data.get("subject"),
-        "",
-        "Message:",
-        data.get("message")
-      ].join("\n");
-
-      const blob = new Blob([enquiry], {
-        type: "text/plain;charset=utf-8"
-      });
-
-      const downloadUrl = URL.createObjectURL(blob);
-      const downloadLink = document.createElement("a");
-
-      downloadLink.href = downloadUrl;
-      downloadLink.download = "bharat-vyapaar-enquiry.txt";
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      downloadLink.remove();
-
-      URL.revokeObjectURL(downloadUrl);
-
-      formStatus.textContent =
-        "Your enquiry file has been prepared for download. Your message has not been sent to Bharat Vyapaar.";
+      try {
+        const client = window.supabase.createClient(window.BV_SUPABASE_URL, window.BV_SUPABASE_ANON_KEY);
+        const { error } = await client.from("contact_enquiries").insert(record);
+        if (error) throw error;
+        contactForm.reset();
+        formStatus.textContent = "Thank you! Your enquiry has been sent successfully. Our team will review it shortly.";
+      } catch (error) {
+        console.error("Contact enquiry submission failed:", error);
+        formStatus.textContent = "We couldn't send your enquiry right now. Please try again in a few minutes.";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Enquiry";
+      }
     });
-  </script>
+  </script>t>
 </body>
 </html>
