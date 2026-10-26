@@ -236,3 +236,42 @@ drop policy if exists "Admins can delete core member logos" on storage.objects;
 create policy "Admins can delete core member logos"
 on storage.objects for delete to authenticated
 using (bucket_id = 'core-member-logos' and exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+
+-- 9) Business reports submitted from public Business Directory listings.
+create table if not exists public.business_reports (
+  id uuid primary key default gen_random_uuid(),
+  business_id text,
+  business_name text not null,
+  reason text not null,
+  details text,
+  reporter_email text,
+  status text not null default 'new' check (status in ('new','reviewing','closed')),
+  created_at timestamptz not null default now()
+);
+
+alter table public.business_reports enable row level security;
+
+drop policy if exists "Public can submit business reports" on public.business_reports;
+create policy "Public can submit business reports"
+on public.business_reports for insert to anon, authenticated
+with check (
+  char_length(trim(business_name)) between 1 and 300
+  and char_length(trim(reason)) between 1 and 200
+  and (details is null or char_length(details) <= 2000)
+  and (reporter_email is null or char_length(reporter_email) <= 254)
+);
+
+drop policy if exists "Admins can read business reports" on public.business_reports;
+create policy "Admins can read business reports"
+on public.business_reports for select to authenticated
+using (exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+drop policy if exists "Admins can update business reports" on public.business_reports;
+create policy "Admins can update business reports"
+on public.business_reports for update to authenticated
+using (exists (select 1 from public.admin_users a where a.user_id = auth.uid()))
+with check (exists (select 1 from public.admin_users a where a.user_id = auth.uid()));
+
+grant insert on public.business_reports to anon, authenticated;
+grant select, update on public.business_reports to authenticated;
