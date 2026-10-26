@@ -2851,3 +2851,67 @@ body.contact-page {
     font-size: 9px !important;
   }
 }
+
+
+/* BUSINESS DIRECTORY: place contact and metadata in the right side of each card */
+.directory-page #results .business-card-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+.directory-page #results .business-card-main,
+.directory-page #results .business-card-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+}
+.directory-page #results .business-card-main > *,
+.directory-page #results .business-card-side > * {
+  max-width: 100%;
+}
+.directory-page #results .business-card-main .business-card-title {
+  margin-bottom: 2px !important;
+}
+.directory-page #results .business-card-main .business-card-description {
+  margin-bottom: 0 !important;
+}
+.directory-page #results .business-card-side .business-card-contact-details {
+  margin: 0 0 2px !important;
+  gap: 4px !important;
+}
+.directory-page #results .business-card-side .business-card-segment,
+.directory-page #results .business-card-side .business-card-location,
+.directory-page #results .business-card-side .business-card-products,
+.directory-page #results .business-card-side .business-card-services {
+  margin: 0 !important;
+  width: 100%;
+}
+.directory-page #results .business-card-side .business-card-website {
+  margin-top: 2px !important;
+}
+.directory-page #results .business-card > .report-business-button {
+  align-self: flex-start;
+  margin-top: 9px !important;
+}
+@media (max-width: 900px) {
+  .directory-page #results .business-card-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 9px;
+  }
+}
+@media (max-width: 560px) {
+  .directory-page #results .business-card-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 7px;
+  }
+  .directory-page #results .business-card-side .business-card-contact-details a {
+    font-size: 9px !important;
+  }
+}
