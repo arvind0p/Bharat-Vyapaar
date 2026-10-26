@@ -105,7 +105,7 @@
   async function loadEnquiries() {
     const {data,error}=await client.from('contact_enquiries').select('*').order('created_at',{ascending:false});
     if(error) {
-      $('enquiryRows').innerHTML=`<tr><td colspan="6" class="empty-row">Could not load enquiries: ${esc(error.message)}. Apply the contact_enquiries section in supabase-admin-setup.sql.</td></tr>`;
+      $('enquiryRows').innerHTML=`<tr><td colspan="6" class="empty-row">Could not load enquiries: ${esc(error.message)}. Run supabase-contact-enquiries.sql in Supabase SQL Editor.</td></tr>`;
       return;
     }
     enquiries=data||[];
