@@ -251,7 +251,7 @@
   }
   function openTeam(t=null) {
     $('teamForm').hidden=false; $('teamFormTitle').textContent=t?'Edit team member':'Add team member';
-    $('teamId').value=t?.id||''; $('teamName').value=t?.full_name||''; $('teamRole').value=t?.role||'Advisory Team Member';
+    $('teamId').value=t?.id||''; $('teamName').value=t?.full_name||''; $('teamRole').value=t?.role||'Core Team Member';
     $('teamCity').value=t?.city_region||''; $('teamBio').value=t?.bio||''; $('teamSort').value=t?.sort_order??100;
     $('teamActive').checked=t?.is_active!==false; currentPhotoPath=t?.photo_path||'';
     $('teamPhoto').value=''; $('currentPhotoWrap').hidden=!t?.photo_url;
