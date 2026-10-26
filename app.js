@@ -517,6 +517,36 @@
     });
     card.appendChild(reportButton);
 
+    // Split card details into two compact columns so contact and metadata use the right-side space.
+    const cardLayout = document.createElement("div");
+    cardLayout.className = "business-card-layout";
+    const cardMain = document.createElement("div");
+    cardMain.className = "business-card-main";
+    const cardSide = document.createElement("div");
+    cardSide.className = "business-card-side";
+
+    Array.from(card.children).forEach(function (child) {
+      if (child === reportButton || child.classList.contains("verified-badge")) return;
+      if (
+        child.classList.contains("business-card-contact-details") ||
+        child.classList.contains("business-card-segment") ||
+        child.classList.contains("business-card-location") ||
+        child.classList.contains("business-card-products") ||
+        child.classList.contains("business-card-services") ||
+        child.classList.contains("business-card-website")
+      ) {
+        cardSide.appendChild(child);
+      } else {
+        cardMain.appendChild(child);
+      }
+    });
+
+    const verifiedBadge = card.querySelector(".verified-badge");
+    if (verifiedBadge) card.insertBefore(verifiedBadge, card.firstChild);
+    cardLayout.appendChild(cardMain);
+    cardLayout.appendChild(cardSide);
+    card.insertBefore(cardLayout, reportButton);
+
     return card;
   }
 
