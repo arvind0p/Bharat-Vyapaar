@@ -2944,3 +2944,44 @@ body.contact-page {
 .directory-page #results .business-card::before {
   background: linear-gradient(90deg, #f0b85e 0%, #ffe0a0 48%, #d9953f 100%) !important;
 }
+
+
+/* Business Directory: align the register CTA beside its copy */
+.directory-page .section-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 32px;
+  row-gap: 12px;
+}
+.directory-page .section-cta h2,
+.directory-page .section-cta p {
+  grid-column: 1;
+}
+.directory-page .section-cta h2 {
+  margin: 0 0 4px;
+}
+.directory-page .section-cta p {
+  margin: 0;
+  max-width: 760px;
+}
+.directory-page .section-cta .btn {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  justify-self: end;
+  white-space: nowrap;
+}
+@media (max-width: 680px) {
+  .directory-page .section-cta {
+    grid-template-columns: 1fr;
+  }
+  .directory-page .section-cta h2,
+  .directory-page .section-cta p,
+  .directory-page .section-cta .btn {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .directory-page .section-cta .btn {
+    justify-self: start;
+  }
+}
