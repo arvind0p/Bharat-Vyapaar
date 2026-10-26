@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bharat Vyapaar</title>
+  <style>
+    body{font-family:Arial,sans-serif;margin:0;padding:48px 20px;color:#243047}
+    .message{max-width:640px;margin:0 auto}
+  </style>
+</head>
+<body>
+  <div class="message">
+    <h1>Loading page…</h1>
+    <p>Please wait while Bharat Vyapaar opens this page.</p>
+  </div>
+  <script>
+  (async function () {
+    var path = window.location.pathname.replace(/^\\/+|\\/+$/g, "");
+    var page = path || "index";
+    if (page.endsWith(".html")) page = page.slice(0, -5);
+    if (!/^[a-z0-9-]+$/i.test(page)) return;
+    try {
+      var response = await fetch("/" + page + ".html", { cache: "no-cache" });
+      if (!response.ok) throw new Error("Page not found");
+      var html = await response.text();
+      html = html.replace(/<head([^>]*)>/i, '<head$1><base href="/">');
+      document.open();
+      document.write(html);
+      document.close();
+    } catch (error) {
+      document.querySelector(".message").innerHTML =
+        "<h1>Page not found</h1><p>This page may have moved or is unavailable.</p><p><a href=\"/\">Return to Bharat Vyapaar home</a></p>";
+    }
+  })();
+  </script>
+</body>
+</html>
