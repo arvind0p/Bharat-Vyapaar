@@ -3194,3 +3194,29 @@ body.contact-page {
     flex-basis: 84px !important;
   }
 }
+
+
+/* GLOBAL CONTACT STRIP — shared across all public pages */
+.global-contact { padding:54px 0; background:linear-gradient(120deg,#102442,#2457bd); color:#fff; }
+.global-contact-inner { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,.9fr) auto; align-items:center; gap:28px; }
+.global-contact .eyebrow { color:#ffcf8c; margin-bottom:9px; }
+.global-contact h2 { color:#fff; font-size:clamp(25px,3vw,34px); margin-bottom:10px; }
+.global-contact-copy > p:last-child { color:#d7e2f7; font-size:14px; max-width:430px; }
+.global-contact-details { display:grid; gap:7px; min-width:0; }
+.global-contact-details a { color:#fff; font-size:14px; font-weight:700; overflow-wrap:anywhere; }
+.global-contact-details a:hover { color:#ffcf8c; }
+.global-contact .global-contact-button { background:#fff; border-color:#fff; color:#102442; white-space:nowrap; }
+.global-contact .global-contact-button:hover { background:#edf2ff; color:#102442; }
+.contact-page .contact-form-section { padding:58px 0 72px; }
+.contact-page .contact-layout { display:block; max-width:900px; }
+.contact-page .contact-form-container { width:100%; padding:clamp(25px,4vw,46px); }
+.contact-page .contact-form-container h2 { font-size:clamp(27px,3vw,36px); }
+.contact-page .contact-form-container form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:22px; }
+.contact-page .contact-form-container .form-group:nth-of-type(5), .contact-page .contact-form-container button[type="submit"], .contact-page .contact-form-container #formStatus, .contact-page .contact-form-container .form-note { grid-column:1 / -1; }
+.contact-page .contact-form-container textarea { min-height:150px; }
+@media (max-width:780px) {
+ .global-contact-inner { grid-template-columns:1fr; gap:20px; }
+ .global-contact .global-contact-button { justify-self:start; }
+ .contact-page .contact-form-container form { grid-template-columns:1fr; }
+ .contact-page .contact-form-container .form-group, .contact-page .contact-form-container button[type="submit"], .contact-page .contact-form-container #formStatus, .contact-page .contact-form-container .form-note { grid-column:1; }
+}
