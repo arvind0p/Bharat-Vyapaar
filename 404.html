@@ -16,7 +16,7 @@
   </div>
   <script>
   (async function () {
-    var path = window.location.pathname.replace(/^\\/+|\\/+$/g, "");
+    var path = window.location.pathname.split("/").filter(Boolean).join("/");
     var page = path || "index";
     if (page.endsWith(".html")) page = page.slice(0, -5);
     if (!/^[a-z0-9-]+$/i.test(page)) return;
