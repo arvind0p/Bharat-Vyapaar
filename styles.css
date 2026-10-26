@@ -3244,3 +3244,101 @@ body.contact-page {
  .contact-page .contact-form-container h2 { font-size: 23px; }
  .contact-page .contact-form-container .form-group textarea { min-height: 90px; }
 }
+
+
+/* Premium aligned two-column Contact Us layout */
+.contact-page .contact-form-section { padding: 42px 0 54px; }
+.contact-page .contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  align-items: stretch;
+  gap: 26px;
+  max-width: 1120px;
+}
+.contact-page .contact-info-panel,
+.contact-page .contact-form-container {
+  height: 100%;
+  min-width: 0;
+  padding: 30px;
+  border: 1px solid rgba(239,177,94,.42);
+  border-radius: 18px;
+  background-image: linear-gradient(135deg,rgba(3,20,54,.91),rgba(5,35,83,.88)),url("assets/card-background.svg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  box-shadow: 0 16px 38px rgba(4,20,52,.18), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.contact-page .contact-info-panel {
+  display: flex;
+  flex-direction: column;
+}
+.contact-page .contact-info-panel > .eyebrow,
+.contact-page .contact-form-container > .eyebrow {
+  color: #ffcf8c;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.contact-page .contact-info-panel h2,
+.contact-page .contact-form-container h2 {
+  color: #fff;
+  font-size: clamp(23px,2.2vw,30px);
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+.contact-page .contact-info-panel > p:not(.eyebrow),
+.contact-page .contact-form-container > p:not(.eyebrow) {
+  color: #d7e2f7;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.contact-page .contact-info-panel .contact-info-card {
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 13px;
+  border: 1px solid rgba(239,177,94,.4);
+  background: rgba(255,255,255,.045) !important;
+  box-shadow: none;
+}
+.contact-page .contact-info-panel .contact-info-card h3 {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+.contact-page .contact-person {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.contact-page .contact-person:first-of-type { padding-top: 0; }
+.contact-page .contact-person:last-child { border-bottom: 0; padding-bottom: 0; }
+.contact-page .contact-person strong { color: #fff; font-size: 13px; }
+.contact-page .contact-person a { color: #ffd078; font-size: 13px; overflow-wrap: anywhere; }
+.contact-page .contact-person a:hover { color: #ffe6b2; }
+.contact-page .contact-form-container > p:not(.eyebrow) { margin-bottom: 16px; }
+.contact-page .contact-form-container form {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  column-gap: 16px;
+}
+.contact-page .contact-form-container .form-group { margin-bottom: 12px; }
+.contact-page .contact-form-container .form-group label { font-size: 12px; margin-bottom: 5px; color: #ffe0a0 !important; }
+.contact-page .contact-form-container .form-group input,
+.contact-page .contact-form-container .form-group select { min-height: 41px; padding: 9px 11px; font-size: 13px; border-radius: 8px; }
+.contact-page .contact-form-container .form-group textarea { min-height: 105px; padding: 10px 11px; font-size: 13px; border-radius: 8px; }
+.contact-page .contact-form-container .form-group:nth-of-type(5),
+.contact-page .contact-form-container button[type="submit"],
+.contact-page .contact-form-container #formStatus { grid-column: 1 / -1; }
+.contact-page .contact-form-container button[type="submit"] { justify-self: start; min-height: 41px; padding: 10px 20px; font-size: 12px; }
+.contact-page .contact-form-container #formStatus { color: #fff; font-size: 12px; }
+@media (max-width: 780px) {
+  .contact-page .contact-form-section { padding: 28px 0 36px; }
+  .contact-page .contact-layout { grid-template-columns: 1fr; gap: 18px; }
+  .contact-page .contact-info-panel,
+  .contact-page .contact-form-container { padding: 23px 20px; }
+  .contact-page .contact-form-container form { grid-template-columns: 1fr; }
+  .contact-page .contact-form-container .form-group,
+  .contact-page .contact-form-container button[type="submit"],
+  .contact-page .contact-form-container #formStatus { grid-column: 1; }
+}
