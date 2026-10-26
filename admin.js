@@ -7,7 +7,7 @@
     return;
   }
   const client = window.supabase.createClient(window.BV_SUPABASE_URL, window.BV_SUPABASE_ANON_KEY);
-  let businesses = [], team = [], registrations = [], currentPhotoPath = '';
+  let businesses = [], team = [], registrations = [], enquiries = [], currentPhotoPath = '';
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const showGlobal = (msg, ok=false) => { const el=$('globalMessage'); el.textContent=msg; el.className='message global-message '+(ok?'success':'error'); };
   const showLoginMessage = msg => $('loginMessage').textContent = msg;
@@ -20,7 +20,7 @@
     if(error) throw error;
     if(!data) throw new Error('This account is not enabled as an admin. Add its user ID to admin_users using the SQL setup instructions.');
   };
-  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam(),loadRegistrations()]); }
+  async function refreshAll() { await Promise.all([loadBusinesses(),loadTeam(),loadRegistrations(),loadEnquiries()]); }
   async function loadBusinesses() {
     const {data,error}=await client.from('business_directory').select('*').order('business_name');
     if(error) { $('businessRows').innerHTML=`<tr><td colspan="5" class="empty-row">Could not load businesses: ${esc(error.message)}</td></tr>`; return; }
@@ -101,6 +101,37 @@
         </div></td>
       </tr>`;
     }).join(''):'<tr><td colspan="7" class="empty-row">No registrations received yet.</td></tr>';
+  }
+  async function loadEnquiries() {
+    const {data,error}=await client.from('contact_enquiries').select('*').order('created_at',{ascending:false});
+    if(error) {
+      $('enquiryRows').innerHTML=`<tr><td colspan="6" class="empty-row">Could not load enquiries: ${esc(error.message)}. Apply the contact_enquiries section in supabase-admin-setup.sql.</td></tr>`;
+      return;
+    }
+    enquiries=data||[];
+    $('enquiryRows').innerHTML=enquiries.length?enquiries.map(q=>{
+      const status=String(q.status||'new');
+      const statusClass=status==='closed'?'hidden':status==='contacted'?'public':'';
+      const submitted=q.created_at?new Date(q.created_at).toLocaleString():'—';
+      return `<tr>
+        <td><strong>${esc(q.full_name)}</strong><br><a href="mailto:${esc(q.email)}">${esc(q.email)}</a><br><span>${esc(q.phone||'Phone not provided')}</span></td>
+        <td>${esc(q.subject)}</td>
+        <td class="enquiry-message-cell">${esc(q.message)}</td>
+        <td>${esc(submitted)}</td>
+        <td><span class="status-pill ${statusClass}">${esc(status)}</span></td>
+        <td><div class="row-actions">
+          <button class="hide-btn" data-enquiry-status="contacted" data-enquiry-id="${esc(q.id)}" ${status==='contacted'?'disabled':''}>Mark contacted</button>
+          <button class="delete-btn" data-enquiry-status="closed" data-enquiry-id="${esc(q.id)}" ${status==='closed'?'disabled':''}>Close</button>
+        </div></td>
+      </tr>`;
+    }).join(''):'<tr><td colspan="6" class="empty-row">No enquiries received yet.</td></tr>';
+  }
+
+  async function setEnquiryStatus(id,status) {
+    const {error}=await client.from('contact_enquiries').update({status}).eq('id',id);
+    if(error){showGlobal('Could not update enquiry: '+error.message);return;}
+    showGlobal('Enquiry status updated to '+status+'.',true);
+    await loadEnquiries();
   }
   function openRegistration(r) {
     $('registrationForm').hidden=false;
@@ -240,7 +271,7 @@
   document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>$(btn.dataset.close).hidden=true));
   document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{
     document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));
-    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team'; $('registrationsPanel').hidden=btn.dataset.tab!=='registrations'; if(btn.dataset.tab==='registrations') loadRegistrations();
+    $('businessesPanel').hidden=btn.dataset.tab!=='businesses'; $('teamPanel').hidden=btn.dataset.tab!=='team'; $('registrationsPanel').hidden=btn.dataset.tab!=='registrations'; $('enquiriesPanel').hidden=btn.dataset.tab!=='enquiries'; if(btn.dataset.tab==='registrations') loadRegistrations(); if(btn.dataset.tab==='enquiries') loadEnquiries();
   }));
   $('businessRows').addEventListener('click',async e=>{
     const edit=e.target.closest('[data-edit-business]'), toggle=e.target.closest('[data-toggle-business]'), del=e.target.closest('[data-delete-business]');
@@ -301,6 +332,16 @@
     }
   });
   $('refreshRegistrationsButton').addEventListener('click',loadRegistrations);
+  $('refreshEnquiriesButton').addEventListener('click',loadEnquiries);
+  $('enquiryRows').addEventListener('click',async e=>{
+    const action=e.target.closest('[data-enquiry-status]');
+    if(!action)return;
+    const id=action.dataset.enquiryId, status=action.dataset.enquiryStatus;
+    const record=enquiries.find(x=>String(x.id)===String(id));
+    if(!record)return;
+    if(!confirm(`Mark the enquiry from "${record.full_name}" as ${status}?`))return;
+    await setEnquiryStatus(id,status);
+  });
   $('registrationForm').addEventListener('submit',async e=>{
     e.preventDefault();
     const id=$('registrationId').value;
