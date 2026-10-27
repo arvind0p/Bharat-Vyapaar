@@ -3365,3 +3365,28 @@ body.contact-page {
   .global-contact-inner { grid-template-columns: minmax(0,1fr); gap: 18px; }
   .global-contact-details { min-height: 0; padding: 14px 16px; }
 }
+
+
+/* Contact page: Bharat Vyapaar story section */
+.contact-story-section { padding: 76px 0; background: #f5f7fc; border-top: 1px solid #e3e9f3; }
+.contact-story-heading { max-width: 850px; margin: 0 auto 36px; text-align: center; }
+.contact-story-heading .eyebrow { margin-bottom: 10px; }
+.contact-story-heading h2 { color: #102442; font-size: clamp(28px, 3.4vw, 40px); margin-bottom: 17px; }
+.contact-story-heading p:not(.eyebrow) { color: #596981; font-size: 15px; line-height: 1.85; margin-bottom: 12px; }
+.contact-story-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
+.contact-story-card { min-width: 0; padding: 28px; background: #fff; border: 1px solid #e1e7f1; border-radius: 16px; box-shadow: 0 10px 28px rgba(15,37,77,.045); }
+.contact-story-card .eyebrow { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 8px; }
+.contact-story-card h3 { color: #102442; font-size: 22px; margin-bottom: 13px; }
+.contact-story-card p:not(.eyebrow) { color: #596981; font-size: 14px; line-height: 1.85; margin-bottom: 11px; }
+.contact-story-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 24px; padding: 30px; border-radius: 16px; color: #fff; background: linear-gradient(120deg,#102442,#2457bd); }
+.contact-story-cta .eyebrow { color: #ffcf8c; margin-bottom: 7px; }
+.contact-story-cta h3 { color: #fff; font-size: 23px; margin-bottom: 8px; }
+.contact-story-cta p:not(.eyebrow) { color: #d7e2f7; font-size: 13px; line-height: 1.75; max-width: 740px; }
+.contact-story-cta > a { flex: 0 0 auto; color: #102442; background: #fff; padding: 12px 17px; border-radius: 9px; font-weight: 800; font-size: 13px; overflow-wrap: anywhere; }
+@media (max-width: 780px) {
+ .contact-story-section { padding: 48px 0; }
+ .contact-story-heading { text-align: left; margin-bottom: 25px; }
+ .contact-story-grid { grid-template-columns: 1fr; gap: 15px; }
+ .contact-story-card { padding: 22px; }
+ .contact-story-cta { align-items: flex-start; flex-direction: column; padding: 23px; gap: 12px; }
+}
