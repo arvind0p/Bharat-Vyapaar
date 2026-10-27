@@ -3448,3 +3448,30 @@ body.contact-page {
     height: 76px;
   }
 }
+
+
+/* Core Team grid: three compact cards per row on desktop */
+@media (min-width: 1100px) {
+  #teamGrid.feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  #teamGrid .person {
+    grid-template-columns: 66px minmax(0, 1fr);
+    column-gap: 12px;
+    padding: 17px 16px;
+  }
+  #teamGrid .person .team-photo,
+  #teamGrid .person .avatar {
+    width: 62px;
+    height: 62px;
+  }
+  #teamGrid .person h3 { font-size: 16px; }
+  #teamGrid .person > p:not(.team-bio) { font-size: 12px; }
+}
+@media (min-width: 781px) and (max-width: 1099px) {
+  #teamGrid.feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 780px) {
+  #teamGrid.feature-grid { grid-template-columns: 1fr; }
+}
