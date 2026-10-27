@@ -3390,3 +3390,6 @@ body.contact-page {
  .contact-story-card { padding: 22px; }
  .contact-story-cta { align-items: flex-start; flex-direction: column; padding: 23px; gap: 12px; }
 }
+
+.contact-story-contact a { color: #fff; }
+.contact-story-contact a:hover { color: #ffcf8c; }
