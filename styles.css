@@ -3393,3 +3393,9 @@ body.contact-page {
 
 .contact-story-contact a { color: #fff; }
 .contact-story-contact a:hover { color: #ffcf8c; }
+
+/* About Us contact details: keep linked contact information readable on the blue panel. */
+.about-page .contact-story-cta .contact-story-contact a,
+.about-page .contact-story-cta .contact-story-contact a:visited,
+.about-page .contact-story-cta .contact-story-contact a[href^="tel:"],
+.about-page .contact-story-cta .contact-story-contact a[href^="mailto:"] { color: #ffffff !important; }
