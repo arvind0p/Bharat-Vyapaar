@@ -3399,3 +3399,52 @@ body.contact-page {
 .about-page .contact-story-cta .contact-story-contact a:visited,
 .about-page .contact-story-cta .contact-story-contact a[href^="tel:"],
 .about-page .contact-story-cta .contact-story-contact a[href^="mailto:"] { color: #ffffff !important; }
+
+
+/* Compact horizontal core-team cards */
+#teamGrid .person {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  column-gap: 18px;
+  align-content: center;
+  align-items: center;
+  min-height: 0;
+  padding: 20px 22px;
+}
+#teamGrid .person::before { height: 4px; }
+#teamGrid .person .team-photo,
+#teamGrid .person .avatar {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  width: 82px;
+  height: 82px;
+  margin: 0;
+}
+#teamGrid .person h3 {
+  grid-column: 2;
+  margin: 0 0 3px;
+  align-self: end;
+}
+#teamGrid .person > p:not(.team-bio) {
+  grid-column: 2;
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+#teamGrid .person .team-bio {
+  grid-column: 1 / -1;
+  margin-top: 12px;
+  padding-top: 10px;
+}
+@media (max-width: 780px) {
+  #teamGrid .person {
+    grid-template-columns: 82px minmax(0, 1fr);
+    column-gap: 15px;
+    padding: 19px 18px;
+  }
+  #teamGrid .person .team-photo,
+  #teamGrid .person .avatar {
+    width: 76px;
+    height: 76px;
+  }
+}
