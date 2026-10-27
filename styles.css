@@ -3199,7 +3199,7 @@ body.contact-page {
 /* GLOBAL CONTACT STRIP — shared across all public pages */
 .global-contact { padding:54px 0; background:linear-gradient(120deg,#102442,#2457bd); color:#fff; }
 .global-contact-inner { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,.9fr) auto; align-items:center; gap:28px; }
-.global-contact .eyebrow { color:#ffcf8c; margin-bottom:9px; }
+.global-contact .eyebrow { color:#fff; margin-bottom:9px; }
 .global-contact h2 { color:#fff; font-size:clamp(25px,3vw,34px); margin-bottom:10px; }
 .global-contact-copy > p:last-child { color:#d7e2f7; font-size:14px; max-width:430px; }
 .global-contact-details { display:grid; gap:7px; min-width:0; }
