@@ -552,6 +552,19 @@
     cardLayout.appendChild(cardSide);
     card.appendChild(cardLayout);
 
+    // Keep directory cards compact and consistent; reveal full content on demand.
+    const expandButton = document.createElement("button");
+    expandButton.type = "button";
+    expandButton.className = "business-card-expand";
+    expandButton.textContent = "See more";
+    expandButton.setAttribute("aria-expanded", "false");
+    expandButton.addEventListener("click", function () {
+      const expanded = card.classList.toggle("is-expanded");
+      expandButton.textContent = expanded ? "See less" : "See more";
+      expandButton.setAttribute("aria-expanded", String(expanded));
+    });
+    card.appendChild(expandButton);
+
     return card;
   }
 
