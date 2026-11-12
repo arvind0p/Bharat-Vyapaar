@@ -32,6 +32,78 @@
       <td><div class="row-actions"><button class="edit-btn" data-edit-business="${esc(b.id)}">Edit</button><button class="hide-btn" data-toggle-business="${esc(b.id)}">${b.is_public?'Hide':'Publish'}</button><button class="delete-btn" data-delete-business="${esc(b.id)}">Delete</button></div></td>
     </tr>`).join(''):'<tr><td colspan="5" class="empty-row">No businesses yet. Click “Add business” to create the first listing.</td></tr>';
   }
+
+  // CSV import: parse quoted CSV safely, preview rows, and insert only new contacts.
+  let csvImportRows = [];
+  function parseCsvText(text) {
+    const rows=[]; let row=[], cell='', quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i], next=text[i+1];
+      if(quoted){ if(ch==='"' && next==='"'){cell+='"';i++;} else if(ch==='"'){quoted=false;} else {cell+=ch;} }
+      else if(ch==='"'){quoted=true;}
+      else if(ch===','){row.push(cell);cell='';}
+      else if(ch==='\n'){row.push(cell);rows.push(row);row=[];cell='';}
+      else if(ch!=='\r'){cell+=ch;}
+    }
+    if(quoted) throw new Error('CSV has an unclosed quotation mark.');
+    if(cell.length||row.length){row.push(cell);rows.push(row);}
+    return rows.filter(r=>r.some(v=>String(v||'').trim()!==''));
+  }
+  function csvKey(value){return String(value||'').trim().toLowerCase().replace(/[^a-z0-9]/g,'');}
+  function normalizePhone(value){return String(value||'').replace(/\D/g,'');}
+  function csvValue(obj,names){for(const name of names){const v=obj[csvKey(name)];if(v!==undefined&&String(v).trim())return String(v).trim();}return '';}
+  function setCsvStatus(message,success=false){const el=$('businessCsvStatus');el.textContent=message;el.className='message '+(success?'success':'error');}
+  $('toggleCsvImport').addEventListener('click',()=>{$('businessCsvPanel').hidden=!$('businessCsvPanel').hidden;$('businessCsvStatus').textContent='';});
+  $('closeCsvImport').addEventListener('click',()=>{$('businessCsvPanel').hidden=true;});
+  $('businessCsvFile').addEventListener('change',async()=>{
+    csvImportRows=[];$('importBusinessCsv').disabled=true;$('businessCsvPreview').textContent='';$('businessCsvStatus').textContent='';
+    const file=$('businessCsvFile').files[0];if(!file)return;
+    if(file.size>5*1024*1024){setCsvStatus('CSV must be 5 MB or smaller.');return;}
+    try{
+      const raw=parseCsvText((await file.text()).replace(/^\uFEFF/,''));
+      if(raw.length<2)throw new Error('CSV has no data rows.');
+      const headers=raw[0].map(csvKey);
+      const mapped=raw.slice(1).map((r,index)=>{
+        const o={};headers.forEach((h,i)=>o[h]=r[i]??'');
+        return {business_name:csvValue(o,['Business Name','Company Name','Business']),contact_person:csvValue(o,['Name','Contact Person','Full Name']),city:csvValue(o,['City','Location']),email:csvValue(o,['Email','Email Address']),mobile_number:csvValue(o,['Mobile Number','Mobile','Phone','Contact Number']),business_segment:csvValue(o,['Business Category','Business Segment','Category','Industry']),country:csvValue(o,['Country'])||'India',state:csvValue(o,['State']),description:csvValue(o,['Description']),website:csvValue(o,['Website','Website URL']),products:csvValue(o,['Products']),services:csvValue(o,['Services']),_row:index+2};
+      }).filter(x=>x.business_name||x.contact_person||x.email||x.mobile_number);
+      const invalid=mapped.filter(x=>!x.business_name);
+      if(!mapped.length)throw new Error('No usable records found. Include a Business Name column.');
+      csvImportRows=mapped.filter(x=>x.business_name);
+      $('businessCsvPreview').textContent=`Detected ${mapped.length} records. ${invalid.length} rows without Business Name will be ignored. Ready to check duplicates and import up to ${csvImportRows.length} rows.`;
+      $('importBusinessCsv').disabled=!csvImportRows.length;
+    }catch(err){setCsvStatus(err.message||'Could not read CSV.');}
+  });
+  $('importBusinessCsv').addEventListener('click',async()=>{
+    if(!csvImportRows.length)return;
+    const btn=$('importBusinessCsv');btn.disabled=true;btn.textContent='Importing…';
+    try{
+      const {data:existing,error:readError}=await client.from('business_directory').select('email,mobile_number');
+      if(readError)throw readError;
+      const emails=new Set((existing||[]).map(x=>String(x.email||'').trim().toLowerCase()).filter(Boolean));
+      const phones=new Set((existing||[]).map(x=>normalizePhone(x.mobile_number)).filter(Boolean));
+      const seenEmails=new Set(),seenPhones=new Set(),toInsert=[];let skipped=0;
+      for(const r of csvImportRows){
+        const email=r.email.toLowerCase(),phone=normalizePhone(r.mobile_number);
+        if((email&&(emails.has(email)||seenEmails.has(email)))||(phone&&(phones.has(phone)||seenPhones.has(phone)))){skipped++;continue;}
+        if(email)seenEmails.add(email);if(phone)seenPhones.add(phone);
+        const {_row,...record}=r;toInsert.push({...record,is_public:true});
+      }
+      let inserted=0;
+      for(let i=0;i<toInsert.length;i+=50){
+        const batch=toInsert.slice(i,i+50);
+        const {error}=await client.from('business_directory').insert(batch);
+        if(error)throw error;
+        inserted+=batch.length;
+      }
+      await loadBusinesses();
+      setCsvStatus(`Import complete: ${inserted} added, ${skipped} duplicate records skipped. Existing records were not changed.`,true);
+      $('businessCsvPreview').textContent=`Processed ${csvImportRows.length} valid rows.`;
+      csvImportRows=[];$('businessCsvFile').value='';
+    }catch(err){setCsvStatus('Import stopped: '+(err.message||'Unknown error')+'. Check the directory before retrying if a batch may have completed.');}
+    finally{btn.disabled=!csvImportRows.length;btn.textContent='Import new businesses';}
+  });
+
   async function loadTeam() {
     const {data,error}=await client.from('team_advisory').select('*').order('sort_order').order('full_name');
     if(error) { $('teamRows').innerHTML=`<tr><td colspan="5" class="empty-row">Could not load team: ${esc(error.message)}. Apply the supplied SQL setup first.</td></tr>`; return; }
