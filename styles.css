@@ -3513,3 +3513,37 @@ body.contact-page {
 .directory-page #results .business-card-expand:hover {
   background: rgba(255,255,255,.2);
 }
+
+
+/* Match See more control to the existing navy-and-gold directory card theme. */
+.directory-page #results .business-card > .business-card-expand {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  margin: 12px 0 2px;
+  padding: 8px 17px;
+  border: 1px solid #d8b45a !important;
+  border-radius: 9px !important;
+  background: linear-gradient(135deg, #173d78 0%, #082451 100%) !important;
+  color: #f6df9b !important;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .1px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255,255,255,.12);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.directory-page #results .business-card > .business-card-expand:hover,
+.directory-page #results .business-card > .business-card-expand:focus-visible {
+  background: linear-gradient(135deg, #24518f 0%, #103568 100%) !important;
+  color: #fff0bd !important;
+  border-color: #f0d27d !important;
+  outline: none;
+}
+.directory-page #results .business-card > .business-card-expand:active {
+  transform: translateY(1px);
+}
