@@ -3475,3 +3475,41 @@ body.contact-page {
 @media (max-width: 780px) {
   #teamGrid.feature-grid { grid-template-columns: 1fr; }
 }
+
+
+/* Compact, consistent business cards with per-card progressive disclosure. */
+.directory-page #results .business-card {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+.directory-page #results .business-card-layout {
+  max-height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+.directory-page #results .business-card:not(.is-expanded) .business-card-layout {
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+}
+.directory-page #results .business-card.is-expanded .business-card-layout {
+  max-height: none;
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.directory-page #results .business-card-expand {
+  align-self: flex-start;
+  margin: 12px 0 2px;
+  padding: 8px 15px;
+  border: 1px solid rgba(255,255,255,.38);
+  border-radius: 8px;
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.directory-page #results .business-card-expand:hover {
+  background: rgba(255,255,255,.2);
+}
