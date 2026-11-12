@@ -293,6 +293,7 @@
     $('businessId').value=b?.id||''; $('businessName').value=b?.business_name||''; $('businessDescription').value=b?.description||'';
     $('businessCity').value=b?.city||''; $('businessState').value=b?.state||''; $('businessCountry').value=b?.country||'India';
     $('businessSegment').value=b?.business_segment||''; $('businessProducts').value=b?.products||''; $('businessServices').value=b?.services||'';
+    $('businessContactPerson').value=b?.contact_person||''; $('businessEmail').value=b?.email||''; $('businessMobile').value=b?.mobile_number||'';
     $('businessWebsite').value=b?.website||''; $('businessPublic').checked=b?.is_public!==false;
     $('businessForm').scrollIntoView({behavior:'smooth',block:'start'});
   }
@@ -473,7 +474,7 @@
   $('businessForm').addEventListener('submit',async e=>{
     e.preventDefault();
     const id=$('businessId').value;
-    const record={business_name:$('businessName').value.trim(),description:$('businessDescription').value.trim(),city:$('businessCity').value.trim(),state:$('businessState').value.trim(),country:$('businessCountry').value.trim(),business_segment:$('businessSegment').value.trim(),products:$('businessProducts').value.trim(),services:$('businessServices').value.trim(),website:$('businessWebsite').value.trim(),is_public:$('businessPublic').checked};
+    const record={business_name:$('businessName').value.trim(),description:$('businessDescription').value.trim(),city:$('businessCity').value.trim(),state:$('businessState').value.trim(),country:$('businessCountry').value.trim(),business_segment:$('businessSegment').value.trim(),products:$('businessProducts').value.trim(),services:$('businessServices').value.trim(),contact_person:$('businessContactPerson').value.trim(),email:$('businessEmail').value.trim(),mobile_number:$('businessMobile').value.trim(),website:$('businessWebsite').value.trim(),is_public:$('businessPublic').checked};
     const result=id?await client.from('business_directory').update(record).eq('id',id):await client.from('business_directory').insert(record);
     if(result.error){showGlobal(result.error.message);return;}
     $('businessForm').hidden=true;showGlobal('Business saved successfully.',true);await loadBusinesses();
