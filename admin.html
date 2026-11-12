@@ -75,7 +75,19 @@
             <p class="muted">Add, update, publish, hide or delete public business listings.</p>
           </div>
           <button id="newBusinessButton" class="primary" type="button">+ Add business</button>
+          <button id="toggleCsvImport" class="secondary" type="button">Import CSV</button>
         </div>
+
+        <section id="businessCsvPanel" class="editor-form" hidden>
+          <div class="form-heading"><h3>Import businesses from CSV</h3><button class="icon-button" type="button" id="closeCsvImport" aria-label="Close CSV import">×</button></div>
+          <p class="muted">Upload a CSV with columns such as Name/Contact Person, City, Email, Mobile Number, Business Name and Business Category. Existing records are never updated or deleted. Matching email or mobile numbers are skipped.</p>
+          <div class="form-grid">
+            <div class="wide"><label for="businessCsvFile">CSV file *</label><input id="businessCsvFile" type="file" accept=".csv,text/csv"></div>
+            <div class="wide"><div id="businessCsvPreview" class="help" aria-live="polite">Choose a CSV file to preview the import.</div></div>
+            <div class="wide form-actions"><button id="importBusinessCsv" class="primary" type="button" disabled>Import new businesses</button></div>
+            <div class="wide"><div id="businessCsvStatus" class="message" aria-live="polite"></div></div>
+          </div>
+        </section>
 
         <form id="businessForm" class="editor-form" hidden>
           <div class="form-heading">
